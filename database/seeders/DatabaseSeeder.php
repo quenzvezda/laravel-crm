@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(KrayinDatabaseSeeder::class);
 
+        // Seed Persons table from provided dataset
+        $this->call(PersonsTableSeeder::class);
+
         // Seed demo data for Analytical CRM (engineering orders & items)
         $this->call(AnalyticalCrmDemoSeeder::class);
     }
