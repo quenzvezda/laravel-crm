@@ -1,34 +1,80 @@
 <x-admin::layouts>
     <x-slot:title>
-        Edit Product Category
+        @lang('product-category::app.edit.title')
     </x-slot>
 
     <x-admin::form :action="route('admin.products.categories.update', $category->id)" method="PUT">
-        <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-            <div class="text-xl font-bold dark:text-white mb-4">Edit Category</div>
+        <div class="flex flex-col gap-4">
+            <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+                <div class="flex flex-col gap-2">
+                    <x-admin::breadcrumbs name="products.categories.edit" :entity="$category" />
 
-            <x-admin::form.control-group>
-                <x-admin::form.control-group.label class="required">Code</x-admin::form.control-group.label>
-                <x-admin::form.control-group.control type="text" name="code" :value="$category->code" rules="required"/>
-                <x-admin::form.control-group.error control-name="code" />
-            </x-admin::form.control-group>
+                    <div class="text-xl font-bold dark:text-white">
+                        @lang('product-category::app.edit.title')
+                    </div>
+                </div>
 
-            <x-admin::form.control-group>
-                <x-admin::form.control-group.label class="required">Name</x-admin::form.control-group.label>
-                <x-admin::form.control-group.control type="text" name="name" :value="$category->name" rules="required"/>
-                <x-admin::form.control-group.error control-name="name" />
-            </x-admin::form.control-group>
+                <div class="flex items-center gap-x-2.5">
+                    <button type="submit" class="primary-button">
+                        @lang('product-category::app.edit.save-btn')
+                    </button>
+                </div>
+            </div>
 
-            <x-admin::form.control-group>
-                <x-admin::form.control-group.label>Description</x-admin::form.control-group.label>
-                <x-admin::form.control-group.control type="textarea" name="description">{{ $category->description }}</x-admin::form.control-group.control>
-            </x-admin::form.control-group>
+            <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p class="text-base font-semibold text-gray-800 dark:text-white">
+                            @lang('product-category::app.common.general')
+                        </p>
+                    </div>
 
-            <div class="mt-4">
-                <button type="submit" class="primary-button">Update</button>
-                <a href="{{ route('admin.products.categories.index') }}" class="secondary-button">Cancel</a>
+                    <div class="grid grid-cols-2 gap-4 max-lg:grid-cols-1">
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label class="required">
+                                @lang('product-category::app.common.code')
+                            </x-admin::form.control-group.label>
+
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="code"
+                                :value="old('code', $category->code)"
+                                rules="required"
+                            />
+
+                            <x-admin::form.control-group.error control-name="code" />
+                        </x-admin::form.control-group>
+
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label class="required">
+                                @lang('product-category::app.common.name')
+                            </x-admin::form.control-group.label>
+
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="name"
+                                :value="old('name', $category->name)"
+                                rules="required"
+                            />
+
+                            <x-admin::form.control-group.error control-name="name" />
+                        </x-admin::form.control-group>
+                    </div>
+
+                    <x-admin::form.control-group>
+                        <x-admin::form.control-group.label>
+                            @lang('product-category::app.common.description')
+                        </x-admin::form.control-group.label>
+
+                        <x-admin::form.control-group.control
+                            type="textarea"
+                            name="description"
+                            :value="old('description', $category->description)"
+                            rows="5"
+                        />
+                    </x-admin::form.control-group>
+                </div>
             </div>
         </div>
     </x-admin::form>
 </x-admin::layouts>
-

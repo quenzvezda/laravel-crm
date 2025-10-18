@@ -17,6 +17,8 @@ class ServiceProvider extends BaseServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'product-category');
+
+        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'product-category');
     }
 
     public function register(): void

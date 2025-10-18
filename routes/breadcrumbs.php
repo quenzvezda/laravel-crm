@@ -152,6 +152,24 @@ Breadcrumbs::for('products.edit', function (BreadcrumbTrail $trail, $product) {
     $trail->push(trans('admin::app.products.edit.title'), route('admin.products.edit', $product->id));
 });
 
+// Dashboard > Products > Product Categories
+Breadcrumbs::for('products.categories', function (BreadcrumbTrail $trail) {
+    $trail->parent('products');
+    $trail->push(trans('product-category::app.index.title'), route('admin.products.categories.index'));
+});
+
+// Dashboard > Products > Product Categories > Create
+Breadcrumbs::for('products.categories.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('products.categories');
+    $trail->push(trans('product-category::app.create.title'), route('admin.products.categories.create'));
+});
+
+// Dashboard > Products > Product Categories > Edit
+Breadcrumbs::for('products.categories.edit', function (BreadcrumbTrail $trail, $category) {
+    $trail->parent('products.categories');
+    $trail->push($category->name, route('admin.products.categories.edit', $category->id));
+});
+
 // Settings
 Breadcrumbs::for('settings', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');

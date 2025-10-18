@@ -2,19 +2,23 @@
 
 namespace Famindo\ProductCategory\Http\Controllers;
 
+use Famindo\ProductCategory\DataGrids\ProductCategoryDataGrid;
+use Famindo\ProductCategory\Models\ProductCategory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
-use Famindo\ProductCategory\Models\ProductCategory;
 
 class ProductCategoryController extends Controller
 {
-    public function index(): View
+    public function index(): View|JsonResponse
     {
-        $categories = ProductCategory::orderBy('name')->paginate(20);
+        if (request()->ajax()) {
+            return datagrid(ProductCategoryDataGrid::class)->process();
+        }
 
-        return view('product-category::index', compact('categories'));
+        return view('product-category::index');
     }
 
     public function create(): View
@@ -32,7 +36,7 @@ class ProductCategoryController extends Controller
 
         ProductCategory::create($data);
 
-        session()->flash('success', 'Category created successfully');
+        session()->flash('success', trans('product-category::app.messages.create-success'));
 
         return redirect()->route('admin.products.categories.index');
     }
@@ -56,18 +60,20 @@ class ProductCategoryController extends Controller
 
         $category->update($data);
 
-        session()->flash('success', 'Category updated successfully');
+        session()->flash('success', trans('product-category::app.messages.update-success'));
 
         return redirect()->route('admin.products.categories.index');
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         $category = ProductCategory::findOrFail($id);
 
         $category->delete();
 
-        return response()->json(['message' => 'Category deleted successfully']);
+        return new JsonResponse([
+            'message' => trans('product-category::app.messages.delete-success'),
+        ]);
     }
 }
 
