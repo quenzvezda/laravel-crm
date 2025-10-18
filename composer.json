@@ -75,11 +75,12 @@
             "Webkul\\Tag\\": "packages/Webkul/Tag/src",
             "Webkul\\User\\": "packages/Webkul/User/src",
             "Webkul\\Warehouse\\": "packages/Webkul/Warehouse/src",
-            "Webkul\\WebForm\\": "packages/Webkul/WebForm/src",
-            "Webkul\\Automation\\": "packages/Webkul/Automation/src",
-            "Famindo\\AnalyticalCRM\\": "packages/Famindo/AnalyticalCRM/src"
-        }
-    },
+        "Webkul\\WebForm\\": "packages/Webkul/WebForm/src",
+        "Webkul\\Automation\\": "packages/Webkul/Automation/src",
+        "Famindo\\AnalyticalCRM\\": "packages/Famindo/AnalyticalCRM/src",
+        "Famindo\\ProductCategory\\": "packages/Famindo/ProductCategory/src"
+    }
+  },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
