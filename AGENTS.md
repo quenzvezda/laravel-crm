@@ -212,6 +212,25 @@ php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 -
 - Pastikan query ETL **efisien** (indexing pada `order_id`, `product_id`, `order_date`).
 - Data sensitif: hindari log isi _credentials_; gunakan `.env` & config.
 
+### 9.1 Seeding Entitas Core Krayin (EAV + LogsActivity)
+- Banyak entitas core (persons, organizations, warehouses, products, dst.) memakai EAV (`attributes`/`attribute_values`) dan trait `LogsActivity` untuk timeline.
+- Agar data hasil seeding muncul dengan benar di UI (form/lookup) dan menulis timeline “Created/Updated”, ikuti pola dua langkah berikut:
+  1) Simpan kolom inti via Eloquent Model entitas terkait (contoh: `Webkul\Warehouse\Models\Warehouse::create([...])` atau update lalu `save()`). Ini akan memicu event `created/updated` dari `LogsActivity` sehingga timeline mencatat “Created/Updated”.
+  2) Simpan nilai EAV via `Webkul\Attribute\Repositories\AttributeValueRepository->save([...])` dengan payload minimal:
+     - `entity_type` = kode entitas (mis. `persons`, `organizations`, `warehouses`).
+     - `entity_id` = ID record yang baru dibuat/diperbarui.
+     - Pasang nilai atribut yang dipakai UI (mis. persons: `name`, `emails`, `contact_numbers`, `job_title`, `user_id`, `organization_id`; organizations: `name`, `address`, `user_id`; warehouses: `name`, `description`, `contact_name`, `contact_emails`, `contact_numbers`, `contact_address`).
+- Hindari `DB::table(...)->insert` langsung untuk entitas EAV, karena UI membaca dari `attribute_values` dan timeline tidak akan menulis “Created”.
+- Jika memilih lewat Repository core (mis. `WarehouseRepository->create($data)`), jangan sisipkan `entity_type` ke payload model (akan error kolom tidak ada). Simpan EAV terpisah memakai `AttributeValueRepository->save()` seperti di langkah (2).
+- Persons/Organizations: set juga `user_id` (owner) pada record inti dan EAV agar lookup/ACL bekerja mulus di UI.
+
+### 9.2 Catatan Khusus (Short‑Term Project)
+- Untuk tugas ini bersifat jangka pendek/eksperimental dan tidak ditujukan ke produksi, maka diperbolehkan melakukan perubahan pada kode di `packages/Webkul/**` bila diperlukan untuk mempercepat implementasi/bugfix.
+- Tetap dilarang mengubah kode di `vendor/**` karena:
+  - File di `vendor/` dikelola Composer dan tidak masuk kendali versi kita (rawan ter‑overwrite),
+  - Tidak aman untuk upgrade/deploy.
+- Usahakan perubahan di `packages/Webkul/**` tetap minimal, terdokumentasi, dan mudah di‑rollback. Jika nantinya dibutuhkan upgrade‑safe, pindahkan ke package kustom (override routes/controller/datagrid/binding) sesuai pola di dokumen ini.
+
 ---
 
 ## 10) Testing & Evaluasi
@@ -243,4 +262,3 @@ php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 -
 - **UX**: kebutuhan tampilan & metrik di UI admin.
 
 > Selesai. Ikuti urutan di §7 sebagai _sprint plan_. Jika ada perubahan requirement, update dokumen ini terlebih dahulu sebelum implementasi.
-
