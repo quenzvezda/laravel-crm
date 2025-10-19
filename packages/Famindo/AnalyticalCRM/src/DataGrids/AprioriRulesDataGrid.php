@@ -2,6 +2,7 @@
 
 namespace Famindo\AnalyticalCRM\DataGrids;
 
+use Famindo\AnalyticalCRM\Models\AprioriRun;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Webkul\DataGrid\DataGrid;
@@ -15,16 +16,30 @@ class AprioriRulesDataGrid extends DataGrid
     public function prepareQueryBuilder(): Builder
     {
         $queryBuilder = DB::table('apriori_rules')->select(
-            'id',
-            'lhs',
-            'rhs',
-            'support',
-            'confidence',
-            'lift',
-            'period_start',
-            'period_end',
-            'created_at'
+            'apriori_rules.id',
+            'apriori_rules.run_id',
+            'apriori_rules.lhs',
+            'apriori_rules.rhs',
+            'apriori_rules.support',
+            'apriori_rules.confidence',
+            'apriori_rules.lift',
+            'apriori_rules.period_start',
+            'apriori_rules.period_end',
+            'apriori_rules.created_at',
+            'runs.name as run_name'
         );
+
+        $queryBuilder->leftJoin('apriori_runs as runs', 'runs.id', '=', 'apriori_rules.run_id');
+
+        $runId = request()->input('run_id');
+
+        if (! $runId) {
+            $runId = AprioriRun::where('is_active', true)->value('id');
+        }
+
+        if ($runId) {
+            $queryBuilder->where('apriori_rules.run_id', $runId);
+        }
 
         $this->addFilter('support', 'support');
         $this->addFilter('confidence', 'confidence');
@@ -38,6 +53,15 @@ class AprioriRulesDataGrid extends DataGrid
 
     public function prepareColumns(): void
     {
+        $this->addColumn([
+            'index'      => 'run_name',
+            'label'      => 'Snapshot',
+            'type'       => 'string',
+            'searchable' => false,
+            'sortable'   => false,
+            'filterable' => false,
+        ]);
+
         $this->addColumn([
             'index'      => 'lhs',
             'label'      => 'LHS',
@@ -116,4 +140,3 @@ class AprioriRulesDataGrid extends DataGrid
         ]);
     }
 }
-

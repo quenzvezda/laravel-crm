@@ -18,6 +18,7 @@ class TransactionETL
      * - organization_ids: int[] (maps to person.organization_id)
      * - min_items: int (remove transactions with fewer items)
      * - persist: bool (save snapshot to apriori_transactions)
+     * - run_id: int (snapshot identifier, used when persist=true)
      *
      * @return array<int, array<int, string>>
      */
@@ -29,6 +30,7 @@ class TransactionETL
         $organizationIds = Arr::get($options, 'organization_ids');
         $minItems = (int) (Arr::get($options, 'min_items', 1));
         $persist = (bool) Arr::get($options, 'persist', false);
+        $runId = Arr::get($options, 'run_id');
 
         $query = DB::table('quote_items as qi')
             ->join('quotes as q', 'q.id', '=', 'qi.quote_id')
@@ -107,19 +109,20 @@ class TransactionETL
         }
 
         if ($persist && ! empty($transactions)) {
-            $this->persistTransactions($quoteIds, $leadIds, $transactions);
+            $this->persistTransactions($quoteIds, $leadIds, $transactions, $runId);
         }
 
         return $transactions;
     }
 
-    protected function persistTransactions(array $quoteIds, array $leadIds, array $transactions): void
+    protected function persistTransactions(array $quoteIds, array $leadIds, array $transactions, $runId = null): void
     {
         $now = Carbon::now();
         $inserts = [];
 
         foreach ($transactions as $idx => $items) {
             $inserts[] = [
+                'run_id'    => $runId,
                 'quote_id'   => $quoteIds[$idx] ?? null,
                 'lead_id'    => $leadIds[$idx] ?? null,
                 'items'      => json_encode(array_values($items), JSON_UNESCAPED_UNICODE),
