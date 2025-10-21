@@ -7,7 +7,7 @@ use Famindo\AnalyticalCRM\DataGrids\AprioriRulesDataGrid;
 use Famindo\AnalyticalCRM\Models\AprioriRun;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Artisan;
+use Famindo\AnalyticalCRM\Jobs\RunAprioriJob;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Webkul\Admin\Http\Controllers\Controller;
@@ -87,22 +87,12 @@ class AprioriController extends Controller
             $options['--activate'] = true;
         }
 
-        Artisan::call('analytics:apriori', $options);
+        // Dispatch background job instead of running synchronously
+        RunAprioriJob::dispatch($options)->onQueue('analytics');
 
-        session()->flash('success', 'Apriori analysis completed and rules saved.');
+        session()->flash('success', 'Apriori analysis has been queued. You can continue using the app while it runs.');
 
-        $redirectQuery = [];
-
-        $latestRun = AprioriRun::when(
-            $options['--created_by'] ?? null,
-            fn ($query) => $query->where('created_by', (int) $options['--created_by'])
-        )->latest('created_at')->first();
-
-        if ($latestRun) {
-            $redirectQuery['run_id'] = $latestRun->id;
-        }
-
-        return redirect()->route('admin.analytics.market_basket.index', $redirectQuery);
+        return redirect()->route('admin.analytics.market_basket.index');
     }
 
     public function activate(AprioriRun $run): RedirectResponse

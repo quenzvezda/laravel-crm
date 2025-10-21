@@ -60,7 +60,7 @@ DB_PASSWORD=            # kosong default Laragon kecuali diubah
 
 CACHE_DRIVER=file
 SESSION_DRIVER=file
-QUEUE_CONNECTION=sync
+QUEUE_CONNECTION=database   # gunakan database queue agar analisis berjalan di background
 
 # Email dev (pilih salah satu)
 MAIL_MAILER=log         # paling simpel; tidak kirim email sungguhan
@@ -88,6 +88,12 @@ php artisan serve   # buka http://localhost:8000
 ```
 
 > **Catatan**: Jika memakai DB di Docker, sesuaikan `DB_PORT` (mis. 3307) dan kredensial.
+
+### 3.5 Worker Antrian (Dev)
+- Jalankan worker di terminal/runner terpisah agar job analisis berjalan di background:
+  - `php artisan queue:work --queue=analytics,default --timeout=3600 --tries=1`
+- PHPStorm/IntelliJ: tersedia konfigurasi run `.run/Queue Worker.run.xml` (jalankan bersamaan dengan "Artisan Serve").
+- Setelah mengubah kode job/service, jalankan `php artisan queue:restart` agar worker memuat ulang.
 
 ---
 
@@ -176,6 +182,11 @@ Catatan: migrasi lama yang mereferensikan `engineering_orders` sudah tidak digun
 - Console command: `analytics:apriori` (param: `--from`, `--to`, `--support`, `--confidence`, `--min-items`, `--persist-transactions`, `--label="Q1 2025"`).
 - Tambah jadwal di `app/Console/Kernel.php` (harian/mingguan).
 
+### 6.4a Eksekusi Background (Queue)
+- Analisis Apriori dieksekusi via job terpisah: `Famindo\\AnalyticalCRM\\Jobs\\RunAprioriJob`.
+- Controller admin akan `dispatch()` job ini ke queue `analytics` sehingga request web tidak terblokir.
+- Pastikan worker aktif (lihat §3.5) agar job diproses.
+
 ### 6.5 UI Admin
 - Halaman Market Basket (Apriori):
   - Form parameter: `from`, `to`, `min_support`, `min_confidence`, `min_items`, opsi "Persist transactions".
@@ -227,6 +238,11 @@ php artisan make:migration create_apriori_transactions_table
 # server dev
 php artisan serve
 
+# worker antrian (jalan di terminal/runner terpisah)
+php artisan queue:work --queue=analytics,default --timeout=3600 --tries=1
+# restart worker setelah update kode job/service
+php artisan queue:restart
+
 # analitik (contoh CLI)
 php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 --confidence=0.6 --min-items=2 --label="H1 2025" --persist-transactions
 ```
@@ -271,6 +287,7 @@ php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 -
 ## 11) Deliverables
 - Kode modul `packages/Famindo/AnalyticalCRM` + migration & seeder.
 - Console command & scheduler aktif.
+- Job queue untuk analisis (`RunAprioriJob`) + konfigurasi runner PHPStorm `.run/Queue Worker.run.xml`.
 - UI Admin Analytics + ekspor CSV.
 - Widget rekomendasi di Lead/Quote/Order.
 - Dokumentasi: ERD, arsitektur, flow ETL/Apriori, panduan instal, hasil uji & analisis.
@@ -282,6 +299,8 @@ php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 -
 - `.env` untuk email di dev: gunakan `MAIL_MAILER=log` atau MailHog; jangan pakai host `mailhog` kecuali via docker-compose.
 - App URL harus sesuai cara run (artisan serve vs virtual host Laragon).
  - Jika `migrate:fresh --seed` gagal karena referensi `engineering_orders`, hapus/rollback migrasi legacy tersebut dan gunakan skema `apriori_runs`/`apriori_rules`/`apriori_transactions` sesuai dokumen ini.
+- Jika worker queue tidak dijalankan, analisis yang dikirim dari UI akan berstatus `queued` dan tidak berjalan. Jalankan worker: `php artisan queue:work --queue=analytics,default --timeout=3600 --tries=1`.
+- Untuk job berat, pastikan `--timeout` worker besar (mis. 3600) dan `retry_after` di `config/queue.php` (untuk koneksi `database`/`redis`) lebih besar dari timeout.
 
 ---
 
