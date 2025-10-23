@@ -3,23 +3,43 @@
 namespace Famindo\AnalyticalCRM\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use Famindo\AnalyticalCRM\DataGrids\AprioriRulesDataGrid;
+use Famindo\AnalyticalCRM\Models\AprioriRun;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Artisan;
+use Famindo\AnalyticalCRM\Jobs\RunAprioriJob;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Webkul\Admin\Http\Controllers\Controller;
-use Famindo\AnalyticalCRM\DataGrids\AprioriRulesDataGrid;
 
 class AprioriController extends Controller
 {
     public function index(): View|JsonResponse|BinaryFileResponse
     {
+        $runs = AprioriRun::ordered()->get();
+
+        $requestedRunId = request()->input('run_id');
+
+        if (! $requestedRunId && $runs->isNotEmpty()) {
+            $active = $runs->firstWhere('is_active', true);
+            $requestedRunId = $active?->id ?? $runs->first()->id;
+        }
+
+        if ($requestedRunId) {
+            request()->merge(['run_id' => $requestedRunId]);
+        }
+
         if (request()->ajax() || request()->boolean('export') || request()->has('format')) {
             return datagrid(AprioriRulesDataGrid::class)->process();
         }
 
-        return view('analyticalcrm::admin.analytics.market-basket.index');
+        $currentRun = $runs->firstWhere('id', $requestedRunId);
+
+        return view('analyticalcrm::admin.analytics.market-basket.index', [
+            'runs'          => $runs,
+            'currentRun'    => $currentRun,
+            'currentRunId'  => $requestedRunId,
+        ]);
     }
 
     public function run(): RedirectResponse
@@ -32,6 +52,8 @@ class AprioriController extends Controller
             'min_items'   => ['nullable', 'integer', 'min:1'],
             'persist'     => ['nullable', 'boolean'],
             'save'        => ['nullable', 'boolean'],
+            'label'       => ['nullable', 'string', 'max:255'],
+            'activate'    => ['nullable', 'boolean'],
         ]);
 
         $options = [
@@ -57,10 +79,30 @@ class AprioriController extends Controller
             $options['--created_by'] = (string) auth()->guard('user')->id();
         }
 
-        Artisan::call('analytics:apriori', $options);
+        if (! empty($data['label'])) {
+            $options['--label'] = $data['label'];
+        }
 
-        session()->flash('success', 'Apriori analysis completed and rules saved.');
+        if (! empty($data['activate'])) {
+            $options['--activate'] = true;
+        }
+
+        // Dispatch background job instead of running synchronously
+        RunAprioriJob::dispatch($options)->onQueue('analytics');
+
+        session()->flash('success', 'Apriori analysis has been queued. You can continue using the app while it runs.');
 
         return redirect()->route('admin.analytics.market_basket.index');
+    }
+
+    public function activate(AprioriRun $run): RedirectResponse
+    {
+        $run->activate();
+
+        session()->flash('success', 'Snapshot berhasil dijadikan aktif.');
+
+        return redirect()->route('admin.analytics.market_basket.index', [
+            'run_id' => $run->id,
+        ]);
     }
 }

@@ -9,17 +9,18 @@ use Illuminate\Support\Facades\DB;
 class TransactionETL
 {
     /**
-     * Build market-basket transactions from engineering orders + items.
+     * Build market-basket transactions from won quotes + quote items.
      *
      * Options (all optional):
-     * - from: Y-m-d or Carbon
+     * - from: Y-m-d or Carbon (based on lead closed_at or quote created_at)
      * - to: Y-m-d or Carbon
-     * - customer_ids: int[]
-     * - organization_ids: int[]
+     * - customer_ids: int[] (maps to quote person_id)
+     * - organization_ids: int[] (maps to person.organization_id)
      * - min_items: int (remove transactions with fewer items)
-     * - persist: bool (save to apriori_transactions)
+     * - persist: bool (save snapshot to apriori_transactions)
+     * - run_id: int (snapshot identifier, used when persist=true)
      *
-     * Returns array of transactions: [["itemA","itemB"], ["itemC"], ...]
+     * @return array<int, array<int, string>>
      */
     public function build(array $options = []): array
     {
@@ -29,80 +30,101 @@ class TransactionETL
         $organizationIds = Arr::get($options, 'organization_ids');
         $minItems = (int) (Arr::get($options, 'min_items', 1));
         $persist = (bool) Arr::get($options, 'persist', false);
+        $runId = Arr::get($options, 'run_id');
 
-        $query = DB::table('engineering_order_items as oi')
-            ->join('engineering_orders as o', 'o.id', '=', 'oi.order_id')
-            ->selectRaw("oi.order_id, COALESCE(NULLIF(TRIM(oi.item_code), ''), CONCAT('product:', oi.product_id)) as item_code")
+        $query = DB::table('quote_items as qi')
+            ->join('quotes as q', 'q.id', '=', 'qi.quote_id')
+            ->join('lead_quotes as lq', 'lq.quote_id', '=', 'q.id')
+            ->join('leads', 'leads.id', '=', 'lq.lead_id')
+            ->join('lead_pipeline_stages as lps', 'lps.id', '=', 'leads.lead_pipeline_stage_id')
+            ->leftJoin('persons as person', 'person.id', '=', 'q.person_id')
+            ->selectRaw("
+                qi.quote_id,
+                leads.id as lead_id,
+                COALESCE(NULLIF(TRIM(qi.sku), ''), CONCAT('product:', qi.product_id)) as item_code,
+                COALESCE(leads.closed_at, q.created_at) as effective_date,
+                q.person_id,
+                person.organization_id
+            ")
+            ->where('lps.code', 'won')
             ->where(function ($q) {
-                $q->whereNotNull('oi.item_code')
-                  ->orWhereNotNull('oi.product_id');
+                $q->whereNotNull('qi.sku')
+                    ->whereRaw("TRIM(qi.sku) <> ''")
+                    ->orWhereNotNull('qi.product_id');
             });
 
         if ($from) {
-            $query->whereDate('o.order_date', '>=', $from->toDateString());
+            $query->whereDate(DB::raw('COALESCE(leads.closed_at, q.created_at)'), '>=', $from->toDateString());
         }
 
         if ($to) {
-            $query->whereDate('o.order_date', '<=', $to->toDateString());
+            $query->whereDate(DB::raw('COALESCE(leads.closed_at, q.created_at)'), '<=', $to->toDateString());
         }
 
         if (is_array($customerIds) && ! empty($customerIds)) {
-            $query->whereIn('o.customer_id', $customerIds);
+            $query->whereIn('q.person_id', $customerIds);
         }
 
         if (is_array($organizationIds) && ! empty($organizationIds)) {
-            $query->whereIn('o.organization_id', $organizationIds);
+            $query->whereIn('person.organization_id', $organizationIds);
         }
 
         $rows = $query
-            ->orderBy('oi.order_id')
+            ->orderBy('qi.quote_id')
             ->get();
 
-        $byOrder = [];
+        $byQuote = [];
 
         foreach ($rows as $row) {
-            $orderId = (int) $row->order_id;
+            $quoteId = (int) $row->quote_id;
             $code = (string) $row->item_code;
             if ($code === '' || $code === 'product:') {
                 continue;
             }
 
-            if (! isset($byOrder[$orderId])) {
-                $byOrder[$orderId] = [];
+            if (! isset($byQuote[$quoteId])) {
+                $byQuote[$quoteId] = [
+                    'items'   => [],
+                    'lead_id' => $row->lead_id ? (int) $row->lead_id : null,
+                ];
             }
 
-            $byOrder[$orderId][$code] = true; // deduplicate per order
+            $byQuote[$quoteId]['items'][$code] = true; // deduplicate per quote
         }
 
         $transactions = [];
-        $orderIds = [];
+        $quoteIds = [];
+        $leadIds = [];
 
-        foreach ($byOrder as $orderId => $itemsSet) {
-            $items = array_keys($itemsSet);
+        foreach ($byQuote as $quoteId => $payload) {
+            $items = array_keys($payload['items']);
             if (count($items) < max(1, $minItems)) {
                 continue;
             }
 
             sort($items, SORT_STRING);
             $transactions[] = $items;
-            $orderIds[] = $orderId;
+            $quoteIds[] = $quoteId;
+            $leadIds[] = $payload['lead_id'] ?? null;
         }
 
         if ($persist && ! empty($transactions)) {
-            $this->persistTransactions($orderIds, $transactions);
+            $this->persistTransactions($quoteIds, $leadIds, $transactions, $runId);
         }
 
         return $transactions;
     }
 
-    protected function persistTransactions(array $orderIds, array $transactions): void
+    protected function persistTransactions(array $quoteIds, array $leadIds, array $transactions, $runId = null): void
     {
         $now = Carbon::now();
         $inserts = [];
 
         foreach ($transactions as $idx => $items) {
             $inserts[] = [
-                'order_id'   => $orderIds[$idx] ?? null,
+                'run_id'    => $runId,
+                'quote_id'   => $quoteIds[$idx] ?? null,
+                'lead_id'    => $leadIds[$idx] ?? null,
                 'items'      => json_encode(array_values($items), JSON_UNESCAPED_UNICODE),
                 'created_at' => $now,
                 'updated_at' => $now,

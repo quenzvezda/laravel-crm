@@ -2,6 +2,7 @@
 
 namespace Famindo\AnalyticalCRM\DataGrids;
 
+use Famindo\AnalyticalCRM\Models\AprioriRun;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Webkul\DataGrid\DataGrid;
@@ -12,19 +13,35 @@ class AprioriRulesDataGrid extends DataGrid
 
     protected $sortOrder = 'desc';
 
+    protected static array $skuCache = [];
+
     public function prepareQueryBuilder(): Builder
     {
         $queryBuilder = DB::table('apriori_rules')->select(
-            'id',
-            'lhs',
-            'rhs',
-            'support',
-            'confidence',
-            'lift',
-            'period_start',
-            'period_end',
-            'created_at'
+            'apriori_rules.id',
+            'apriori_rules.run_id',
+            'apriori_rules.lhs',
+            'apriori_rules.rhs',
+            'apriori_rules.support',
+            'apriori_rules.confidence',
+            'apriori_rules.lift',
+            'apriori_rules.period_start',
+            'apriori_rules.period_end',
+            'apriori_rules.created_at',
+            'runs.name as run_name'
         );
+
+        $queryBuilder->leftJoin('apriori_runs as runs', 'runs.id', '=', 'apriori_rules.run_id');
+
+        $runId = request()->input('run_id');
+
+        if (! $runId) {
+            $runId = AprioriRun::where('is_active', true)->value('id');
+        }
+
+        if ($runId) {
+            $queryBuilder->where('apriori_rules.run_id', $runId);
+        }
 
         $this->addFilter('support', 'support');
         $this->addFilter('confidence', 'confidence');
@@ -39,13 +56,22 @@ class AprioriRulesDataGrid extends DataGrid
     public function prepareColumns(): void
     {
         $this->addColumn([
+            'index'      => 'run_name',
+            'label'      => 'Snapshot',
+            'type'       => 'string',
+            'searchable' => false,
+            'sortable'   => false,
+            'filterable' => false,
+        ]);
+
+        $this->addColumn([
             'index'      => 'lhs',
             'label'      => 'LHS',
             'type'       => 'string',
             'searchable' => false,
             'sortable'   => false,
             'filterable' => false,
-            'closure'    => fn ($row) => implode(', ', (array) json_decode($row->lhs, true)),
+            'closure'    => fn ($row) => $this->formatSkuLinks($row->lhs),
         ]);
 
         $this->addColumn([
@@ -55,7 +81,7 @@ class AprioriRulesDataGrid extends DataGrid
             'searchable' => false,
             'sortable'   => false,
             'filterable' => false,
-            'closure'    => fn ($row) => implode(', ', (array) json_decode($row->rhs, true)),
+            'closure'    => fn ($row) => $this->formatSkuLinks($row->rhs),
         ]);
 
         $this->addColumn([
@@ -115,5 +141,72 @@ class AprioriRulesDataGrid extends DataGrid
             'filterable' => true,
         ]);
     }
-}
 
+    private function formatSkuLinks(?string $json): string
+    {
+        if (! $json) {
+            return '—';
+        }
+
+        $skus = array_values(array_filter((array) json_decode($json, true), function ($sku) {
+            return $sku !== null && $sku !== '';
+        }));
+
+        if (empty($skus)) {
+            return '—';
+        }
+
+        $skus = array_map('strval', $skus);
+
+        $cache = &self::$skuCache;
+        $missing = array_diff($skus, array_keys($cache));
+
+        if (! empty($missing)) {
+            $records = DB::table('products')
+                ->select('id', 'sku', 'name', 'description', 'price')
+                ->whereIn('sku', $missing)
+                ->get()
+                ->keyBy('sku');
+
+            foreach ($missing as $sku) {
+                $product = $records[$sku] ?? null;
+
+                if (! $product) {
+                    $cache[$sku] = null;
+
+                    continue;
+                }
+
+                $cache[$sku] = [
+                    'id'          => (int) $product->id,
+                    'name'        => (string) $product->name,
+                    'description' => (string) ($product->description ?? ''),
+                    'price'       => (string) $product->price,
+                ];
+            }
+        }
+
+        $links = [];
+
+        foreach ($skus as $sku) {
+            $product = $cache[$sku] ?? null;
+
+            if (! $product) {
+                $links[] = e($sku);
+
+                continue;
+            }
+
+            $url = route('admin.products.edit', $product['id']);
+
+            $links[] = '<a href="'.$url.'" class="sku-tooltip text-blue-600 hover:underline"'
+                .' data-sku="'.e($sku).'"'
+                .' data-name="'.e($product['name']).'"'
+                .' data-description="'.e($product['description']).'"'
+                .' data-price="'.e($product['price']).'"'
+                .'>'.e($sku).'</a>';
+        }
+
+        return implode(', ', $links);
+    }
+}

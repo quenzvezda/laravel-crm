@@ -6,7 +6,7 @@
 
 ## 1) Gambaran Proyek
 - **Goal utama**: menambah modul **Analytical CRM** pada Krayin untuk:
-  - Mengambil data transaksi pemesanan custom engineering.
+  - Mengambil data transaksi dari Quotes & Quote Items yang terkait Leads berstatus "won" (alias: Custom Engineering Order).
   - Menjalankan **Apriori** untuk menemukan _association rules_ (X ⇒ Y) beserta **support**, **confidence**, **lift**.
   - Menyajikan **UI admin** untuk analisis & ekspor.
   - Memberi **rekomendasi item** di alur Lead/Quote/Order (cross-sell/upsell).
@@ -60,7 +60,7 @@ DB_PASSWORD=            # kosong default Laragon kecuali diubah
 
 CACHE_DRIVER=file
 SESSION_DRIVER=file
-QUEUE_CONNECTION=sync
+QUEUE_CONNECTION=database   # gunakan database queue agar analisis berjalan di background
 
 # Email dev (pilih salah satu)
 MAIL_MAILER=log         # paling simpel; tidak kirim email sungguhan
@@ -88,6 +88,12 @@ php artisan serve   # buka http://localhost:8000
 ```
 
 > **Catatan**: Jika memakai DB di Docker, sesuaikan `DB_PORT` (mis. 3307) dan kredensial.
+
+### 3.5 Worker Antrian (Dev)
+- Jalankan worker di terminal/runner terpisah agar job analisis berjalan di background:
+  - `php artisan queue:work --queue=analytics,default --timeout=3600 --tries=1`
+- PHPStorm/IntelliJ: tersedia konfigurasi run `.run/Queue Worker.run.xml` (jalankan bersamaan dengan "Artisan Serve").
+- Setelah mengubah kode job/service, jalankan `php artisan queue:restart` agar worker memuat ulang.
 
 ---
 
@@ -117,20 +123,37 @@ packages/
 
 ---
 
-## 5) Desain Data “Custom Engineering Order”
-**Tabel inti (baru)**:
-- `engineering_orders` (id, customer_id, organization_id, order_date, status, notes, timestamps)
-- `engineering_order_items` (id, order_id, product_id?, item_code?, qty, unit_price, timestamps)
+## 5) Sumber Data Transaksi (Quotes/Leads)
+Untuk analisis Apriori, kita memanfaatkan entitas core Krayin tanpa menambah tabel order kustom:
 
-> Catatan: jika alur order sudah ada di modul lain, buat **ETL** yang menormalkan data menjadi transaksi per order.
+- `leads` — hanya yang berada pada pipeline stage "won" (default pipeline)
+- `quotes` — terkait ke lead di atas
+- `quote_items` — daftar produk per quote
+
+Alias: istilah "Custom Engineering Order" dipetakan ke kombinasi `quotes` + `quote_items` milik `leads` yang sudah "won". Tidak diperlukan tabel `engineering_orders`/`engineering_order_items`.
 
 ---
 
 ## 6) Pipeline Apriori
-### 6.1 ETL → Transaksi
-- Query `engineering_order_items` → kelompokkan per `order_id` → array transaksi `[[itemA,itemB], [itemC,itemD,…], …]`.
-- Sediakan filter periode & segmen (customer/org/industri/nilai order).
+### 6.1 ETL Transaksi (Sumber Quotes/Leads)
+- Sumber: `quote_items` yang bergabung ke `quotes` dan `leads`.
+- Filter utama:
+  - Hanya `leads` pada stage "won" (default pipeline).
+  - Rentang tanggal berdasarkan `quotes.expire_at` atau `leads.closed_at` (standar modul menggunakan `quotes.expire_at`).
+  - Filter segmen opsional: organization/person, industri, nilai quote.
+- Bentuk transaksi: kelompokkan item per `quote_id`  `[[skuA, skuB], [skuC, skuD, ], ]`.
 
+Contoh sketsa query (pseudocode):
+```
+SELECT qi.quote_id, p.sku
+FROM quote_items qi
+JOIN quotes q ON q.id = qi.quote_id
+JOIN leads  l ON l.id = q.lead_id
+JOIN products p ON p.id = qi.product_id
+WHERE l.lead_pipeline_stage_id = <WON_STAGE_ID>
+  AND q.expire_at BETWEEN :from AND :to;
+```
+ 
 ### 6.2 Algoritma
 - Tambah dependensi (di root proyek):
   ```bash
@@ -145,18 +168,31 @@ packages/
   $rules = $assoc->getRules();
   ```
 
-### 6.3 Persistensi & Metadata
-- Simpan ke tabel `apriori_rules` dengan kolom: `lhs` (json), `rhs` (json), `support`, `confidence`, `lift`, `period_start`, `period_end`, `params_json`, `created_by`.
-- (Opsional) simpan juga `apriori_transactions` untuk audit/debug.
+### 6.3 Persistensi & Snapshot
+- Snapshot run:
+  - Tabel `apriori_runs`: `id`, `label`, `period_start`, `period_end`, `params_json`, `created_by`, `created_at`.
+- Rules:
+  - Tabel `apriori_rules`: `id`, `run_id` (FK ke `apriori_runs`), `lhs` (JSON), `rhs` (JSON), `support`, `confidence`, `lift`, `period_start`, `period_end`, `params_json`, `created_by`, `created_at`.
+- (Opsional) transaksi:
+  - Tabel `apriori_transactions`: `id`, `run_id` (FK), `quote_id` (nullable), `items_json`, `created_at`.
+
+Catatan: migrasi lama yang mereferensikan `engineering_orders` sudah tidak digunakan; hapus/rollback agar `migrate:fresh --seed` tidak gagal.
 
 ### 6.4 Scheduler & CLI
-- Console command: `analytics:apriori` (param: `--from`, `--to`, `--support`, `--confidence`, `--segment`?).
+- Console command: `analytics:apriori` (param: `--from`, `--to`, `--support`, `--confidence`, `--min-items`, `--persist-transactions`, `--label="Q1 2025"`).
 - Tambah jadwal di `app/Console/Kernel.php` (harian/mingguan).
 
+### 6.4a Eksekusi Background (Queue)
+- Analisis Apriori dieksekusi via job terpisah: `Famindo\\AnalyticalCRM\\Jobs\\RunAprioriJob`.
+- Controller admin akan `dispatch()` job ini ke queue `analytics` sehingga request web tidak terblokir.
+- Pastikan worker aktif (lihat §3.5) agar job diproses.
+
 ### 6.5 UI Admin
-- Halaman **parameter** (periode, min support/confidence, filter segmen).
-- Tabel hasil (frequent itemsets & rules) + metrik **support/confidence/lift**.
-- Aksi: **Simpan rekomendasi**, **Export CSV**.
+- Halaman Market Basket (Apriori):
+  - Form parameter: `from`, `to`, `min_support`, `min_confidence`, `min_items`, opsi "Persist transactions".
+  - Snapshot selector: pilih `apriori_runs` mana yang ingin ditampilkan/diaktifkan.
+  - Tabel hasil: LHS, RHS, Support, Confidence, Lift, Period Start/End, Created At (berdasarkan snapshot terpilih).
+  - Aksi: Export CSV; (opsional) Set active snapshot untuk dipakai rekomendasi.
 
 ### 6.6 Integrasi ke Alur CRM
 - **Widget rekomendasi** di halaman Lead/Quote/Order: ketika item dipilih → tampilkan saran item tambahan dari rules (X⇒Y).
@@ -167,7 +203,7 @@ packages/
 
 ## 7) Alur Kerja (Roadmap Tugas)
 1. **Fondasi**: project jalan, ekstensi PHP aktif, `.env` beres.
-2. **Data**: rancang & migrasi `engineering_orders`/`items`; seed data uji.
+2. Data: seed `leads` (stage "won"), `quotes`, `quote_items` sesuai distribusi produk; mapping Persons/Organizations konsisten.
 3. **Package**: siapkan `Famindo/AnalyticalCRM` (provider, routes, menu, ACL).
 4. **ETL & Apriori**: service ETL → training → simpan `apriori_rules`.
 5. **CLI & Scheduler**: command + jadwal rutin.
@@ -190,17 +226,25 @@ php artisan storage:link
 # migrasi & seeding
 php artisan migrate --seed
 
-# membuat artefak
-php artisan make:migration create_engineering_orders
-php artisan make:model EngineeringOrder -m
+# membuat artefak inti modul
 php artisan make:controller Admin/AprioriController --invokable
 php artisan make:command AnalyticsApriori
+# (Jika perlu) migrasi snapshot & rules
+php artisan make:migration create_apriori_runs_table
+php artisan make:migration create_apriori_rules_table
+# (Opsional) transaksi untuk audit
+php artisan make:migration create_apriori_transactions_table
 
 # server dev
 php artisan serve
 
+# worker antrian (jalan di terminal/runner terpisah)
+php artisan queue:work --queue=analytics,default --timeout=3600 --tries=1
+# restart worker setelah update kode job/service
+php artisan queue:restart
+
 # analitik (contoh CLI)
-php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 --confidence=0.6
+php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 --confidence=0.6 --min-items=2 --label="H1 2025" --persist-transactions
 ```
 
 ---
@@ -209,7 +253,7 @@ php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 -
 - **Jangan** modif `vendor/`.
 - Business logic di `Services/` (mudah di‑unit test), controller tipis.
 - Validasi parameter (periode, support/confidence), _empty dataset_ harus ditangani elegan.
-- Pastikan query ETL **efisien** (indexing pada `order_id`, `product_id`, `order_date`).
+- Pastikan query ETL **efisien** (index pada `quote_items.quote_id`, `quote_items.product_id`, `quotes.expire_at`/`leads.closed_at`).
 - Data sensitif: hindari log isi _credentials_; gunakan `.env` & config.
 
 ### 9.1 Seeding Entitas Core Krayin (EAV + LogsActivity)
@@ -243,6 +287,7 @@ php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 -
 ## 11) Deliverables
 - Kode modul `packages/Famindo/AnalyticalCRM` + migration & seeder.
 - Console command & scheduler aktif.
+- Job queue untuk analisis (`RunAprioriJob`) + konfigurasi runner PHPStorm `.run/Queue Worker.run.xml`.
 - UI Admin Analytics + ekspor CSV.
 - Widget rekomendasi di Lead/Quote/Order.
 - Dokumentasi: ERD, arsitektur, flow ETL/Apriori, panduan instal, hasil uji & analisis.
@@ -253,12 +298,15 @@ php artisan analytics:apriori --from=2025-01-01 --to=2025-06-30 --support=0.05 -
 - Jika Composer mengeluh `ext-zip` → aktifkan `zip` di Laragon (PHP → Extensions). Terminal baru setelah perubahan.
 - `.env` untuk email di dev: gunakan `MAIL_MAILER=log` atau MailHog; jangan pakai host `mailhog` kecuali via docker-compose.
 - App URL harus sesuai cara run (artisan serve vs virtual host Laragon).
+ - Jika `migrate:fresh --seed` gagal karena referensi `engineering_orders`, hapus/rollback migrasi legacy tersebut dan gunakan skema `apriori_runs`/`apriori_rules`/`apriori_transactions` sesuai dokumen ini.
+- Jika worker queue tidak dijalankan, analisis yang dikirim dari UI akan berstatus `queued` dan tidak berjalan. Jalankan worker: `php artisan queue:work --queue=analytics,default --timeout=3600 --tries=1`.
+- Untuk job berat, pastikan `--timeout` worker besar (mis. 3600) dan `retry_after` di `config/queue.php` (untuk koneksi `database`/`redis`) lebih besar dari timeout.
 
 ---
 
 ## 13) Kontak & Eskalasi
 - **Teknis**: masalah dependency/ekstensi PHP/Composer.
-- **Data**: kebutuhan kolom tambahan pada `engineering_orders/items`.
+- **Data**: seeding & konsistensi mapping Leads/Quotes/Quote Items.
 - **UX**: kebutuhan tampilan & metrik di UI admin.
 
 > Selesai. Ikuti urutan di §7 sebagai _sprint plan_. Jika ada perubahan requirement, update dokumen ini terlebih dahulu sebelum implementasi.
