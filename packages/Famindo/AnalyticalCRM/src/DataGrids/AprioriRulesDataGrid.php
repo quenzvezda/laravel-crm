@@ -43,6 +43,11 @@ class AprioriRulesDataGrid extends DataGrid
             $queryBuilder->where('apriori_rules.run_id', $runId);
         }
 
+        // Allow global search box to search within JSON columns (lhs/rhs) by substring (SKU).
+        // This works because SKUs are stored as JSON strings, and a LIKE on the JSON text is sufficient.
+        $this->addFilter('lhs', 'apriori_rules.lhs');
+        $this->addFilter('rhs', 'apriori_rules.rhs');
+
         $this->addFilter('support', 'support');
         $this->addFilter('confidence', 'confidence');
         $this->addFilter('lift', 'lift');
@@ -68,7 +73,7 @@ class AprioriRulesDataGrid extends DataGrid
             'index'      => 'lhs',
             'label'      => 'LHS',
             'type'       => 'string',
-            'searchable' => false,
+            'searchable' => true,
             'sortable'   => false,
             'filterable' => false,
             'closure'    => fn ($row) => $this->formatSkuLinks($row->lhs),
@@ -78,7 +83,7 @@ class AprioriRulesDataGrid extends DataGrid
             'index'      => 'rhs',
             'label'      => 'RHS',
             'type'       => 'string',
-            'searchable' => false,
+            'searchable' => true,
             'sortable'   => false,
             'filterable' => false,
             'closure'    => fn ($row) => $this->formatSkuLinks($row->rhs),
