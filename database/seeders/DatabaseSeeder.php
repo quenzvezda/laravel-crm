@@ -32,5 +32,11 @@ class DatabaseSeeder extends Seeder
 
         // Seed demo Leads & Quotes dataset (300 pairs)
         $this->call(LeadQuoteDemoSeeder::class);
+
+        // Seed application branding (admin logo from repo asset)
+        $this->call(AppLogoSeeder::class);
+
+        // Seed footer (configuration text under general.settings.footer.label)
+        $this->call(AppFooterSeeder::class);
     }
 }
