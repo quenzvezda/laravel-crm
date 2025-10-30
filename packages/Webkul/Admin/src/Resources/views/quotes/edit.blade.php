@@ -414,6 +414,13 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Recommended (Apriori) Card -->
+                <div class="flex justify-end">
+                    <div class="w-[348px]">
+                        <v-apriori-recommendations></v-apriori-recommendations>
+                    </div>
+                </div>
             </div>
         </script>
 
@@ -424,7 +431,7 @@
             <x-admin::table.thead.tr>
                 <!-- Quote Product Name -->
                 <x-admin::table.td>
-                    <x-admin::form.control-group class="!mb-0">
+                        <x-admin::form.control-group class="!mb-0">
                         <x-admin::lookup
                             ::src="src"
                             ::name="`${inputName}[product_id]`"
@@ -677,6 +684,30 @@
                     },
                 },
 
+                mounted() {
+                    // Listen to global add-product events from recommendation card
+                    this.$emitter.on('quote:add-product', (payload) => {
+                        if (! payload || ! payload.id) return;
+
+                        const existing = this.products.find(p => parseInt(p.product_id) === parseInt(payload.id));
+                        if (existing) {
+                            existing.quantity = parseFloat(existing.quantity || 1) + 1;
+                            return;
+                        }
+
+                        this.products.push({
+                            id: null,
+                            product_id: parseInt(payload.id),
+                            name: payload.name || '',
+                            quantity: 1,
+                            total: 0,
+                            price: parseFloat(payload.price || 0),
+                            discount_amount: 0,
+                            tax_amount: 0,
+                        });
+                    });
+                },
+
                 methods: {
                     /**
                      * Add a new product.
@@ -797,6 +828,121 @@
                      */
                     removeProduct() {
                         this.$emit('onRemoveProduct', this.product);
+                    },
+                },
+            });
+        </script>
+
+        <!-- Apriori Recommendations Component -->
+        <script type="text/x-template" id="v-apriori-recommendations-template">
+            <div class="mt-2 rounded-lg border border-gray-200 bg-white p-3 text-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+                <div class="mb-2 flex items-center justify-between">
+                    <div class="font-semibold text-gray-800 dark:text-white">Recommended (Apriori)</div>
+                    <span v-if="loading" class="text-xs text-gray-500">Loading…</span>
+                </div>
+                <div v-if="meta && meta.run" class="mb-2 text-xs text-gray-500">
+                    <span>Model as of @{{ meta.run.date }}</span>
+                    <template v-if="meta.run.name"> · <span>@{{ meta.run.name }}</span></template>
+                </div>
+
+                <div v-if="items.length === 0 && !loading" class="text-xs text-gray-500">
+                    Tambahkan item untuk melihat rekomendasi.
+                </div>
+
+                <ul v-else class="flex max-h-64 flex-col gap-2 overflow-auto">
+                    <li v-for="it in items" :key="it.product_id" class="flex items-center justify-between gap-2">
+                        <div class="flex min-w-0 flex-col">
+                            <div class="truncate text-gray-800 dark:text-white">@{{ it.name }}</div>
+                            <div class="text-[11px] text-gray-500">conf @{{ (it.metrics.confidence*100).toFixed(0) }}% · lift @{{ it.metrics.lift.toFixed(2) }} · supp @{{ (it.metrics.support*100).toFixed(1) }}%</div>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="secondary-button shrink-0"
+                            :class="{ 'opacity-60 cursor-not-allowed': isAdded(it) }"
+                            :disabled="isAdded(it)"
+                            @click="add(it)"
+                        >
+                            <span v-if="isAdded(it)">Added</span>
+                            <span v-else>Add</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </script>
+
+        <script type="module">
+            app.component('v-apriori-recommendations', {
+                template: '#v-apriori-recommendations-template',
+
+                data() {
+                    return {
+                        items: [],
+                        meta: null,
+                        loading: false,
+                        lastKey: '',
+                        intervalId: null,
+                        currentIds: [],
+                    };
+                },
+
+                mounted() {
+                    this.tick();
+                    this.intervalId = setInterval(this.tick, 800);
+                },
+
+                unmounted() {
+                    if (this.intervalId) clearInterval(this.intervalId);
+                },
+
+                methods: {
+                    collectProductIds() {
+                        const nodes = Array.from(document.querySelectorAll('input[name^="items"][name$="[product_id]"]'));
+                        const ids = nodes.map(n => parseInt(n.value)).filter(v => !isNaN(v) && v > 0);
+                        // unique
+                        return Array.from(new Set(ids));
+                    },
+
+                    async fetchRecs(ids) {
+                        this.loading = true;
+                        try {
+                            const { data } = await this.$axios.get("{{ route('admin.analytics.recommendations') }}", {
+                                params: { product_ids: ids, limit: 8 },
+                            });
+                            this.items = data.data || [];
+                            this.meta = data.meta || null;
+                        } catch (e) {
+                            // noop
+                        } finally {
+                            this.loading = false;
+                        }
+                    },
+
+                    tick() {
+                        const ids = this.collectProductIds();
+                        const key = ids.join(',');
+                        this.currentIds = ids;
+                        if (key !== this.lastKey) {
+                            this.lastKey = key;
+                            if (ids.length > 0) {
+                                this.fetchRecs(ids);
+                            } else {
+                                this.items = [];
+                            }
+                        }
+                    },
+
+                    add(item) {
+                        this.$emitter.emit('quote:add-product', { id: item.product_id, name: item.name, price: item.price });
+                        if (! this.currentIds.includes(item.product_id)) {
+                            this.currentIds.push(item.product_id);
+                        }
+                        if (window.emitter && typeof window.emitter.emit === 'function') {
+                            window.emitter.emit('add-flash', { type: 'success', message: `Ditambahkan: ${item.name} (x1)` });
+                        }
+                    },
+                    isAdded(item) {
+                        return this.currentIds.includes(item.product_id);
                     },
                 },
             });

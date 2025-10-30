@@ -10,3 +10,7 @@ Route::controller(AprioriController::class)->prefix('analytics/market-basket')->
 
     Route::post('runs/{run}/activate', 'activate')->name('admin.analytics.market_basket.activate');
 });
+
+// Recommendations API for Quotes (Apriori)
+Route::get('analytics/recommendations', [AprioriController::class, 'recommendations'])
+    ->name('admin.analytics.recommendations');
