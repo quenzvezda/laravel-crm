@@ -38,5 +38,8 @@ class DatabaseSeeder extends Seeder
 
         // Seed footer (configuration text under general.settings.footer.label)
         $this->call(AppFooterSeeder::class);
+
+        // Seed UI tweaks (remove logo+version row from admin profile dropdown)
+        $this->call(AppUiTweaksSeeder::class);
     }
 }
