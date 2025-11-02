@@ -93,3 +93,35 @@ DB::table('attribute_values')->upsert($attributeValues,
 ```
 
 - Jika sudah terlanjur seeding tanpa EAV: jalankan `php artisan migrate:fresh --seed` (atau seed ulang seeder terkait) lalu `php artisan optimize:clear`.
+
+**Analytical CRM – Demo Seeder (Probabilitas)**
+
+- Tujuan: menghasilkan dataset demo Leads/Quotes yang lebih natural (komposisi item bervariasi, volume harian niche, dan hasil Apriori yang tidak seragam). Seeder membaca parameter probabilitas dari file `.env` dengan default berikut:
+
+- Parameter `.env` (dengan default):
+  - `ANALYTIC_DEMO_P_ANCHOR=0.85`
+    - Probabilitas setiap item “anchor” (2 komponen inti pertama per bundle) muncul di suatu quote. Menaikkan nilai ini cenderung menaikkan confidence antar komponen inti.
+  - `ANALYTIC_DEMO_P_OPTIONAL=0.55`
+    - Probabilitas item “core base” lainnya (di luar 2 anchor) muncul di suatu quote.
+  - `ANALYTIC_DEMO_P_LONGTAIL=0.18`
+    - Peluang menambahkan 1 item long‑tail ke suatu quote (maksimal satu per quote oleh seeder ini).
+  - `ANALYTIC_DEMO_P_CROSS=0.08`
+    - Peluang menyisipkan 1 item mid dari bundle lain (cross‑bundle) untuk menciptakan korelasi lemah antar bundle.
+  - `ANALYTIC_DEMO_MID_LAMBDA=1.5`
+    - Parameter λ untuk memilih jumlah item kategori “mid” per quote menggunakan distribusi Poisson terpotong pada rentang 0..`ANALYTIC_DEMO_MID_MAXK`. Semakin besar λ, rata‑rata item mid/quote meningkat.
+  - `ANALYTIC_DEMO_MID_MAXK=3`
+    - Batas atas jumlah item “mid” yang bisa dipilih per quote.
+  - `ANALYTIC_DEMO_BUNDLE_PRIMARY_WEIGHT=0.80`
+    - Peluang organisasi tetap memakai bundle utamanya saat membentuk basket (20% sisanya beralih ke bundle lain secara acak untuk variasi kecil).
+
+- Perilaku lain seeder (ringkas):
+  - Periode tanggal: 2025‑01‑01 s/d 2025‑11‑30.
+  - Volume harian niche: weekday umumnya 0–2 leads/hari, weekend lebih sering 0.
+  - 1 lead = 1 quote (tanpa revisi); total target leads tepat 300 (kuota harian disesuaikan otomatis agar mencapai total).
+
+- Cara mengubah perilaku:
+  - Edit nilai di `.env` sesuai kebutuhan.
+  - Muat ulang konfigurasi: `php artisan optimize:clear`.
+  - Regenerasi data demo: `php artisan migrate:fresh --seed`.
+  - Jalankan analisis Apriori (contoh):
+    - `php artisan analytics:apriori --from=2025-01-01 --to=2025-11-30 --support=0.05 --confidence=0.6 --min-items=2 --save --activate`

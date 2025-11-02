@@ -99,67 +99,76 @@ class LeadQuoteDemoSeeder extends Seeder
 
         $addressBook = $this->buildAddressBook($organizations);
 
-        $longTailCounters = $this->buildLongTailCounters($bundleConfigs, $orgPlan);
-        $longTailTotals = [];
-
-        foreach ($longTailCounters as $bundleKey => $counter) {
-            $longTailTotals[$bundleKey] = array_sum($counter);
-        }
-
-        $midCounters = $this->buildMidCounters($bundleConfigs, $orgPlan, $longTailTotals);
-
         /** @var LeadRepository $leadRepository */
         $leadRepository = app(LeadRepository::class);
 
         /** @var QuoteRepository $quoteRepository */
         $quoteRepository = app(QuoteRepository::class);
 
-        $quoteIndex = 1;
+        // Natural calendar: Jan 1, 2025 to Nov 30, 2025
+        $start = Carbon::create(2025, 1, 1)->startOfDay();
+        $end = Carbon::create(2025, 11, 30)->endOfDay();
 
-        foreach ($orgPlan as $plan) {
-            $organization = $organizations[$plan['name']] ?? null;
+        // Exactly 300 leads, and 1 quote per lead
+        $targetLeads = 300;
+        $leadIndex = 1;
 
-            if (! $organization) {
-                continue;
-            }
+        // Prepare day list and initial quotas from distribution
+        $days = [];
+        $d = $start->copy();
+        while ($d->lte($end)) {
+            $days[] = $d->copy();
+            $d->addDay();
+        }
+        $quotas = [];
+        foreach ($days as $i => $day) {
+            $isWeekend = in_array($day->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY], true);
+            $quotas[$i] = $this->sampleDailyLeadQuota($isWeekend); // mostly 0..2
+        }
+        $this->adjustQuotasToTarget($quotas, $days, $targetLeads);
 
-            $personId = $persons[$organization->id] ?? null;
+        // Map organization name to its plan for quick lookup
+        $planByName = [];
+        foreach ($orgPlan as $p) {
+            $planByName[$p['name']] = $p;
+        }
 
-            if (! $personId) {
-                continue;
-            }
+        foreach ($days as $i => $day) {
+            $leadQuota = $quotas[$i];
 
-            $bundleKey = $plan['bundle'];
-            $bundle = $bundleConfigs[$bundleKey];
+            for ($l = 0; $l < $leadQuota; $l++) {
+                // Pick random organization from plan
+                $plan = Arr::random($orgPlan);
+                $orgName = $plan['name'];
+                $organization = $organizations[$orgName] ?? null;
+                if (! $organization) {
+                    continue;
+                }
+                $personId = $persons[$organization->id] ?? null;
+                if (! $personId) {
+                    continue;
+                }
 
-            for ($i = 0; $i < $plan['quotes']; $i++) {
-                $quotesRemaining = $plan['quotes'] - $i;
+                // Bundle selection: mostly primary, sometimes alternative
+                $bundleKey = $this->maybeSwitchBundle($plan['bundle']);
+                $bundle = $bundleConfigs[$bundleKey] ?? null;
+                if (! $bundle) {
+                    $bundleKey = $plan['bundle'];
+                    $bundle = $bundleConfigs[$bundleKey] ?? reset($bundleConfigs);
+                }
 
-                $longTailItem = $this->maybePickLongTail($bundleKey, $longTailCounters, $quotesRemaining);
+                // Compose initial SKUs for first quote (probabilistic anchors/base + mid + long-tail + tiny cross-bundle)
+                $skuList = $this->composeSkuBasket($bundleKey, $bundleConfigs);
 
-                $midCount = $longTailItem ? 1 : 2;
-                $midItems = $this->pickMidItems($bundleKey, $midCounters, $midCount);
-
-                $skuList = array_merge(
-                    $bundle['core_head'],
-                    $midItems,
-                    $longTailItem ? [$longTailItem] : []
-                );
-
-                $skuList = array_values(array_unique($skuList));
-
+                // Build items array and totals
                 $items = [];
                 $subTotal = 0.0;
-
                 foreach ($skuList as $sku) {
                     $product = $products[$sku] ?? null;
-
                     if (! $product) {
-                        continue 2;
+                        continue;
                     }
-
                     $price = round((float) $product->price, 4);
-
                     $items[] = [
                         'product_id'       => $product->id,
                         'sku'              => $product->sku,
@@ -172,7 +181,6 @@ class LeadQuoteDemoSeeder extends Seeder
                         'tax_percent'      => 0,
                         'tax_amount'       => 0,
                     ];
-
                     $subTotal += $price;
                 }
 
@@ -180,27 +188,26 @@ class LeadQuoteDemoSeeder extends Seeder
                     continue;
                 }
 
-                $closeDate = $this->randomDateIn2025();
-                $createdAt = (clone $closeDate)->subDays(random_int(20, 90))->setTime(random_int(8, 16), random_int(0, 59));
+                // Times: lead created at day H, quote H+1..H+5, closed H+2..H+14 (clamped to Nov 30)
+                $leadCreatedAt = (clone $day)->setTime(random_int(8, 16), random_int(0, 59));
+                $quote1CreatedAt = (clone $leadCreatedAt)->addDays(random_int(1, 5))->setTime(random_int(9, 17), random_int(0, 59));
 
-                // Clamp createdAt so it never goes before 1 Jan 2025
-                $minStart = \Carbon\Carbon::create(2025, 1, 1, 8, 0, 0);
-                if ($createdAt->lt($minStart)) {
-                    $createdAt = (clone $minStart);
+                // Ensure all within allowed period
+                if ($quote1CreatedAt->gt($end)) {
+                    $quote1CreatedAt = (clone $end)->setTime(16, 30, 0);
                 }
-                $closedAt = (clone $closeDate)->setTime(random_int(10, 18), random_int(0, 59));
 
-                $leadTitle = $bundle['label'].' untuk '.$plan['name'];
-                $quoteSubject = 'Penawaran '.$bundle['label'].' untuk '.$plan['name'].' (Rev.1)';
+                $quoteSubject = 'Penawaran '.$bundle['label'].' untuk '.$orgName.' (Rev.1)';
+                $leadTitle = $bundle['label'].' untuk '.$orgName;
 
                 $leadData = [
                     'entity_type'            => 'leads',
                     'title'                  => $leadTitle,
-                    'description'            => self::TAG.' '.$bundleKey.' #'.str_pad((string) $quoteIndex, 3, '0', STR_PAD_LEFT),
+                    'description'            => self::TAG.' '.$bundleKey.' #'.str_pad((string) $leadIndex, 3, '0', STR_PAD_LEFT),
                     'lead_value'             => $this->computeLeadValue($items),
                     'status'                 => 1,
-                    'expected_close_date'    => $closeDate->toDateString(),
-                    'closed_at'              => $closedAt,
+                    'expected_close_date'    => $quote1CreatedAt->copy()->addDays(random_int(5, 20))->toDateString(),
+                    'closed_at'              => null, // set after last quote
                     'user_id'                => $adminId,
                     'person_id'              => $personId,
                     'lead_source_id'         => Arr::random($leadSourceIds),
@@ -210,18 +217,16 @@ class LeadQuoteDemoSeeder extends Seeder
                 ];
 
                 $lead = $leadRepository->create($leadData);
-
                 DB::table('leads')->where('id', $lead->id)->update([
-                    'created_at' => $createdAt,
-                    'updated_at' => $closedAt,
+                    'created_at' => $leadCreatedAt,
                 ]);
 
-                $address = $addressBook[$plan['name']] ?? $this->fallbackAddress($plan['name']);
+                $address = $addressBook[$orgName] ?? $this->fallbackAddress($orgName);
 
                 $quoteData = [
                     'entity_type'      => 'quotes',
                     'subject'          => $quoteSubject,
-                    'description'      => self::TAG.' '.$bundleKey.' #'.str_pad((string) $quoteIndex, 3, '0', STR_PAD_LEFT),
+                    'description'      => self::TAG.' '.$bundleKey.' #'.str_pad((string) $leadIndex, 3, '0', STR_PAD_LEFT),
                     'billing_address'  => $address,
                     'shipping_address' => $address,
                     'discount_percent' => 0,
@@ -230,27 +235,274 @@ class LeadQuoteDemoSeeder extends Seeder
                     'adjustment_amount'=> 0,
                     'sub_total'        => round($subTotal, 4),
                     'grand_total'      => round($subTotal, 4),
-                    'expired_at'       => $closeDate,
+                    'expired_at'       => min($quote1CreatedAt->copy()->addDays(random_int(15, 30)), $end),
                     'user_id'          => $adminId,
                     'person_id'        => $personId,
                     'items'            => $items,
                 ];
-
                 $quote = $quoteRepository->create($quoteData);
-
                 DB::table('quotes')->where('id', $quote->id)->update([
-                    'created_at' => $createdAt,
-                    'updated_at' => $closedAt,
+                    'created_at' => $quote1CreatedAt,
+                    'updated_at' => $quote1CreatedAt,
                 ]);
-
                 DB::table('lead_quotes')->insert([
                     'lead_id'  => $lead->id,
                     'quote_id' => $quote->id,
                 ]);
 
-                $quoteIndex++;
+                // Close the lead after the quote, 2–14 days after, clamped to Nov 30
+                $closedAt = min($quote1CreatedAt->copy()->addDays(random_int(2, 14))->setTime(random_int(10, 18), random_int(0, 59)), $end);
+                DB::table('leads')->where('id', $lead->id)->update([
+                    'updated_at' => $closedAt,
+                    'closed_at'  => $closedAt,
+                ]);
+
+                $leadIndex++;
             }
         }
+    }
+
+    // --- Natural generation helpers ---
+
+    private function sampleDailyLeadQuota(bool $isWeekend): int
+    {
+        // Weekday: {0:0.25, 1:0.55, 2:0.18, 3:0.02}
+        // Weekend: {0:0.75, 1:0.22, 2:0.03}
+        $r = mt_rand() / mt_getrandmax();
+        if ($isWeekend) {
+            if ($r < 0.75) return 0;
+            if ($r < 0.97) return 1;
+            return 2;
+        }
+        if ($r < 0.25) return 0;
+        if ($r < 0.80) return 1;
+        if ($r < 0.98) return 2;
+        return 3;
+    }
+
+    private function maybeSwitchBundle(string $primary): string
+    {
+        // stay with primary vs switch: configurable via env
+        $bundles = ['oven', 'conveyor', 'coating', 'testing', 'press'];
+        $pPrimary = (float) (env('ANALYTIC_DEMO_BUNDLE_PRIMARY_WEIGHT', 0.80));
+        if ((mt_rand() / mt_getrandmax()) < $pPrimary) {
+            return $primary;
+        }
+        $others = array_values(array_diff($bundles, [$primary]));
+        return Arr::random($others);
+    }
+
+    private function composeSkuBasket(string $bundleKey, array $bundleConfigs): array
+    {
+        $cfg = $bundleConfigs[$bundleKey] ?? null;
+        if (! $cfg) return [];
+
+        $core = $cfg['core_head'] ?? [];
+        $mid  = $cfg['mid'] ?? [];
+        $long = $cfg['long_tail'] ?? [];
+
+        // Split anchors (first up to 2) and optional base (rest)
+        $anchors = array_slice($core, 0, min(2, count($core)));
+        $base    = array_slice($core, count($anchors));
+
+        $pAnchor   = (float) (env('ANALYTIC_DEMO_P_ANCHOR', 0.85)); // each anchor present independently
+        $pOptional = (float) (env('ANALYTIC_DEMO_P_OPTIONAL', 0.55)); // optional base present
+        $pLongTail = (float) (env('ANALYTIC_DEMO_P_LONGTAIL', 0.18)); // add one long-tail item
+        $pCross    = (float) (env('ANALYTIC_DEMO_P_CROSS', 0.08)); // cross-bundle tiny chance
+
+        $skus = [];
+
+        foreach ($anchors as $sku) {
+            if ((mt_rand() / mt_getrandmax()) < $pAnchor) {
+                $skus[] = $sku;
+            }
+        }
+
+        foreach ($base as $sku) {
+            if ((mt_rand() / mt_getrandmax()) < $pOptional) {
+                $skus[] = $sku;
+            }
+        }
+
+        $lambda = (float) (env('ANALYTIC_DEMO_MID_LAMBDA', 1.5));
+        $maxK   = (int) (env('ANALYTIC_DEMO_MID_MAXK', 3));
+        $kMid   = $this->sampleTruncatedPoisson($lambda, $maxK);
+        if ($kMid > 0 && ! empty($mid)) {
+            $pick = (array) Arr::random($mid, min($kMid, count($mid)));
+            $skus = array_merge($skus, $pick);
+        }
+
+        if (! empty($long) && (mt_rand() / mt_getrandmax()) < $pLongTail) {
+            $skus[] = Arr::random($long);
+        }
+
+        if ((mt_rand() / mt_getrandmax()) < $pCross) {
+            $otherBundles = array_values(array_diff(array_keys($bundleConfigs), [$bundleKey]));
+            $alt = $bundleConfigs[Arr::random($otherBundles)] ?? null;
+            if ($alt && ! empty($alt['mid'])) {
+                $skus[] = Arr::random($alt['mid']);
+            }
+        }
+
+        $skus = array_values(array_unique($skus));
+        // Ensure at least two items to qualify as market-basket transaction
+        if (count($skus) < 2) {
+            // Prefer to add from mid or base if available
+            if (! empty($mid)) {
+                $skus[] = Arr::random($mid);
+            } elseif (! empty($base)) {
+                $skus[] = Arr::random($base);
+            } elseif (! empty($anchors)) {
+                $skus[] = Arr::random($anchors);
+            }
+            $skus = array_values(array_unique($skus));
+        }
+
+        return $skus;
+    }
+
+    private function mutateSkuBasket(array $current, string $bundleKey, array $bundleConfigs): array
+    {
+        $cfg = $bundleConfigs[$bundleKey] ?? null;
+        if (! $cfg) return $current;
+        $pool = array_values(array_unique(array_merge(
+            $cfg['core_head'] ?? [],
+            $cfg['mid'] ?? [],
+            $cfg['long_tail'] ?? []
+        )));
+
+        $result = $current;
+        // With 60% chance, toggle one item (add if absent, remove if present)
+        if ((mt_rand() / mt_getrandmax()) < 0.60 && ! empty($pool)) {
+            $candidate = Arr::random($pool);
+            if (in_array($candidate, $result, true)) {
+                // remove it if that keeps at least 2 items
+                if (count($result) > 2) {
+                    $result = array_values(array_diff($result, [$candidate]));
+                }
+            } else {
+                $result[] = $candidate;
+            }
+        }
+        // Small chance to replace one mid with another mid
+        if ((mt_rand() / mt_getrandmax()) < 0.35 && ! empty($cfg['mid'])) {
+            $mids = $cfg['mid'];
+            $inMids = array_values(array_intersect($result, $mids));
+            if (! empty($inMids)) {
+                $toReplace = Arr::random($inMids);
+                $replacement = Arr::random(array_values(array_diff($mids, [$toReplace])));
+                $result = array_values(array_diff($result, [$toReplace]));
+                $result[] = $replacement;
+            }
+        }
+
+        return array_values(array_unique($result));
+    }
+
+    private function sampleTruncatedPoisson(float $lambda, int $maxK): int
+    {
+        // Discrete Poisson PMF truncated to [0..maxK]
+        $weights = [];
+        $sum = 0.0;
+        for ($k = 0; $k <= $maxK; $k++) {
+            // pmf = e^-lambda * lambda^k / k!
+            $pmf = exp(-$lambda) * pow($lambda, $k) / max(1, $this->factorial($k));
+            $weights[$k] = $pmf;
+            $sum += $pmf;
+        }
+        // normalize
+        $r = (mt_rand() / mt_getrandmax()) * $sum;
+        $acc = 0.0;
+        foreach ($weights as $k => $w) {
+            $acc += $w;
+            if ($r <= $acc) {
+                return (int) $k;
+            }
+        }
+        return 0;
+    }
+
+    private function factorial(int $n): int
+    {
+        $f = 1;
+        for ($i = 2; $i <= $n; $i++) {
+            $f *= $i;
+        }
+        return $f;
+    }
+
+    private function sampleExtraQuotes(): int
+    {
+        // 30% chance add extra quotes; if yes: 1 (~80%) or 2 (~20%)
+        if ((mt_rand() / mt_getrandmax()) >= 0.30) {
+            return 0;
+        }
+        return (mt_rand() / mt_getrandmax()) < 0.80 ? 1 : 2;
+    }
+
+    private function adjustQuotasToTarget(array &$quotas, array $days, int $target): void
+    {
+        $sum = array_sum($quotas);
+        $n = count($quotas);
+
+        // Helper to pick candidate indices with a simple weekday weight
+        $weekdayWeight = function (int $idx) use ($days): float {
+            $dow = $days[$idx]->dayOfWeek;
+            // Weekday weight 1.0, weekend 0.5
+            return in_array($dow, [Carbon::SATURDAY, Carbon::SUNDAY], true) ? 0.5 : 1.0;
+        };
+
+        // Increase until reaching target (cap per day = 2)
+        while ($sum < $target) {
+            $candidates = [];
+            foreach ($quotas as $idx => $q) {
+                if ($q < 2) {
+                    $candidates[$idx] = (2 - $q) * $weekdayWeight($idx);
+                }
+            }
+            if (empty($candidates)) {
+                break; // cannot increase further without breaking cap
+            }
+            $pick = $this->weightedPick($candidates);
+            $quotas[$pick]++;
+            $sum++;
+        }
+
+        // Decrease if we overshoot (prefer weekend first, then large quotas)
+        while ($sum > $target) {
+            $candidates = [];
+            foreach ($quotas as $idx => $q) {
+                if ($q > 0) {
+                    // weekend prioritized to reduce (higher weight), and larger q preferred
+                    $dow = $days[$idx]->dayOfWeek;
+                    $isWeekend = in_array($dow, [Carbon::SATURDAY, Carbon::SUNDAY], true);
+                    $candidates[$idx] = ($isWeekend ? 2.0 : 1.0) * $q;
+                }
+            }
+            if (empty($candidates)) {
+                break;
+            }
+            $pick = $this->weightedPick($candidates);
+            $quotas[$pick]--;
+            $sum--;
+        }
+    }
+
+    private function weightedPick(array $weights): int
+    {
+        $total = array_sum($weights);
+        if ($total <= 0) {
+            return array_key_first($weights);
+        }
+        $r = (mt_rand() / mt_getrandmax()) * $total;
+        $acc = 0.0;
+        foreach ($weights as $idx => $w) {
+            $acc += max(0.0, (float) $w);
+            if ($r <= $acc) {
+                return (int) $idx;
+            }
+        }
+        return (int) array_key_last($weights);
     }
 
     private function resolveDefaultOwner(): int
