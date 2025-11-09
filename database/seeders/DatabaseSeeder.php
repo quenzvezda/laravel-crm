@@ -42,6 +42,9 @@ class DatabaseSeeder extends Seeder
         // Seed UI tweaks (remove logo+version row from admin profile dropdown)
         $this->call(AppUiTweaksSeeder::class);
 
+        // Seed Indonesian menu labels + default locale (admin)
+        $this->call(MenuIndonesiaSeeder::class);
+
         // Seed demo user & restricted role
         $this->call(DemoUserSeeder::class);
     }
