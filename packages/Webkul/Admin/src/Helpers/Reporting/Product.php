@@ -26,18 +26,24 @@ class Product extends AbstractReporting
      */
     public function getTopSellingProductsByRevenue($limit = null): Collection
     {
-        $tablePrefix = DB::getTablePrefix();
-
-        $items = $this->productRepository
-            ->resetModel()
-            ->with('product')
-            ->leftJoin('leads', 'lead_products.lead_id', '=', 'leads.id')
-            ->leftJoin('products', 'lead_products.product_id', '=', 'products.id')
-            ->select('*')
-            ->addSelect(DB::raw('SUM('.$tablePrefix.'lead_products.amount) as revenue'))
+        $wonLeadIds = DB::table('leads')
+            ->leftJoin('lead_pipeline_stages', 'leads.lead_pipeline_stage_id', '=', 'lead_pipeline_stages.id')
+            ->where('lead_pipeline_stages.code', 'won')
             ->whereBetween('leads.closed_at', [$this->startDate, $this->endDate])
-            ->having(DB::raw('SUM('.$tablePrefix.'lead_products.amount)'), '>', 0)
-            ->groupBy('product_id')
+            ->pluck('leads.id');
+
+        $items = DB::table('quote_items')
+            ->leftJoin('products', 'quote_items.product_id', '=', 'products.id')
+            ->leftJoin('quotes', 'quote_items.quote_id', '=', 'quotes.id')
+            ->leftJoin('lead_quotes', 'quotes.id', '=', 'lead_quotes.quote_id')
+            ->select(
+                'products.id as product_id',
+                'products.name as name',
+                'products.price as price',
+            )
+            ->addSelect(DB::raw('SUM(quote_items.total) as revenue'))
+            ->whereIn('lead_quotes.lead_id', $wonLeadIds)
+            ->groupBy('products.id', 'products.name', 'products.price')
             ->orderBy('revenue', 'DESC')
             ->limit($limit)
             ->get();
@@ -46,7 +52,7 @@ class Product extends AbstractReporting
             return [
                 'id'                => $item->product_id,
                 'name'              => $item->name,
-                'price'             => $item->product?->price,
+                'price'             => $item->price,
                 'formatted_price'   => core()->formatBasePrice($item->price),
                 'revenue'           => $item->revenue,
                 'formatted_revenue' => core()->formatBasePrice($item->revenue),
