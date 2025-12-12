@@ -302,37 +302,38 @@
                         <!-- Table Head -->
                         <x-admin::table.thead>
                             <x-admin::table.thead.tr>
-                                <x-admin::table.th >
+                                <x-admin::table.th style="min-width: 350px">
                                     @lang('admin::app.quotes.create.product-name')
                                 </x-admin::table.th>
 
-                                <x-admin::table.th class="text-center">
+                                <x-admin::table.th class="text-center w-24">
                                     @lang('admin::app.quotes.create.quantity')
                                 </x-admin::table.th>
 
-                                <x-admin::table.th class="text-center">
+                                <x-admin::table.th class="text-center w-36">
                                     @lang('admin::app.quotes.create.price')
                                 </x-admin::table.th>
 
-                                <x-admin::table.th class="text-center">
+                                <x-admin::table.th class="text-center w-36">
                                     @lang('admin::app.quotes.create.amount')
                                 </x-admin::table.th>
 
-                                <x-admin::table.th class="text-center">
+                                <x-admin::table.th class="text-center w-36">
                                     @lang('admin::app.quotes.create.discount')
                                 </x-admin::table.th>
 
-                                <x-admin::table.th class="text-center">
+                                <x-admin::table.th class="text-center w-36">
                                     @lang('admin::app.quotes.create.tax')
                                 </x-admin::table.th>
 
-                                <x-admin::table.th class="text-center">
+                                <x-admin::table.th class="text-center w-36">
                                     @lang('admin::app.quotes.create.total')
                                 </x-admin::table.th>
 
                                 <x-admin::table.th
                                     v-if="products.length > 1"
                                     class="!px-2 ltr:text-right rtl:text-left"
+                                    style="width: 100px;"
                                 >
                                     @lang('admin::app.quotes.create.action')
                                 </x-admin::table.th>
@@ -445,7 +446,7 @@
         >
             <x-admin::table.thead.tr>
                 <!-- Quote Product Name -->
-                <x-admin::table.td>
+                <x-admin::table.td style="min-width: 350px">
                     <x-admin::form.control-group class="!mb-0">
                         <x-admin::lookup
                             ::src="src"
