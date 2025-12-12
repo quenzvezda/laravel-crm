@@ -402,6 +402,25 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Signature Section -->
+                <div style="width: 100%; clear: both; margin-top: 50px;">
+                    <div style="float: right; width: 200px; text-align: center;">
+                        <p style="margin-bottom: 10px;">Hormat Kami,</p>
+                        
+                        @if ($quote->user->signature_image)
+                            <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
+                                <img src="{{ public_path('storage/' . $quote->user->signature_image) }}" alt="Signature" style="max-width: 150px; max-height: 100px;">
+                            </div>
+                        @else
+                            <div style="height: 100px;"></div>
+                        @endif
+
+                        <p style="margin-top: 10px; font-weight: bold; border-top: 1px solid #000; display: inline-block; min-width: 150px; padding-top: 5px;">
+                            {{ $quote->user->signature_name ?? $quote->user->name }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
