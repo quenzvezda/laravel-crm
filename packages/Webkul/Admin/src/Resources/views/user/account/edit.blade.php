@@ -110,6 +110,42 @@
                         <x-admin::form.control-group.error control-name="email" />
                     </x-admin::form.control-group>
                 </div>
+
+                <!-- Signature -->
+                <div class="box-shadow rounded bg-white p-4 dark:bg-gray-900">
+                    <p class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
+                        Tanda Tangan Digital
+                    </p>
+
+                    <!-- Signature Image -->
+                    <x-admin::form.control-group>
+                        <x-admin::media.images
+                            name="signature_image"
+                            :uploaded-images="$user->signature_image ? [['id' => 'signature_image', 'url' => $user->signature_image_url]] : []"
+                        />
+                    </x-admin::form.control-group>
+
+                    <p class="mb-4 text-xs text-gray-600 dark:text-gray-300">
+                        Unggah Gambar Tanda Tangan (Format PNG transparan disarankan).
+                    </p>
+
+                    <!-- Signature Name -->
+                    <x-admin::form.control-group class="!mb-0">
+                        <x-admin::form.control-group.label>
+                            Nama Penandatangan
+                        </x-admin::form.control-group.label>
+
+                        <x-admin::form.control-group.control
+                            type="text"
+                            name="signature_name"
+                            :value="old('signature_name') ?: $user->signature_name"
+                            label="Nama Penandatangan"
+                            placeholder="Nama Penandatangan"
+                        />
+
+                        <x-admin::form.control-group.error control-name="signature_name" />
+                    </x-admin::form.control-group>
+                </div>
             </div>
 
             {!! view_render_event('admin.user.account.left.after', ['user' => $user]) !!}
