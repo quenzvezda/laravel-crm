@@ -21,6 +21,11 @@ class AprioriRun extends Model
         'rules_count'         => 'int',
     ];
 
+    public function rules()
+    {
+        return $this->hasMany(AprioriRule::class, 'run_id');
+    }
+
     public function scopeOrdered($query)
     {
         return $query->orderByDesc('is_active')->orderByDesc('created_at');

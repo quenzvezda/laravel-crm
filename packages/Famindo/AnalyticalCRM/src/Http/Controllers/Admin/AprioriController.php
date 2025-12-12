@@ -12,9 +12,12 @@ use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Support\Facades\DB;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Core\Traits\PDFHandler;
 
 class AprioriController extends Controller
 {
+    use PDFHandler;
+
     public function index(): View|JsonResponse|BinaryFileResponse
     {
         $runs = AprioriRun::ordered()->get();
@@ -105,6 +108,21 @@ class AprioriController extends Controller
         return redirect()->route('admin.analytics.market_basket.index', [
             'run_id' => $run->id,
         ]);
+    }
+
+    public function exportPdf(int $runId)
+    {
+        $run = AprioriRun::findOrFail($runId);
+        $rules = $run->rules()->orderBy('lift', 'desc')->get();
+        $user = auth()->guard('user')->user();
+
+        $html = view('analyticalcrm::admin.analytics.market-basket.pdf', [
+            'run'   => $run,
+            'rules' => $rules,
+            'user'  => $user,
+        ])->render();
+
+        return $this->downloadPDF($html, 'MarketBasketAnalysis_' . $run->id . '_' . date('d-m-Y'));
     }
 
     public function recommendations(): JsonResponse

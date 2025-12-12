@@ -456,3 +456,15 @@ Breadcrumbs::for('dashboard.account.edit', function (BreadcrumbTrail $trail, $us
     $trail->parent('dashboard');
     $trail->push(trans('admin::app.account.edit.title'), route('admin.user.account.edit', $user->id));
 });
+
+// Analytics
+Breadcrumbs::for('analytics', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Analitik', '#');
+});
+
+// Analytics > Market Basket
+Breadcrumbs::for('analytics.market_basket', function (BreadcrumbTrail $trail) {
+    $trail->parent('analytics');
+    $trail->push('Market Basket (Apriori)', route('admin.analytics.market_basket.index'));
+});

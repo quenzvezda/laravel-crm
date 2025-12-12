@@ -166,7 +166,7 @@
     <div class="flex flex-col gap-4">
         <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
             <div class="flex flex-col gap-2">
-                <x-admin::breadcrumbs name="configuration" />
+                <x-admin::breadcrumbs name="analytics.market_basket" />
 
                 <div class="text-xl font-bold dark:text-white">
                     Market Basket (Apriori)
@@ -179,22 +179,34 @@
                         href="{{ route('admin.analytics.market_basket.index', array_merge($exportBase, ['format' => 'csv'])) }}"
                         class="secondary-button"
                     >
-                        Export Snapshot (CSV)
+                        Ekspor Rekap (CSV)
                     </a>
 
                     <a
                         href="{{ route('admin.analytics.market_basket.index', array_merge($exportBase, ['format' => 'xlsx'])) }}"
                         class="secondary-button"
                     >
-                        Export Snapshot (XLSX)
+                        Ekspor Rekap (XLSX)
+                    </a>
+
+                    <a
+                        href="{{ route('admin.analytics.market_basket.export_pdf', $currentRunId) }}"
+                        target="_blank"
+                        class="secondary-button"
+                    >
+                        Ekspor Rekap (PDF)
                     </a>
                 @else
                     <span class="secondary-button cursor-not-allowed opacity-50">
-                        Export Snapshot (CSV)
+                        Ekspor Rekap (CSV)
                     </span>
 
                     <span class="secondary-button cursor-not-allowed opacity-50">
-                        Export Snapshot (XLSX)
+                        Ekspor Rekap (XLSX)
+                    </span>
+
+                    <span class="secondary-button cursor-not-allowed opacity-50">
+                        Ekspor Rekap (PDF)
                     </span>
                 @endif
             </div>
@@ -204,7 +216,7 @@
             <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                 <div class="flex flex-col gap-2 lg:w-1/2">
                     <div class="text-base font-semibold">
-                        Snapshot Versions
+                        Versi Rekap
                     </div>
 
                     @if ($hasSnapshots)
@@ -215,7 +227,7 @@
                         >
                             <div class="flex flex-col">
                                 <label class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                                    Select Snapshot
+                                    Pilih Rekap
                                 </label>
 
                                 <select
@@ -235,13 +247,13 @@
                                 <div class="flex items-center gap-3">
                                     @if ($currentRun->is_active)
                                         <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-green-800 dark:bg-green-900/30 dark:text-green-200">
-                                            Active
+                                            Aktif
                                         </span>
                                     @else
                                         <x-admin::form :action="route('admin.analytics.market_basket.activate', $currentRun->id)" method="POST">
                                             @csrf
                                             <button type="submit" class="secondary-button">
-                                                Set Active
+                                                Aktifkan
                                             </button>
                                         </x-admin::form>
                                     @endif
@@ -314,7 +326,7 @@
 
         <div class="grid gap-4 lg:grid-cols-3">
             <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900 lg:col-span-1">
-                <div class="mb-2 text-base font-semibold">Run Analysis</div>
+                <div class="mb-2 text-base font-semibold">Jalankan Analisis Baru</div>
 
                 <x-admin::form :action="route('admin.analytics.market_basket.run')" method="POST">
                     @csrf
@@ -322,14 +334,14 @@
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <x-admin::form.control-group.label>
-                                From
+                                Dari
                             </x-admin::form.control-group.label>
                             <x-admin::form.control-group.control type="date" name="from" />
                         </div>
 
                         <div>
                             <x-admin::form.control-group.label>
-                                To
+                                Sampai
                             </x-admin::form.control-group.label>
                             <x-admin::form.control-group.control type="date" name="to" />
                         </div>
@@ -352,7 +364,7 @@
 
                         <div>
                             <x-admin::form.control-group.label>
-                                Min Items
+                                Min. Item
                             </x-admin::form.control-group.label>
                             <x-admin::form.control-group.control type="number" name="min_items" min="1" value="2" />
                         </div>
@@ -360,7 +372,7 @@
 
                     <div class="mt-3">
                         <x-admin::form.control-group.label>
-                            Snapshot Name
+                            Nama Label (Snapshot)
                         </x-admin::form.control-group.label>
                         <x-admin::form.control-group.control
                             type="text"
@@ -372,7 +384,7 @@
                     <div class="mt-3 flex flex-col gap-2">
                         <label class="flex items-center gap-2">
                             <input type="checkbox" name="persist" value="1" class="rounded" />
-                            <span>Persist Transactions</span>
+                            <span>Simpan Data Transaksi</span>
                         </label>
 
                         <label class="flex items-center gap-2">
@@ -382,7 +394,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <button type="submit" class="primary-button">Run &amp; Save Rules</button>
+                        <button type="submit" class="primary-button">Proses &amp; Simpan Rules</button>
                     </div>
                 </x-admin::form>
             </div>
