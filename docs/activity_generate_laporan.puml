@@ -9,16 +9,19 @@ start
 |Sistem|
 :Menerima request untuk membuat laporan PDF;
 :Mengambil data yang relevan dari database\n(misal: data rules atau detail penawaran);
-:Mengambil data pengguna yang membuat laporan\n(termasuk `signature_name` dan `signature_image` dari tabel `users`);
-:Membuat file PDF menggunakan library (misal: DomPDF);
-:Menyusun layout laporan (header, tabel data, dll);
+:Mencari record di tabel `signatures`\ndengan kondisi `is_active` = true;
 
-if (Gambar tanda tangan tersedia?) then (Ya)
-  :Menyematkan gambar tanda tangan\ndi bagian bawah laporan;
-  :Menuliskan nama (`signature_name`) di bawah gambar;
+if (Ditemukan tanda tangan yang aktif?) then (Ya)
+  :Mengambil `image_path` dan `owner_name` dari record tersebut;
+  :Membuat file PDF menggunakan library (misal: DomPDF);
+  :Menyusun layout laporan;
+  :Menyematkan gambar tanda tangan di bagian bawah laporan;
+  :Menuliskan nama (`owner_name`) di bawah gambar;
 else (Tidak)
+  :Membuat file PDF;
+  :Menyusun layout laporan;
   :Memberi ruang kosong untuk tanda tangan manual;
-  :Menuliskan nama pengguna (`name`) di bagian bawah;
+  :Menuliskan nama pengguna yang sedang login di bagian bawah;
 endif
 
 :Menghasilkan file PDF;
