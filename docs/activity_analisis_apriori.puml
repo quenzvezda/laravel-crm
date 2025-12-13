@@ -20,7 +20,6 @@ start
 
 |Direktur|
 :Melihat dan menganalisis tabel hasil\n(LHS, RHS, Support, Confidence, Lift);
-:Menggunakan tombol "Export" untuk mengunduh laporan (CSV);
 stop
 
 @enduml

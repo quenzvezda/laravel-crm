@@ -10,6 +10,7 @@ rectangle "Sistem CRM PT. FAMINDO" {
     ' --- Master Data ---
     usecase "Kelola Data Pelanggan\n(Organisasi & PIC)" as UC_Customer
     usecase "Kelola Master Produk" as UC_Product
+    usecase "Kelola Tanda Tangan Digital" as UC_Signature
 
     ' --- Fungsionalitas Operasional (Marketing) ---
     usecase "Kelola Prospek\n(Status, Pipeline, Won)" as UC_Leads
@@ -19,7 +20,7 @@ rectangle "Sistem CRM PT. FAMINDO" {
     ' --- Fungsionalitas Analitis (Direktur) ---
     usecase "Jalankan Analisis Market Basket\n(Input Param & Run)" as UC_Run
     usecase "Lihat Hasil Rules & Metrik" as UC_View
-    usecase "Export Laporan (CSV)" as UC_Export
+    usecase "Export Laporan" as UC_Export
 }
 
 ' Relasi Aktor Marketing (Operasional)
@@ -34,6 +35,7 @@ Direktur --> UC_Product
 Direktur --> UC_Run
 Direktur --> UC_View
 Direktur --> UC_Export
+Direktur --> UC_Signature
 
 ' Relasi antar Use Case
 UC_Rec .> UC_Quotes : <<extends>>

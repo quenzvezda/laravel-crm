@@ -30,6 +30,11 @@ if (Prospek menunjukkan minat serius?) then (Ya)
     |Marketing|
     :Mengisi detail Penawaran (subjek, tgl kedaluwarsa, dll);
     :Menambahkan item produk ke Penawaran;
+    note right
+      Di sini terjadi proses
+      rekomendasi produk.
+      (Lihat diagram terpisah)
+    end note
     :Menyimpan Penawaran;
 
     |Sistem|
@@ -40,16 +45,19 @@ if (Prospek menunjukkan minat serius?) then (Ya)
   }
 
   if (Pelanggan setuju dengan Penawaran?) then (Ya)
+    |Marketing|
     :Mengubah status Prospek menjadi "Won";
 
     |Sistem|
     :Mencatat transaksi sebagai data historis;
 
   else (Tidak)
+    |Marketing|
     :Mengubah status Prospek menjadi "Lost";
   endif
 
 else (Tidak)
+  |Marketing|
   :Mengubah status Prospek menjadi "Lost" atau "Cancelled";
 endif
 

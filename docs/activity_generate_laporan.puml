@@ -1,0 +1,28 @@
+@startuml
+title Activity Diagram: Menghasilkan Laporan (PDF)
+
+|Pengguna (Direktur/Marketing)|
+start
+:Berada di halaman "Hasil Analisis" atau "Detail Penawaran";
+:Menekan tombol "Export" atau "Print";
+
+|Sistem|
+:Menerima request untuk membuat laporan PDF;
+:Mengambil data yang relevan dari database\n(misal: data rules atau detail penawaran);
+:Mengambil data pengguna yang membuat laporan\n(termasuk `signature_name` dan `signature_image` dari tabel `users`);
+:Membuat file PDF menggunakan library (misal: DomPDF);
+:Menyusun layout laporan (header, tabel data, dll);
+
+if (Gambar tanda tangan tersedia?) then (Ya)
+  :Menyematkan gambar tanda tangan\ndi bagian bawah laporan;
+  :Menuliskan nama (`signature_name`) di bawah gambar;
+else (Tidak)
+  :Memberi ruang kosong untuk tanda tangan manual;
+  :Menuliskan nama pengguna (`name`) di bagian bawah;
+endif
+
+:Menghasilkan file PDF;
+:Mengirimkan file PDF ke browser pengguna untuk diunduh;
+stop
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+title Activity Diagram: Mengelola Tanda Tangan Digital
+
+|Pengguna (Direktur/Marketing)|
+start
+:Membuka menu "Akun Saya";
+
+|Sistem|
+:Menampilkan halaman profil pengguna;
+
+|Pengguna (Direktur/Marketing)|
+:Mengisi field "Nama untuk Tanda Tangan";
+:Mengunggah file gambar untuk Tanda Tangan;
+:Menekan tombol "Simpan";
+
+|Sistem|
+:Menerima data dari form;
+:Memvalidasi input (nama adalah string, file adalah gambar);
+:Menyimpan path gambar ke `storage/app/public/...`;
+:Menyimpan nama dan path gambar ke dalam\nkolom `signature_name` dan `signature_image`\ndi tabel `users` untuk pengguna yang sedang login;
+:Menampilkan notifikasi "Profil berhasil diperbarui";
+stop
+
+@enduml
