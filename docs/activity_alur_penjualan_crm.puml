@@ -1,0 +1,60 @@
+@startuml
+title Activity Diagram: Alur Proses Penjualan (Prospek ke Penawaran)
+
+|Marketing|
+start
+:Membuka halaman "Kelola Prospek";
+:Membuat atau memilih Prospek yang ada;
+
+if (Prospek menunjukkan minat serius?) then (Ya)
+  partition "Membuat Penawaran" {
+    if (Dari halaman Detail Prospek?) then (Ya)
+      :Klik tombol "Tambah Penawaran" di tab Penawaran;
+
+      |Sistem|
+      :Mengarahkan ke form "Buat Penawaran";
+      :Otomatis mengisi field "Tautan ke Prospek";
+
+    else (Tidak, dari Menu Utama)
+      |Marketing|
+      :Membuka menu "Kelola Penawaran";
+      :Klik tombol "Buat Penawaran";
+
+      |Sistem|
+      :Mengarahkan ke form "Buat Penawaran";
+
+      |Marketing|
+      :Mengisi field "Tautan ke Prospek" secara manual;
+    endif
+
+    |Marketing|
+    :Mengisi detail Penawaran (subjek, tgl kedaluwarsa, dll);
+    :Menambahkan item produk ke Penawaran;
+    :Menyimpan Penawaran;
+
+    |Sistem|
+    :Memvalidasi dan menyimpan data Penawaran;
+
+    |Marketing|
+    :Mengirim Penawaran ke pelanggan;
+  }
+
+  if (Pelanggan setuju dengan Penawaran?) then (Ya)
+    :Mengubah status Prospek menjadi "Won";
+
+    |Sistem|
+    :Mencatat transaksi sebagai data historis;
+
+  else (Tidak)
+    :Mengubah status Prospek menjadi "Lost";
+  endif
+
+else (Tidak)
+  :Mengubah status Prospek menjadi "Lost" atau "Cancelled";
+endif
+
+|Sistem|
+:Menyimpan semua perubahan status dan data;
+stop
+
+@enduml

@@ -1,0 +1,50 @@
+@startuml
+title Sequence Diagram: Menampilkan Rekomendasi Produk (Cross-sell)
+autonumber
+
+actor Marketing
+boundary "View: Form Penawaran\n(Vue Component)" as View
+control "AnalyticsController" as Controller
+participant "RecommendationService" as Service
+entity "AprioriRule (Model)" as Model
+database "Database" as DB
+
+Marketing -> View: Menambahkan "Produk A" ke daftar item
+note right: User berinteraksi di browser
+
+loop Setiap 800ms (Polling)
+    View -> View: collectProductIds()
+    note right: Cek apakah ada perubahan item
+
+    opt Jika ada perubahan item
+        View -> Controller: GET /admin/analytics/recommendations\n(params: product_ids=[A])
+
+        activate Controller
+            Controller -> Service: getRecommendations(productIds=[A])
+
+            activate Service
+                Service -> Model: findRulesByAntecedents(productIds)
+                activate Model
+                    Model -> DB: SELECT * FROM apriori_rules\nWHERE lhs IN ([A])
+                    DB --> Model: Return Rules (A => B, A => C)
+                Model --> Service: Return Rules Collection
+                deactivate Model
+
+                Service -> Service: formatRecommendations(rules)
+            Service --> Controller: Return JSON Data
+            deactivate Service
+
+            Controller --> View: JSON Response\n{ data: [Produk B, Produk C] }
+        deactivate Controller
+
+        View -> View: Update Widget Rekomendasi
+    end
+end
+
+View --> Marketing: Tampilkan "Produk B" dan "Produk C"
+
+Marketing -> View: Klik "Add" pada Produk B
+View -> View: Tambahkan Produk B ke Daftar Item
+note right: Produk B masuk ke daftar,\nPolling berikutnya akan mengirim [A, B]
+
+@enduml

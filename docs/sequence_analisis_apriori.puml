@@ -1,0 +1,44 @@
+@startuml
+title Sequence Diagram: Proses Analisis Market Basket (Apriori)
+autonumber
+
+actor Direktur
+boundary "View: Halaman Analisis" as View
+control "AprioriController" as Controller
+participant "AprioriService" as Service
+entity "QuoteItem (Model)" as Model
+database "Database" as DB
+
+Direktur -> View: Input Parameter (Tgl, Min Support, Min Conf)
+Direktur -> View: Klik "Jalankan Analisis"
+View -> Controller: POST /admin/analytics/apriori/run (params)
+
+activate Controller
+    Controller -> Service: runAnalysis(startDate, endDate, minSup, minConf)
+
+    activate Service
+        Service -> Model: getTransactionData(startDate, endDate)
+        activate Model
+            Model -> DB: SELECT items FROM quote_items WHERE status='won'...
+            DB --> Model: Return Raw Data
+        Model --> Service: Return Formatted Transactions [[A,B], [A,C]...]
+        deactivate Model
+
+        Service -> Service: trainAprioriModel(transactions, minSup, minConf)
+        note right: Proses Algoritma Apriori (PHP-ML)\nMenghasilkan Rules (LHS->RHS)
+
+        Service -> DB: INSERT INTO apriori_runs (metadata)
+
+        loop Setiap Rule yang Ditemukan
+            Service -> Service: calculateLift(rule)
+            Service -> DB: INSERT INTO apriori_rules (lhs, rhs, support, confidence, lift)
+        end
+
+    Service --> Controller: Return Success / Summary
+    deactivate Service
+
+    Controller --> View: Redirect with Success Message
+deactivate Controller
+
+View --> Direktur: Tampilkan Notifikasi & Tabel Hasil Rules
+@enduml

@@ -1,0 +1,41 @@
+@startuml
+left to right direction
+
+' Mendefinisikan Aktor sesuai Struktur Organisasi di BAB 4
+actor "Direktur" as Direktur
+actor "Marketing" as Marketing
+
+' Mendefinisikan Boundary Sistem
+rectangle "Sistem CRM PT. FAMINDO" {
+    ' --- Master Data ---
+    usecase "Kelola Data Pelanggan\n(Organisasi & PIC)" as UC_Customer
+    usecase "Kelola Master Produk" as UC_Product
+
+    ' --- Fungsionalitas Operasional (Marketing) ---
+    usecase "Kelola Prospek\n(Status, Pipeline, Won)" as UC_Leads
+    usecase "Kelola Penawaran" as UC_Quotes
+    usecase "Lihat Rekomendasi Produk\n(Cross-sell Suggestion)" as UC_Rec
+
+    ' --- Fungsionalitas Analitis (Direktur) ---
+    usecase "Jalankan Analisis Market Basket\n(Input Param & Run)" as UC_Run
+    usecase "Lihat Hasil Rules & Metrik" as UC_View
+    usecase "Export Laporan (CSV)" as UC_Export
+}
+
+' Relasi Aktor Marketing (Operasional)
+Marketing --> UC_Customer
+Marketing --> UC_Leads
+Marketing --> UC_Quotes
+Marketing --> UC_Rec
+
+' Relasi Aktor Direktur (Manajerial & Analitis)
+Direktur --> UC_Customer
+Direktur --> UC_Product
+Direktur --> UC_Run
+Direktur --> UC_View
+Direktur --> UC_Export
+
+' Relasi antar Use Case
+UC_Rec .> UC_Quotes : <<extends>>
+
+@enduml

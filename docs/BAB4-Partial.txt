@@ -1,0 +1,69 @@
+BAB IV
+Perancangan dan Implementasi
+4.1 Tinjauan Organisasi
+4.1.1 Sejarah Perusahan
+PT. Famindo Tehnik Karya Utama didirikan pada tanggal 27 November 2016 dan Kantor pusat perusahaan berlokasi di Jalan Pandawa II Blok A-14 No. 9 Perum BCL – Cikarang Utara 17550, Bekasi – Jawa Barat, sementara fasilitas workshop terletak di Dusun Wanajaya RT 026 RW 006 Kalangsari, Rengasdengklok Karawang, Jawa Barat. Perusahaan ini bergerak di bidang design engineering, fabrication, mechanical, electrical, konstruksi, machining, serta berbagai layanan teknik lainnya. Sejak awal berdirinya, PT. Famindo Tehnik Karya Utama berkomitmen untuk menyediakan solusi teknis yang inovatif dan sesuai dengan kebutuhan industri baik dalam skala lokal maupun nasional.
+4.1.2 Struktur Organisasi dan Fungsi
+
+1. Direktur (Imam, ST)
+Tugas dan Fungsi:
+a.	Menetapkan visi, misi, tujuan strategis, dan arah kebijakan perusahaan.
+b.	Mengawasi dan mengevaluasi pelaksanaan seluruh aktivitas operasional dan non-operasional perusahaan.
+c.	Membuat keputusan strategis guna menjamin pertumbuhan dan keberlanjutan bisnis.
+d.	Membina hubungan eksternal dengan pihak ketiga, regulator, dan mitra strategis.
+2. Finance (Suwarti)
+Tugas dan Fungsi:
+a.	Merencanakan, mengelola, dan mengendalikan arus kas serta anggaran perusahaan.
+b.	Menyiapkan laporan keuangan secara akurat dan tepat waktu, sebagai bahan pengambilan keputusan manajerial.
+c.	Memastikan seluruh transaksi keuangan sesuai mematuhi aturan akuntansi dan ketentuan perpajakan
+d.	Melakukan analisis keuangan untuk mengoptimalkan penggunaan sumber daya perusahaan.
+3. Tax (Ihwan)
+Tugas dan Fungsi:
+a.	Menyusun perencanaan pajak yang efektif dan efisien sesuai peraturan perundang-undangan.
+b.	Melakukan administrasi perpajakan, termasuk pelaporan, pembayaran, dan dokumentasi pajak.
+c.	Memberikan rekomendasi terkait kebijakan pajak perusahaan guna meminimalisir risiko pajak.
+d.	Menjalin komunikasi dan koordinasi dengan pihak otoritas perpajakan.
+4. Accounting (Henry Triantawy)
+Tugas dan Fungsi:
+a.	Menyusun laporan keuangan internal dan eksternal secara akurat sesuai standar akuntansi yang berlaku.
+b.	Melakukan kontrol terhadap seluruh transaksi keuangan perusahaan.
+c.	Menyediakan data keuangan untuk mendukung proses audit internal dan eksternal.
+5. Machining (Yedi)
+Tugas dan Fungsi:
+a.	Mengelola proses produksi berbasis mesin (machining) untuk menghasilkan produk sesuai spesifikasi teknis.
+b.	Memastikan ketersediaan, pemeliharaan, dan optimalisasi peralatan machining.
+
+c.	Menjamin kualitas hasil kerja melalui penerapan standar operasional prosedur (SOP).
+Staff: Fahrul
+a.	Membantu pelaksanaan proses produksi machining sesuai instruksi kerja.
+6. Project Control (Wahyuudin)
+Tugas dan Fungsi:
+b.	Melakukan pengawasan dan pengendalian terhadap pelaksanaan proyek agar berjalan sesuai jadwal, anggaran, dan mutu yang ditetapkan.
+c.	Menyusun laporan kemajuan proyek secara berkala kepada manajemen.
+d.	Mengidentifikasi potensi risiko proyek dan menyusun strategi mitigasinya.
+Staff: Muh Rifqi Bahrul Alam
+a.	Mendukung administrasi proyek dan kegiatan monitoring harian.
+7. PPIC (Production Planning and Inventory Control) (Arif Hidayat)
+Tugas dan Fungsi:
+b.	Merencanakan kebutuhan produksi berdasarkan permintaan pelanggan dan kapasitas produksi.
+c.	Mengelola stok bahan baku dan barang jadi untuk menjamin ketersediaan produksi.
+d.	Menyusun dan mengoordinasikan jadwal produksi agar memenuhi target waktu dan kuantitas.
+Staff: Fabiz
+a.	Membantu perencanaan produksi dan pencatatan administrasi inventaris.
+8. Fabrikasi (Ameji Afrianto)
+Tugas dan Fungsi:
+b.	Mengelola proses pembuatan dan perakitan produk sesuai desain teknis.
+c.	Menjamin penerapan standar keselamatan kerja dan kualitas dalam seluruh proses fabrikasi.
+d.	Mengoptimalkan penggunaan material dan peralatan dalam aktivitas produksi.
+Helper: Sutraas
+a.	Melaksanakan tugas-tugas teknis dan operasional yang mendukung proses fabrikasi.
+9. Marketing (Saptoaji, ST)
+Tugas dan Fungsi:
+b.	Menyusun dan menjalankan rencana pemasaran guna meningkatkan penjualan produk dan layanan.
+c.	Melakukan pendekatan kepada calon pelanggan serta menjaga hubungan baik dengan pelanggan eksisting.
+d.	Melakukan analisis pasar dan kompetitor untuk mendukung pengembangan bisnis.
+10. HRD & General Affair (Sabar)
+Tugas dan Fungsi:
+a.	Menyusun dan melaksanakan kebijakan manajemen sumber daya manusia seperti proses rekrutmen, pelatihan, pengembangan, dan serta penilaian karyawan.
+b.	Menangani administrasi umum perusahaan serta memastikan kelayakan fasilitas dan lingkungan kerja.
+c.	Mengelola kegiatan operasional pendukung perusahaan seperti perizinan, keamanan, dan hubungan industrial.

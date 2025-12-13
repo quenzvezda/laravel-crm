@@ -1,0 +1,35 @@
+@startuml
+title Activity Diagram: Alur Rekomendasi Produk (Cross-sell)
+
+|Marketing|
+start
+:Berada di Form "Buat/Ubah Penawaran";
+:Menambahkan "Produk A" ke dalam daftar item;
+
+|Sistem|
+:Mendeteksi perubahan pada daftar item;
+:Mengambil ID semua produk yang ada di daftar;
+:Mengirim request ke server untuk mencari rekomendasi;
+:Mencari Aturan Asosiasi (Apriori Rules) di database\nyang cocok dengan produk yang ada;
+
+if (Ditemukan rule "Produk A => Produk B"?) then (Ya)
+  :Menampilkan widget rekomendasi\ndengan "Produk B" beserta metriknya (Conf, Lift);
+
+  |Marketing|
+  if (Klik tombol "Tambahkan" pada rekomendasi?) then (Ya)
+    |Sistem|
+    :Menambahkan "Produk B" ke daftar item di form;
+    :Menghitung ulang subtotal dan total harga secara otomatis;
+  else (Tidak / Abaikan)
+    ' Tidak ada aksi dari sistem
+  endif
+else (Tidak)
+  ' Tidak ada aksi dari sistem, widget tetap kosong
+endif
+
+|Marketing|
+:Melanjutkan proses input item lainnya;
+:Menyimpan Penawaran setelah selesai;
+stop
+
+@enduml

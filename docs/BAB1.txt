@@ -1,0 +1,39 @@
+BAB I
+PENDAHULUAN
+1.1 Latar Belakang
+Perkembangan teknologi informasi dan komunikasi diera digital telah membawa dampak besar bagi dunia industry manufaktur. Persaingan yang semakin kompetitif menuntut perusahaan untuk mampu memberikan pelayanan yang cepat, tepat dan sesuai kebutuhan pelangggan. Tidak hanya sebatas kualitas produk. Keberhasilan perusahaan juga ditentukan oleh kemampuan dalam mengelola data pelanggan, menganalisis kebutuhan , serta dalam merspon permintaan dengan baik. Dimana pesanan memiliki karakteristik yang unik dan membutuhkan penanganan yang lebih kompleks dibandingkan dengan produk masal lainnya.
+PT Famindo Teknik Karya Utama Adalah perusahaan yang berfokus pada bidang design engineering, fabrication, mechanical, Electrical, construction machining, dan servis, melayani kebutuhan industry baik dalam negeri maupun luar negeri. Dimana perusahaan ini memiliki kompetensi dalam pembuatan custom produk seperti overhead conveyor, belt conveyor, industrial oven, dust collector, fume scrubber dan beberapa produk lainnya.
+Namun, dalam proses pemesanan Pt Famindo Tehnik Karya Utama masih dilakukan melalui aplikasi email dan whatsapp. Dimana data pelanggan dan riwayat transaksi di catat menggunkan Microsoft excel dan Microsoft access. Cara tersebut membantu dalan pencatatatn, tetapi belum membantu perusahaan dalam menganalisis pola pemesanan pelanggan secara menyeluruh. akibatnya, perusahahan mengalami kesulitan dalam melihat tren, mengidentifikasi kebutuhan pelanggan yang berpotensi menurunkan kualitas pelayanan dan kepuasan pelanggan.
+Dalam menghadapi masalah tersebut, diperlukan sebuah sistem yang dapat mencatat, menyimpan tetapi juga menganalisis pola pemesanan pelanggans. salah satunya dengan menerapkan Analytical CRM. Melalui analytical crm, data pelanggan yang sebelumnya statis  dapat diolah menjadi informasi yang bernilai, seperti dalam bentuk analisis pola pemesanan segmentasi pelanggan, serta prediksi kebutuhan dimasa depan. Dengan sistem ini perusahaan dapat memberikan respont yang cepat , meningkatnya kualitas pelayanan serta penyesuaian produk dan jasa sesuai dengan kebutuhan pelanggan.
+Berdasarkan latar belakang tersebut penulis berinisiatif merancang dan membuat aplikasi berbasis web yang akan digunakan sebagai bahan tugas akhir berjudul ”RANCANG BANGUN SISTEM INFORMASI ANALYTICAL CRM UNTUK PEMESANAN CUSTOME ENGINEERING PADA PT FAMINDO TEHNIK KARYA UTAMA”.
+1.2 Perumusan Masalah
+	Pada PT famindo tehnik karya utama belum adanya sistem yang mampu mengelola dan menganalisis pola pemesaan pelanggan. Saat ini data pelanggan dn riwayat pelangggan masih dicatat menggunakan aplikasi microsoft excel dan microsoft access yang masih memiliki keterbatasan, dalam hal identifikasi kebutuhan pelanggan serta analisis pola pemesanan produk custome engineering.
+1.3 Tujuan Penelitian
+	Berikut adalah tujuan dari penelitian ini :
+1.	Membuat dan mengembangkan sistem informasi analytical customer relationship management berbasis web untuk PT. Famindo Tehnik Karya Utama.
+2.	Menerapkan metode market basket analisis menggunakan algoritma apriori untuk menganalisis pola pemesanan pelanggan.
+3.	Menyediakan hasil analisis yng bisa dijadikan rekomen oleh perusahaan untuk meningkatkan strategi pemasaran dan kualitas pelayanan.
+1.4 Manfaat Penelitian
+	Melalui penulisan ini, penulis berharap dapat memberikan manfaat berikut :
+1.	Memberikan kemudahan terhadap PT. Famindo Tehnik Karya Utama dalam mengelola dan manganalisis data pelanggan melalui sistem informasi Analytical CRM.
+2.	Membantu PT. Famindo Tehnik Karya Utama dalam mengidentifikasi pola pemesanan custom engineering pelanggan berdasarkan riwayat pemesanan, sehingga perusahaan cepat dalam menyesuaikan kebutuhan pelanggan.
+3.	Mempercepat proses pelayanan pemesanan produk custom kepada pelanggan yang dapat bedampak meningkatnya kepuasan dari pelanggan.
+1.5 Ruang Lingkup
+1.	Sistem yang dirancang hanya mencangkup proses pemesanan produk custome engineering di pt famindo tehnik karya utama.
+2.	Pengembangan sistem menggunakan pendekatan analytical crm untuk menganalisis pola pemesanan pelanggan.
+3.	Metode analisis yang digunakan adalah market basket analysis dengan algoritma apriori.
+4.	Mengelola dan menganalisis data pelanggan untuk mengetahui pola pemesanan custom engineering pada PT. Famindo Tehnik Karya Utama
+5.	Sistem yang dibuat berbasis web dengan penggunaan bahasa pemprograman PHP, framework Laravel.
+6.	Penelitian tidak membahas proses produksi, pengelolaan keuangan maupun aspek lain di luar pengelolaan pemesanan pelanggan.
+1.6 Sistematika Penulisan
+	Sistematika yang dipakai untuk menulis laporan skripsi adalah garis besar isi laporan :
+BAB I PENDAHULUAN
+Dalam bab ini penulis membahas tentang latar belakang,rumusan masalah, tujuan, manfaat penulisan, ruang lingkup dan sistematika penulisan.
+BAB II Landasan Teori
+Dalam bab ini penulis membahas mengenai definisi, teori, dan konsep dasar yang dibutuhkan untuk menganalisis permasalahan yang akan diteliti yang diperoleh dari sumber-sumber dari buku, artikel yang mendukung dakam penulisan tugas akhir ini.
+BAB III Metodologi Penelitian
+Menguraikan mengenai kerangka berpikir, pengumpulan data, metodologi pegembangan sistem, lokasi dan periode penelitian, serta perangkat dan bahan yang dimanfaat dalam menyusun tugas akhr ini.
+BAB IV Identifikasi Organisasi
+Menjelaskan mengenai sejarah singkat dan struktur organisasi, analisis, perancangan dan implementsi sistem.
+BAB V
+Bab ini menjelasakan tampilan dan pembahasan hasil uji coba

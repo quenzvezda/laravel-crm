@@ -1,0 +1,26 @@
+@startuml
+title Activity Diagram: Proses Analisis Market Basket (Apriori)
+
+|Direktur|
+start
+:Membuka halaman "Analisis Market Basket";
+:Mengisi parameter analisis:\n- Rentang Tanggal Transaksi\n- Minimum Support\n- Minimum Confidence;
+:Menekan tombol "Jalankan Analisis";
+
+|Sistem|
+:Menerima request untuk memulai analisis;
+:Mengambil data transaksi (Penawaran berstatus "Won")\ndari database sesuai rentang tanggal;
+:Memformat data transaksi menjadi daftar itemset;
+:Menjalankan algoritma Apriori\ndengan parameter Support & Confidence;
+:Menghasilkan daftar Aturan Asosiasi (Association Rules);
+:Menghitung metrik tambahan (Lift) untuk setiap aturan;
+:Menyimpan hasil analisis (rules dan metriknya)\nke dalam tabel `apriori_rules` di database;
+:Menampilkan notifikasi "Analisis Selesai";
+:Menampilkan tabel hasil analisis di halaman web;
+
+|Direktur|
+:Melihat dan menganalisis tabel hasil\n(LHS, RHS, Support, Confidence, Lift);
+:Menggunakan tombol "Export" untuk mengunduh laporan (CSV);
+stop
+
+@enduml
