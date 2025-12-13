@@ -29,7 +29,8 @@ class CustomRoleAndUserSeeder extends Seeder
             'products', 'products.view', 'products.create', 'products.edit', 'products.delete',
             'analytics', 'analytics.market_basket', 'analytics.market_basket.view',
             'settings',
-            'settings.user.signatures', // <-- Corrected to be a child of settings.user
+            'settings.signatures',
+            'settings.signatures.index',
         ];
 
         // Permissions for Marketing (limited access)
