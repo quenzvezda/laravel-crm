@@ -389,7 +389,7 @@
 
                         <label class="flex items-center gap-2">
                             <input type="checkbox" name="activate" value="1" class="rounded" />
-                            <span>Jadikan snapshot aktif setelah selesai</span>
+                            <span>Jadikan rekap aktif setelah selesai</span>
                         </label>
                     </div>
 

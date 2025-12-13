@@ -47,5 +47,8 @@ class DatabaseSeeder extends Seeder
 
         // Seed demo user & restricted role
         $this->call(DemoUserSeeder::class);
+
+        // Seed custom roles and users
+        $this->call(CustomRoleAndUserSeeder::class);
     }
 }

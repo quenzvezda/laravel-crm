@@ -145,7 +145,7 @@ return [
     ], [
         'key'        => 'settings.user',
         'name'       => 'admin::app.layouts.user',
-        'route'      => 'admin.settings.groups.index',
+        'route'      => 'admin.settings.users.index',
         'info'       => 'admin::app.layouts.user-info',
         'sort'       => 1,
         'icon-class' => 'icon-settings-group',
@@ -171,11 +171,25 @@ return [
         'sort'       => 3,
         'icon-class' => 'icon-user',
     ], [
+        'key'        => 'settings.signatures',
+        'name'       => 'Tanda Tangan',
+        'info'       => 'Pengaturan Tanda Tangan',
+        'route'      => 'admin.settings.signatures.index', // Parent route (optional but good for breadcrumbs)
+        'sort'       => 4,
+        'icon-class' => 'icon-note',
+    ], [
+        'key'        => 'settings.signatures.index',
+        'name'       => 'Kelola Tanda Tangan',
+        'info'       => 'Kelola tanda tangan dokumen digital',
+        'route'      => 'admin.settings.signatures.index',
+        'sort'       => 1,
+        'icon-class' => 'icon-note', // Icon for the clickable card
+    ], [
         'key'        => 'settings.lead',
         'name'       => 'admin::app.layouts.lead',
         'info'       => 'admin::app.layouts.lead-info',
         'route'      => 'admin.settings.pipelines.index',
-        'sort'       => 2,
+        'sort'       => 3,
         'icon-class' => '',
     ], [
         'key'        => 'settings.lead.pipelines',
@@ -204,7 +218,7 @@ return [
         'info'       => 'admin::app.layouts.warehouses-info',
         'route'      => 'admin.settings.pipelines.index',
         'icon-class' => '',
-        'sort'       => 2,
+        'sort'       => 4,
     ], [
         'key'        => 'settings.warehouse.warehouses',
         'name'       => 'admin::app.layouts.warehouses',
@@ -217,7 +231,7 @@ return [
         'name'       => 'admin::app.layouts.automation',
         'info'       => 'admin::app.layouts.automation-info',
         'route'      => 'admin.settings.attributes.index',
-        'sort'       => 3,
+        'sort'       => 5,
         'icon-class' => '',
     ], [
         'key'        => 'settings.automation.attributes',

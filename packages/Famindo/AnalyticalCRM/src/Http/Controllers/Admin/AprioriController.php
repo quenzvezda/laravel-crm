@@ -113,13 +113,15 @@ class AprioriController extends Controller
     public function exportPdf(int $runId)
     {
         $run = AprioriRun::findOrFail($runId);
-        $rules = $run->rules()->orderBy('lift', 'desc')->get();
-        $user = auth()->guard('user')->user();
+        $limit = 100;
+        $totalRules = $run->rules()->count();
+        $rules = $run->rules()->orderBy('lift', 'desc')->limit($limit)->get();
 
         $html = view('analyticalcrm::admin.analytics.market-basket.pdf', [
-            'run'   => $run,
-            'rules' => $rules,
-            'user'  => $user,
+            'run'        => $run,
+            'rules'      => $rules,
+            'totalRules' => $totalRules,
+            'limit'      => $limit,
         ])->render();
 
         return $this->downloadPDF($html, 'MarketBasketAnalysis_' . $run->id . '_' . date('d-m-Y'));

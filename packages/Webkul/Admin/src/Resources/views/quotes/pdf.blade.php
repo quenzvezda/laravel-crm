@@ -34,6 +34,9 @@
                     'bold'    => 'DejaVu Sans',
                 ];
             }
+
+            // Get the active signature from the new model
+            $activeSignature = \Webkul\User\Models\Signature::where('is_active', true)->first();
         @endphp
 
         <!-- lang supports inclusion -->
@@ -100,7 +103,7 @@
                 border-collapse: separate;
                 margin-bottom: 16px;
             }
-            
+
             table thead th {
                 background-color: #E9EFFC;
                 color: #000DBB;
@@ -173,7 +176,7 @@
                         <tr>
                             <td style="width: 50%; padding: 2px 18px;border:none;">
                                 <b>
-                                    @lang('admin::app.quotes.index.pdf.quote-id'): 
+                                    @lang('admin::app.quotes.index.pdf.quote-id'):
                                 </b>
 
                                 <span>
@@ -195,7 +198,7 @@
                         <tr>
                             <td style="width: 50%; padding: 2px 18px;border:none;">
                                 <b>
-                                    @lang('admin::app.quotes.index.pdf.sales-person'): 
+                                    @lang('admin::app.quotes.index.pdf.sales-person'):
                                 </b>
 
                                 <span>
@@ -213,7 +216,7 @@
                                 </span>
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <td style="width: 50%; padding: 2px 18px;border:none;">
                                 <b>
@@ -285,7 +288,7 @@
                                     <div>{{ core()->country_name($quote->billing_address['country'] ?? '') }}</div>
                                 </td>
                             @endif
-                            
+
                             @if ($quote->shipping_address)
                                 <td style="width: 50%">
                                     <div>{{ $quote->shipping_address['address'] ?? ''}}</div>
@@ -358,7 +361,7 @@
                                     <td class="text-center">{!! core()->formatBasePrice($item->discount_amount, true) !!}</td>
 
                                     <td class="text-center">{!! core()->formatBasePrice($item->tax_amount, true) !!}</td>
-                                    
+
                                     <td class="text-center">{!! core()->formatBasePrice($item->total + $item->tax_amount - $item->discount_amount, true) !!}</td>
                                 </tr>
                             @endforeach
@@ -375,25 +378,25 @@
                                 <td>-</td>
                                 <td>{!! core()->formatBasePrice($quote->sub_total, true) !!}</td>
                             </tr>
-        
+
                             <tr>
                                 <td>@lang('admin::app.quotes.index.pdf.tax')</td>
                                 <td>-</td>
                                 <td>{!! core()->formatBasePrice($quote->tax_amount, true) !!}</td>
                             </tr>
-        
+
                             <tr>
                                 <td>@lang('admin::app.quotes.index.pdf.discount')</td>
                                 <td>-</td>
                                 <td>{!! core()->formatBasePrice($quote->discount_amount, true) !!}</td>
                             </tr>
-        
+
                             <tr>
                                 <td>@lang('admin::app.quotes.index.pdf.adjustment')</td>
                                 <td>-</td>
                                 <td>{!! core()->formatBasePrice($quote->adjustment_amount, true) !!}</td>
                             </tr>
-        
+
                             <tr>
                                 <td><strong>@lang('admin::app.quotes.index.pdf.grand-total')</strong></td>
                                 <td><strong>-</strong></td>
@@ -407,17 +410,17 @@
                 <div style="width: 100%; clear: both; margin-top: 50px;">
                     <div style="float: right; width: 200px; text-align: center;">
                         <p style="margin-bottom: 10px;">Hormat Kami,</p>
-                        
-                        @if ($quote->user->signature_image)
-                            <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
-                                <img src="{{ public_path('storage/' . $quote->user->signature_image) }}" alt="Signature" style="max-width: 150px; max-height: 100px;">
+
+                        @if ($activeSignature && file_exists(public_path('storage/' . $activeSignature->image_path)))
+                            <div style="height: 100px; text-align: center;">
+                                <img src="{{ public_path('storage/' . $activeSignature->image_path) }}" alt="Signature" style="max-width: 150px; max-height: 100px; vertical-align: middle;">
                             </div>
                         @else
                             <div style="height: 100px;"></div>
                         @endif
 
                         <p style="margin-top: 10px; font-weight: bold; border-top: 1px solid #000; display: inline-block; min-width: 150px; padding-top: 5px;">
-                            {{ $quote->user->signature_name ?? $quote->user->name }}
+                            {{ $activeSignature->owner_name ?? '' }}
                         </p>
                     </div>
                 </div>

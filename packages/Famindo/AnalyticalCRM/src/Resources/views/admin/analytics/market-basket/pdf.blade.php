@@ -152,20 +152,17 @@
     <div class="footer-signature">
         <p style="margin-bottom: 10px;">Mengetahui,</p>
 
-        @if ($activeSignature)
+        @if ($activeSignature && file_exists(public_path('storage/' . $activeSignature->image_path)))
             <div style="height: 100px; text-align: center;">
-                {{-- Debug: Check if image path is correct --}}
                 <img src="{{ public_path('storage/' . $activeSignature->image_path) }}" alt="Signature" style="max-width: 150px; max-height: 100px; vertical-align: middle;">
             </div>
-            <p style="margin-top: 10px; font-weight: bold; border-top: 1px solid #000; display: inline-block; min-width: 150px; padding-top: 5px;">
-                {{ $activeSignature->owner_name }}
-            </p>
         @else
             <div style="height: 100px;"></div>
-            <p style="margin-top: 10px; font-weight: bold; border-top: 1px solid #000; display: inline-block; min-width: 150px; padding-top: 5px;">
-                (Belum ada tanda tangan aktif)
-            </p>
         @endif
+
+        <p style="margin-top: 10px; font-weight: bold; border-top: 1px solid #000; display: inline-block; min-width: 150px; padding-top: 5px;">
+            {{ $activeSignature->owner_name ?? '' }}
+        </p>
     </div>
 
 </body>
