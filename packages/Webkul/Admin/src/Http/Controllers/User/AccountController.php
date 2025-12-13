@@ -87,19 +87,26 @@ class AccountController extends Controller
             }
         }
 
-        if (request()->hasFile('signature_image')) {
-            $data['signature_image'] = current(request()->file('signature_image'))->store('admins/'.$user->id.'/signature');
-        } else {
-            if (! isset($data['signature_image'])) {
-                if (! empty($user->signature_image)) {
-                    Storage::delete($user->signature_image);
-                }
-
-                $data['signature_image'] = null;
+        // Check permission using bouncer helper
+        if (bouncer()->hasPermission('settings.user.signature')) {
+            if (request()->hasFile('signature_image')) {
+                $data['signature_image'] = current(request()->file('signature_image'))->store('admins/'.$user->id.'/signature');
             } else {
-                $data['signature_image'] = $user->signature_image;
+                if (! isset($data['signature_image'])) {
+                    if (! empty($user->signature_image)) {
+                        Storage::delete($user->signature_image);
+                    }
+                    $data['signature_image'] = null;
+                } else {
+                    $data['signature_image'] = $user->signature_image;
+                }
             }
+        } else {
+            // If user is not allowed, ensure signature fields are not updated
+            unset($data['signature_image']);
+            unset($data['signature_name']);
         }
+
 
         $user->update($data);
 

@@ -11,6 +11,7 @@ use Webkul\Admin\Http\Controllers\Settings\Marketing\EventController;
 use Webkul\Admin\Http\Controllers\Settings\PipelineController;
 use Webkul\Admin\Http\Controllers\Settings\RoleController;
 use Webkul\Admin\Http\Controllers\Settings\SettingController;
+use Webkul\Admin\Http\Controllers\Settings\SignatureController;
 use Webkul\Admin\Http\Controllers\Settings\SourceController;
 use Webkul\Admin\Http\Controllers\Settings\TagController;
 use Webkul\Admin\Http\Controllers\Settings\TypeController;
@@ -21,6 +22,7 @@ use Webkul\Admin\Http\Controllers\Settings\Warehouse\WarehouseController;
 use Webkul\Admin\Http\Controllers\Settings\WebFormController;
 use Webkul\Admin\Http\Controllers\Settings\WebhookController;
 use Webkul\Admin\Http\Controllers\Settings\WorkflowController;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 
 /**
  * Settings group routes.
@@ -80,6 +82,16 @@ Route::prefix('settings')->group(function () {
         Route::put('edit/{id}', 'update')->name('admin.settings.roles.update');
 
         Route::delete('{id}', 'destroy')->name('admin.settings.roles.delete');
+    });
+
+    /**
+     * Signatures routes.
+     */
+    Route::controller(SignatureController::class)->prefix('signatures')->group(function () {
+        Route::get('', 'index')->name('admin.settings.signatures.index');
+        Route::post('', 'store')->name('admin.settings.signatures.store');
+        Route::delete('{signature}', 'destroy')->name('admin.settings.signatures.destroy');
+        Route::post('{signature}/set-active', 'setActive')->name('admin.settings.signatures.set_active');
     });
 
     /**
@@ -374,4 +386,9 @@ Route::prefix('settings')->group(function () {
             Route::get('download-error-report/{id}', 'downloadErrorReport')->name('admin.settings.data_transfer.imports.download_error_report');
         });
     });
+});
+
+Breadcrumbs::for('settings.signatures', function ($trail) {
+    $trail->parent('settings');
+    $trail->push('Tanda Tangan', route('admin.settings.signatures.index'));
 });
