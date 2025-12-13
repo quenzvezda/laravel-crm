@@ -1,6 +1,14 @@
 <?php
 
 return [
+    'quotes' => [
+        'index' => [
+            'pdf' => [
+                'title' => 'PENAWARAN HARGA',
+            ],
+        ],
+    ],
+
     'components' => [
         'layouts' => [
             'powered-by' => [
