@@ -272,10 +272,20 @@ return [
         'route' => ['admin.settings.users.delete', 'admin.settings.users.mass_delete'],
         'sort'  => 3,
     ], [
+        'key'   => 'settings.signatures',
+        'name'  => 'Tanda Tangan',
+        'route' => 'admin.settings.signatures.index',
+        'sort'  => 2,
+    ], [
+        'key'   => 'settings.signatures.index',
+        'name'  => 'Kelola Tanda Tangan',
+        'route' => 'admin.settings.signatures.index',
+        'sort'  => 1,
+    ], [
         'key'   => 'settings.lead',
         'name'  => 'admin::app.acl.lead',
         'route' => ['admin.settings.pipelines.index', 'admin.settings.sources.index', 'admin.settings.types.index'],
-        'sort'  => 2,
+        'sort'  => 3,
     ], [
         'key'   => 'settings.lead.pipelines',
         'name'  => 'admin::app.acl.pipelines',
@@ -340,7 +350,7 @@ return [
         'key'   => 'settings.automation',
         'name'  => 'admin::app.acl.automation',
         'route' => ['admin.settings.attributes.index', 'admin.settings.email_templates.index', 'admin.settings.workflows.index'],
-        'sort'  => 3,
+        'sort'  => 4,
     ], [
         'key'   => 'settings.automation.attributes',
         'name'  => 'admin::app.acl.attributes',
