@@ -1,24 +1,53 @@
 @startuml
 title Activity Diagram: Mengelola Tanda Tangan Digital
 
-|Pengguna (Direktur/Marketing)|
+|Direktur|
 start
-:Membuka menu "Akun Saya";
+:Membuka menu "Pengaturan" -> "Kelola Tanda Tangan";
 
 |Sistem|
-:Menampilkan halaman profil pengguna;
+:Menampilkan halaman dengan daftar tanda tangan yang ada dan form tambah baru;
 
-|Pengguna (Direktur/Marketing)|
-:Mengisi field "Nama untuk Tanda Tangan";
-:Mengunggah file gambar untuk Tanda Tangan;
-:Menekan tombol "Simpan";
+|Direktur|
+partition "Menambah Tanda Tangan Baru" {
+    :Mengisi form:\n- Nama Tanda Tangan\n- Nama Pemilik\n- Mengunggah File Gambar;
+    :Menekan tombol "Simpan Tanda Tangan";
 
-|Sistem|
-:Menerima data dari form;
-:Memvalidasi input (nama adalah string, file adalah gambar);
-:Menyimpan path gambar ke `storage/app/public/...`;
-:Menyimpan nama dan path gambar ke dalam\nkolom `signature_name` dan `signature_image`\ndi tabel `users` untuk pengguna yang sedang login;
-:Menampilkan notifikasi "Profil berhasil diperbarui";
+    |Sistem|
+    :Memvalidasi data input;
+    :Menyimpan file gambar ke storage;
+    :Membuat record baru di tabel `signatures` dengan `is_active` = false;
+    :Refresh halaman dengan daftar yang diperbarui;
+}
+
+|Direktur|
+partition "Mengelola Tanda Tangan yang Ada" {
+    if (Pilih aksi pada salah satu tanda tangan?) then (Jadikan Aktif)
+        :Menekan tombol "Jadikan Aktif";
+
+        |Sistem|
+        :Mengubah `is_active` = false untuk semua record lain;
+        :Mengubah `is_active` = true untuk record yang dipilih;
+        :Refresh halaman;
+
+    else (Hapus)
+        :Menekan tombol "Hapus";
+
+        |Sistem|
+        :Menampilkan konfirmasi;
+
+        |Direktur|
+        if (Konfirmasi "Ya"?) then (Ya)
+            |Sistem|
+            :Menghapus record dari tabel `signatures`;
+            :Menghapus file gambar dari storage;
+            :Refresh halaman;
+        else (Tidak)
+            'Aksi dibatalkan
+        endif
+    endif
+}
+
 stop
 
 @enduml
