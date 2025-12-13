@@ -21,6 +21,8 @@ class User extends Authenticatable implements UserContract
         'name',
         'email',
         'image',
+        'signature_image',
+        'signature_name',
         'password',
         'api_token',
         'role_id',
@@ -60,6 +62,26 @@ class User extends Authenticatable implements UserContract
     }
 
     /**
+     * Get image url for the signature image.
+     */
+    public function signature_image_url()
+    {
+        if (! $this->signature_image) {
+            return;
+        }
+
+        return Storage::url($this->signature_image);
+    }
+
+    /**
+     * Get image url for the signature image.
+     */
+    public function getSignatureImageUrlAttribute()
+    {
+        return $this->signature_image_url();
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -67,6 +89,7 @@ class User extends Authenticatable implements UserContract
         $array = parent::toArray();
 
         $array['image_url'] = $this->image_url;
+        $array['signature_image_url'] = $this->signature_image_url;
 
         return $array;
     }

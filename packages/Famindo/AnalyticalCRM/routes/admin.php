@@ -9,6 +9,8 @@ Route::controller(AprioriController::class)->prefix('analytics/market-basket')->
     Route::post('run', 'run')->name('admin.analytics.market_basket.run');
 
     Route::post('runs/{run}/activate', 'activate')->name('admin.analytics.market_basket.activate');
+
+    Route::get('runs/{run}/export-pdf', 'exportPdf')->name('admin.analytics.market_basket.export_pdf');
 });
 
 // Recommendations API for Quotes (Apriori)
