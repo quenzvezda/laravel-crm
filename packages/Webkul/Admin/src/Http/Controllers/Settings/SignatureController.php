@@ -31,21 +31,29 @@ class SignatureController extends Controller
             abort(403, 'This action is unauthorized.');
         }
 
-        $data = request()->validate([
+        $this->validate(request(), [
             'name'       => 'required|string|max:255',
             'owner_name' => 'required|string|max:255',
-            'image'      => 'required|image|mimes:png,jpg,jpeg,webp,svg',
+            'image.*'    => 'required|mimes:bmp,jpeg,jpg,png,webp,svg', // Allow array input
         ]);
 
-        $path = request()->file('image')->store('signatures');
+        $data = request()->all();
 
-        Signature::create([
-            'name'       => $data['name'],
-            'owner_name' => $data['owner_name'],
-            'image_path' => $path,
-        ]);
+        if (request()->hasFile('image')) {
+            // media.images sends an array of files, we take the first one
+            $file = current(request()->file('image'));
+            $path = $file->store('signatures');
 
-        session()->flash('success', 'Signature created successfully.');
+            Signature::create([
+                'name'       => $data['name'],
+                'owner_name' => $data['owner_name'],
+                'image_path' => $path,
+            ]);
+
+            session()->flash('success', 'Signature created successfully.');
+        } else {
+            session()->flash('error', 'Please upload an image.');
+        }
 
         return redirect()->route('admin.settings.signatures.index');
     }
