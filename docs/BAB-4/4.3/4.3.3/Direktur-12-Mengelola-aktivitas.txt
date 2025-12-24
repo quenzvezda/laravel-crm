@@ -1,0 +1,7 @@
+4.3.3.12. Activity Diagram Mengelola Aktivitas
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.31 Activity Diagram Mengelola Aktivitas
+
+Activity diagram Mengelola Aktivitas diatas menggambarkan alur Direktur memantau jadwal kegiatan tim. Dimulai dari Direktur memilih menu Aktivitas, kemudian sistem menampilkan kalender atau daftar kegiatan yang terjadwal. Selanjutnya, Direktur memilih untuk melihat detail salah satu aktivitas. Terakhir, sistem menampilkan informasi lengkap mengenai waktu pelaksanaan, tipe aktivitas, serta personel (PIC) yang bertanggung jawab.

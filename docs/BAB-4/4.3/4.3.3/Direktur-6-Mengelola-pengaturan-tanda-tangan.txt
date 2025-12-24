@@ -1,0 +1,7 @@
+4.3.3.6. Activity Diagram Mengelola Pengaturan Tanda Tangan
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.25 Activity Diagram Mengelola Pengaturan Tanda Tangan
+
+Activity diagram Mengelola Pengaturan Tanda Tangan diatas menggambarkan alur Direktur mengakses konfigurasi tanda tangan. Dimulai dari Direktur membuka menu Pengaturan, kemudian sistem menampilkan berbagai opsi pengaturan yang tersedia. Setelah itu, Direktur memilih menu Tanda Tangan. Terakhir, sistem menampilkan daftar tanda tangan yang sudah tersimpan di dalam sistem.

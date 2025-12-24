@@ -1,0 +1,7 @@
+4.3.3.11. Activity Diagram Membuat Penawaran
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.30 Activity Diagram Membuat Penawaran
+
+Activity diagram Membuat Penawaran diatas menggambarkan alur Direktur membuat dokumen penawaran harga. Dimulai dari Direktur menekan tombol Tambah Penawaran, lalu sistem menampilkan formulir penawaran. Direktur memilih prospek terkait dan menambahkan item produk beserta kuantitasnya, kemudian sistem secara otomatis menghitung total harga. Selanjutnya, Direktur menekan tombol Simpan dan sistem melakukan validasi data. Jika valid, sistem menyimpan data penawaran ke dalam database dan proses selesai.

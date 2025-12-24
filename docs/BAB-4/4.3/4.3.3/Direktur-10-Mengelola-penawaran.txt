@@ -1,0 +1,7 @@
+4.3.3.10. Activity Diagram Mengelola Penawaran
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.29 Activity Diagram Mengelola Penawaran
+
+Activity diagram Mengelola Penawaran diatas menggambarkan alur Direktur mengakses dokumen penawaran harga. Dimulai dari Direktur memilih menu Penawaran, kemudian sistem menampilkan daftar penawaran yang ada. Setelah itu, Direktur mengklik salah satu penawaran untuk melihat rinciannya. Terakhir, sistem menampilkan detail item produk, harga, dan informasi terkait penawaran tersebut.

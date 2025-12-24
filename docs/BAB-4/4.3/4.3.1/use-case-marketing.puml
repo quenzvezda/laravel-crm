@@ -1,0 +1,41 @@
+@startuml
+left to right direction
+actor "Marketing" as M
+
+package "Sistem CRM PT. Famindo" {
+    usecase "Masuk akun" as UC_Login
+    usecase "Keluar akun" as UC_Logout
+    usecase "Beranda" as UC_Home
+
+    ' Grup Modul CRM (Operasional)
+    usecase "Mengelola prospek" as UC_Manage_Prospect
+    usecase "Membuat prospekbaru" as UC_Create_Prospect
+    usecase "Membuat aktivitas" as UC_Create_Activity
+    usecase "Mengelola penawaran" as UC_Manage_Quote
+    usecase "Membuat penawaran" as UC_Create_Quote
+    usecase "Mengelola kontakindividu" as UC_Manage_ContactInd
+    usecase "Membuat kontakindividu" as UC_Create_ContactInd
+    usecase "Mengelola kontakorganisasi" as UC_Manage_ContactOrg
+    usecase "Membuat kontakorganisasi" as UC_Create_ContactOrg
+
+    ' Relasi Aktor
+    M --> UC_Login
+
+    ' Relasi Include
+    UC_Home ..> UC_Login : <<include>>
+    UC_Login <.. UC_Logout : <<include>>
+
+    ' Relasi Extend ke Beranda (Menu Utama)
+    UC_Manage_Prospect ..> UC_Home : <<extend>>
+    UC_Manage_Quote ..> UC_Home : <<extend>>
+    UC_Manage_ContactInd ..> UC_Home : <<extend>>
+    UC_Manage_ContactOrg ..> UC_Home : <<extend>>
+
+    ' Relasi Extend Sub-Fitur (CRUD)
+    UC_Create_Prospect ..> UC_Manage_Prospect : <<extend>>
+    UC_Create_Activity ..> UC_Manage_Prospect : <<extend>>
+    UC_Create_Quote ..> UC_Manage_Quote : <<extend>>
+    UC_Create_ContactInd ..> UC_Manage_ContactInd : <<extend>>
+    UC_Create_ContactOrg ..> UC_Manage_ContactOrg : <<extend>>
+}
+@enduml

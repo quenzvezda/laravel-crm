@@ -1,0 +1,7 @@
+4.3.3.10. Activity Diagram Mengelola Kontak Organisasi (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.48 Activity Diagram Mengelola Kontak Organisasi (Marketing)
+
+Activity diagram Mengelola Kontak Organisasi diatas menggambarkan alur Marketing meninjau profil perusahaan klien. Dimulai dari Marketing membuka menu Kontak (Organisasi), sistem menampilkan daftar perusahaan. Marketing melihat detail alamat, kemudian sistem menampilkan informasi detail perusahaan tersebut.

@@ -1,0 +1,7 @@
+4.3.3.5. Activity Diagram Membuat Prospek Baru (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.43 Activity Diagram Membuat Prospek Baru (Marketing)
+
+Activity diagram Membuat Prospek Baru diatas menggambarkan alur Marketing menambahkan peluang bisnis. Dimulai dari Marketing menekan tombol Tambah Prospek, lalu sistem menampilkan formulir input. Marketing mengisi data prospek secara lengkap, kemudian menekan tombol Simpan. Sistem memvalidasi kelengkapan data. Jika valid, sistem menyimpan data prospek ke database dan menampilkan pesan sukses.

@@ -1,0 +1,7 @@
+4.3.3.13. Activity Diagram Membuat Aktivitas
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.32 Activity Diagram Membuat Aktivitas
+
+Activity diagram Membuat Aktivitas diatas menggambarkan alur Direktur menjadwalkan kegiatan baru. Dimulai dari Direktur menekan tombol Tambah Aktivitas, lalu sistem menampilkan formulir penjadwalan. Direktur menentukan tipe kegiatan, waktu pelaksanaan, serta peserta yang terlibat, kemudian menekan tombol Simpan. Sistem melakukan validasi terhadap input data. Jika data valid, sistem menyimpan jadwal tersebut ke dalam kalender sistem dan proses selesai.

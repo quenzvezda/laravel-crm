@@ -1,0 +1,7 @@
+4.3.3.15. Activity Diagram Membuat Kontak Individu
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.34 Activity Diagram Membuat Kontak Individu
+
+Activity diagram Membuat Kontak Individu diatas menggambarkan alur Direktur menambahkan data person baru. Dimulai dari Direktur menekan tombol Tambah Kontak Individu, lalu sistem menampilkan formulir input. Direktur mengisi informasi seperti nama, email, dan organisasi terkait, kemudian menekan tombol Simpan. Sistem melakukan validasi terhadap data yang dimasukkan. Jika valid, sistem menyimpan data kontak tersebut ke dalam database dan proses selesai.

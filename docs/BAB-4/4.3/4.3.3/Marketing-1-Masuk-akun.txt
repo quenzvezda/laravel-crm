@@ -1,0 +1,7 @@
+4.3.3.1. Activity Diagram Masuk Akun (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.39 Activity Diagram Masuk Akun (Marketing)
+
+Activity diagram Masuk Akun diatas menggambarkan alur otentikasi Marketing ke dalam sistem. Dimulai dari Marketing membuka halaman website CRM, kemudian sistem menampilkan halaman Login. Setelah itu, Marketing memasukkan email dan password lalu menekan tombol Masuk. Sistem memvalidasi data kredensial tersebut. Jika data valid, sistem menampilkan halaman Beranda (Dashboard) dan proses selesai. Jika tidak valid, sistem menampilkan pesan error dan meminta input ulang.

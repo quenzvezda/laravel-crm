@@ -1,0 +1,7 @@
+4.3.3.2. Activity Diagram Keluar Akun
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.21 Activity Diagram Keluar Akun
+
+Activity diagram Keluar Akun diatas menggambarkan alur Direktur mengakhiri sesi penggunaan sistem dimulai dari Direktur memilih menu profil. Kemudian sistem menampilkan opsi dropdown. Setelah itu, Direktur menekan tombol Logout. Sistem kemudian menghapus sesi aktif dan menampilkan kembali halaman Login sebagai konfirmasi bahwa proses keluar akun berhasil.

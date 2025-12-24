@@ -1,0 +1,7 @@
+4.3.3.17. Activity Diagram Membuat Kontak Organisasi
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.36 Activity Diagram Membuat Kontak Organisasi
+
+Activity diagram Membuat Kontak Organisasi diatas menggambarkan alur Direktur mendaftarkan perusahaan klien baru. Dimulai dari Direktur menekan tombol Tambah Organisasi, lalu sistem menampilkan formulir input. Direktur mengisi nama perusahaan, alamat, dan detail lainnya, kemudian menekan tombol Simpan. Sistem memvalidasi data tersebut. Jika valid, sistem mencatat organisasi baru ke dalam database dan proses selesai.

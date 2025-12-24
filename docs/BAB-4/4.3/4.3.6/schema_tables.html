@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Database Schema Tables</title>
+    <style>
+        body { font-family: 'Times New Roman', serif; line-height: 1.6; }
+        .table-container { margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+        th, td { border: 1px solid #000; padding: 5px; text-align: left; vertical-align: top; }
+        th { background-color: #f2f2f2; font-weight: bold; text-align: center; }
+        .table-caption { font-weight: bold; margin-bottom: 5px; }
+        .center { text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel User: Tabel untuk menyimpan data pengguna aplikasi</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>name</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Nama lengkap pengguna</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>email</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Alamat email pengguna (Unique)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>password</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Password terenkripsi (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>status</td>
+                    <td>boolean</td>
+                    <td class="center">-</td>
+                    <td>Status aktif pengguna (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>role_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel roles (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Role: Tabel untuk menyimpan data peran (role) pengguna</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>name</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Nama role</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>description</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Deskripsi role (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>permission_type</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Tipe permission</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>permissions</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Daftar hak akses dalam format JSON (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Lead: Tabel utama untuk menyimpan data prospek (leads)</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>title</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Judul lead</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>description</td>
+                    <td>text</td>
+                    <td class="center">-</td>
+                    <td>Deskripsi lead (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>lead_value</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Nilai estimasi lead (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>status</td>
+                    <td>boolean</td>
+                    <td class="center">-</td>
+                    <td>Status lead (won/lost) (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>lost_reason</td>
+                    <td>text</td>
+                    <td class="center">-</td>
+                    <td>Alasan jika lead gagal (lost) (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>closed_at</td>
+                    <td>datetime</td>
+                    <td class="center">-</td>
+                    <td>Waktu lead ditutup (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>user_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel users (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">9</td>
+                    <td>person_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel persons (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">10</td>
+                    <td>lead_source_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel lead_sources (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">11</td>
+                    <td>lead_type_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel lead_types (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">12</td>
+                    <td>lead_pipeline_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel lead_pipelines (Unsigned, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">13</td>
+                    <td>lead_stage_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel lead_stages (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">14</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">15</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Lead Product: Tabel pivot untuk menyimpan produk yang terkait dengan lead</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>quantity</td>
+                    <td>int</td>
+                    <td class="center">11</td>
+                    <td>Jumlah produk (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>price</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Harga satuan (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>amount</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Total harga (qty * price) (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>lead_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel leads (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>product_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel products (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Quote: Tabel untuk menyimpan data penawaran (quotes)</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>subject</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Subjek penawaran</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>description</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Deskripsi penawaran (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>billing_address</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Alamat tagihan (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>shipping_address</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Alamat pengiriman (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>discount_percent</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Persentase diskon (Default: 0, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>discount_amount</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Nominal diskon (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>tax_amount</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Nominal pajak (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">9</td>
+                    <td>adjustment_amount</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Nominal penyesuaian (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">10</td>
+                    <td>sub_total</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Sub total sebelum pajak/diskon (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">11</td>
+                    <td>grand_total</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Total akhir (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">12</td>
+                    <td>expired_at</td>
+                    <td>datetime</td>
+                    <td class="center">-</td>
+                    <td>Waktu kadaluarsa penawaran (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">13</td>
+                    <td>person_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel persons (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">14</td>
+                    <td>user_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel users (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">15</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">16</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Quote Item: Tabel detail item dalam sebuah penawaran</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>sku</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>SKU produk saat di-quote (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>name</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Nama produk saat di-quote (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>quantity</td>
+                    <td>int</td>
+                    <td class="center">11</td>
+                    <td>Jumlah item (Default: 0, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>price</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Harga satuan (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>coupon_code</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Kode kupon (jika ada) (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>discount_percent</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Persentase diskon item (Default: 0, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>discount_amount</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Nominal diskon item (Default: 0, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">9</td>
+                    <td>tax_percent</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Persentase pajak item (Default: 0, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">10</td>
+                    <td>tax_amount</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Nominal pajak item (Default: 0, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">11</td>
+                    <td>total</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Total harga item (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">12</td>
+                    <td>product_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel products (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">13</td>
+                    <td>quote_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel quotes (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">14</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">15</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Person: Tabel untuk menyimpan data kontak perorangan</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>name</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Nama lengkap</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>emails</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Daftar email (JSON)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>contact_numbers</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Daftar nomor kontak (JSON) (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>organization_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel organizations (Unsigned, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Organization: Tabel untuk menyimpan data organisasi/perusahaan</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>name</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Nama organisasi</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>address</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Alamat organisasi (JSON) (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Product: Tabel master data produk</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>sku</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Stock Keeping Unit (Unique)</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>name</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Nama produk (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>description</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Deskripsi produk (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>quantity</td>
+                    <td>int</td>
+                    <td class="center">11</td>
+                    <td>Stok tersedia (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>price</td>
+                    <td>decimal</td>
+                    <td class="center">12,4</td>
+                    <td>Harga dasar (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Activity: Tabel untuk mencatat aktivitas (meeting, call, dll)</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>title</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Judul aktivitas (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>type</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Tipe aktivitas (call, meeting, lunch, etc)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>comment</td>
+                    <td>text</td>
+                    <td class="center">-</td>
+                    <td>Catatan aktivitas (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>additional</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Data tambahan (JSON) (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>schedule_from</td>
+                    <td>datetime</td>
+                    <td class="center">-</td>
+                    <td>Waktu mulai (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>schedule_to</td>
+                    <td>datetime</td>
+                    <td class="center">-</td>
+                    <td>Waktu selesai (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>is_done</td>
+                    <td>boolean</td>
+                    <td class="center">-</td>
+                    <td>Status selesai (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">9</td>
+                    <td>user_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel users (Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">10</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">11</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Signature: Tabel untuk menyimpan data tanda tangan digital</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>bigint</td>
+                    <td class="center">20</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>name</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Nama internal tanda tangan</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>owner_name</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Nama pemilik tanda tangan</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>image_path</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Path file gambar</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>is_active</td>
+                    <td>boolean</td>
+                    <td class="center">-</td>
+                    <td>Status aktif (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Apriori Run: Tabel untuk menyimpan riwayat eksekusi analisis Apriori</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>bigint</td>
+                    <td class="center">20</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>name</td>
+                    <td>varchar</td>
+                    <td class="center">255</td>
+                    <td>Label/nama run (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>period_start</td>
+                    <td>date</td>
+                    <td class="center">-</td>
+                    <td>Awal periode data transaksi (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>period_end</td>
+                    <td>date</td>
+                    <td class="center">-</td>
+                    <td>Akhir periode data transaksi (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>support</td>
+                    <td>decimal</td>
+                    <td class="center">8,5</td>
+                    <td>Parameter min support (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>confidence</td>
+                    <td>decimal</td>
+                    <td class="center">8,5</td>
+                    <td>Parameter min confidence (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>min_items</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Parameter min items per transaksi (Default: 1, Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>filters_json</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Filter tambahan (JSON) (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">9</td>
+                    <td>transactions_count</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Jumlah transaksi yang dianalisis (Default: 0, Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">10</td>
+                    <td>rules_count</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Jumlah rules yang dihasilkan (Default: 0, Unsigned)</td>
+                </tr>
+                <tr>
+                    <td class="center">11</td>
+                    <td>status</td>
+                    <td>varchar</td>
+                    <td class="center">32</td>
+                    <td>Status eksekusi (Default: 'processing')</td>
+                </tr>
+                <tr>
+                    <td class="center">12</td>
+                    <td>is_active</td>
+                    <td>boolean</td>
+                    <td class="center">-</td>
+                    <td>Menandakan snapshot aktif untuk rekomendasi (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">13</td>
+                    <td>error_message</td>
+                    <td>text</td>
+                    <td class="center">-</td>
+                    <td>Pesan error jika gagal (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">14</td>
+                    <td>created_by</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel users (Unsigned, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">15</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">16</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Apriori Rule: Tabel untuk menyimpan aturan asosiasi (rules) hasil Apriori</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>bigint</td>
+                    <td class="center">20</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>run_id</td>
+                    <td>bigint</td>
+                    <td class="center">20</td>
+                    <td>Foreign Key ke tabel apriori_runs (Unsigned, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>lhs</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Left Hand Side (Antecedent)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>rhs</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Right Hand Side (Consequent)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>support</td>
+                    <td>decimal</td>
+                    <td class="center">10,6</td>
+                    <td>Nilai Support (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>confidence</td>
+                    <td>decimal</td>
+                    <td class="center">10,6</td>
+                    <td>Nilai Confidence (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>lift</td>
+                    <td>decimal</td>
+                    <td class="center">10,6</td>
+                    <td>Nilai Lift (Default: 0)</td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>period_start</td>
+                    <td>datetime</td>
+                    <td class="center">-</td>
+                    <td>Awal periode data (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">9</td>
+                    <td>period_end</td>
+                    <td>datetime</td>
+                    <td class="center">-</td>
+                    <td>Akhir periode data (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">10</td>
+                    <td>params_json</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Parameter snapshot (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">11</td>
+                    <td>created_by</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel users (Unsigned, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">12</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">13</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="table-caption">Tabel Apriori Transaction: Tabel untuk menyimpan snapshot transaksi yang dianalisis</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="25%">Nama Field</th>
+                    <th width="15%">Jenis</th>
+                    <th width="10%">Ukuran</th>
+                    <th width="45%">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>id</td>
+                    <td>bigint</td>
+                    <td class="center">20</td>
+                    <td>Primary Key, Auto Increment, Unsigned</td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>run_id</td>
+                    <td>bigint</td>
+                    <td class="center">20</td>
+                    <td>Foreign Key ke tabel apriori_runs (Unsigned, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>lead_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel leads (Unsigned, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>quote_id</td>
+                    <td>int</td>
+                    <td class="center">10</td>
+                    <td>Foreign Key ke tabel quotes (Unsigned, Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>items</td>
+                    <td>json</td>
+                    <td class="center">-</td>
+                    <td>Daftar item dalam transaksi (JSON)</td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>created_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data dibuat (Nullable)</td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>updated_at</td>
+                    <td>timestamp</td>
+                    <td class="center">-</td>
+                    <td>Waktu data terakhir diubah (Nullable)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

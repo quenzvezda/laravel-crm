@@ -1,0 +1,7 @@
+4.3.3.14. Activity Diagram Mengelola Kontak Individu
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.33 Activity Diagram Mengelola Kontak Individu
+
+Activity diagram Mengelola Kontak Individu diatas menggambarkan alur Direktur mengakses database pelanggan individu. Dimulai dari Direktur memilih menu Kontak (Orang), kemudian sistem menampilkan daftar orang yang terdaftar. Selanjutnya, Direktur melakukan pencarian berdasarkan nama kontak. Terakhir, sistem memfilter data dan menampilkan hasil pencarian kontak individu sesuai permintaan Direktur.

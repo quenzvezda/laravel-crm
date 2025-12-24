@@ -1,0 +1,7 @@
+4.3.3.8. Activity Diagram Mengelola Kontak Individu (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.46 Activity Diagram Mengelola Kontak Individu (Marketing)
+
+Activity diagram Mengelola Kontak Individu diatas menggambarkan alur Marketing mengakses database pelanggan. Dimulai dari Marketing membuka menu Kontak (Orang), sistem menampilkan daftar individu. Marketing mencari nama kontak, lalu sistem memfilter dan menampilkan hasil pencarian yang relevan.

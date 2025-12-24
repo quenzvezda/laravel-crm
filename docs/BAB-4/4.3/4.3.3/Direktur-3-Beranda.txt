@@ -1,0 +1,7 @@
+4.3.3.3. Activity Diagram Beranda
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.22 Activity Diagram Beranda
+
+Activity diagram Beranda diatas menggambarkan alur sistem menampilkan informasi operasional kepada Direktur. Dimulai dari Direktur mengakses halaman utama (Dashboard), kemudian sistem memuat data ringkasan operasional. Terakhir, sistem menampilkan Dashboard berisi widget statistik penjualan dan aktivitas kepada Direktur.

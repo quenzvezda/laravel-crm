@@ -1,0 +1,7 @@
+4.3.3.12. Activity Diagram Mengelola Aktivitas (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.50 Activity Diagram Mengelola Aktivitas (Marketing)
+
+Activity diagram Mengelola Aktivitas diatas menggambarkan alur Marketing memantau jadwal tim. Dimulai dari Marketing membuka menu Aktivitas, sistem menampilkan kalender kegiatan. Marketing melihat detail aktivitas, lalu sistem menampilkan informasi waktu dan PIC dari aktivitas tersebut.

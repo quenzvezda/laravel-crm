@@ -1,0 +1,7 @@
+4.3.3.16. Activity Diagram Mengelola Kontak Organisasi
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.35 Activity Diagram Mengelola Kontak Organisasi
+
+Activity diagram Mengelola Kontak Organisasi diatas menggambarkan alur Direktur melihat data perusahaan klien. Dimulai dari Direktur membuka menu Organisasi, kemudian sistem menampilkan daftar perusahaan yang terdaftar. Selanjutnya, Direktur memilih salah satu organisasi untuk melihat rinciannya. Terakhir, sistem menampilkan informasi detail seperti alamat dan kontak perusahaan tersebut.

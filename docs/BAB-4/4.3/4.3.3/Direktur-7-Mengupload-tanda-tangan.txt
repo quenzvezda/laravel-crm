@@ -1,0 +1,7 @@
+4.3.3.7. Activity Diagram Mengupload Tanda Tangan
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.26 Activity Diagram Mengupload Tanda Tangan
+
+Activity diagram Mengupload Tanda Tangan diatas menggambarkan alur Direktur menambahkan aset digital tanda tangan. Dimulai dari Direktur menekan tombol Tambah, lalu sistem menampilkan form upload. Direktur mengisi nama label dan memilih file gambar, kemudian menekan tombol Simpan. Sistem kemudian memvalidasi file tersebut. Jika valid, sistem mengunggah file ke storage, menyimpan referensinya ke database, dan menampilkan data yang tersimpan di tabel.

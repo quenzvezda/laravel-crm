@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Skenario Use Case - Marketing</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            padding: 20px;
+        }
+        h2 {
+            margin-top: 40px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+        .sc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12pt;
+            margin-bottom: 40px;
+        }
+        .sc-table td, .sc-table th {
+            border: 1px solid black;
+            padding: 5px 8px;
+            vertical-align: top;
+        }
+        .sc-header {
+            font-weight: bold;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        .sc-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Masuk Akun -->
+    <h2>1. Skenario: Masuk Akun</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Masuk akun</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-01</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Otentikasi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Aktor melakukan proses otentikasi untuk masuk ke dalam sistem CRM.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Aktor mengakses URL sistem CRM.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor membuka halaman website CRM</td>
+            <td>Sistem menampilkan halaman Login</td>
+        </tr>
+        <tr>
+            <td>2. Aktor memasukkan email dan password</td>
+            <td>Input data kredensial</td>
+        </tr>
+        <tr>
+            <td>3. Aktor menekan tombol Masuk</td>
+            <td>Sistem memvalidasi data ke database</td>
+        </tr>
+        <tr>
+            <td>4. Sistem memverifikasi kecocokan data</td>
+            <td>Validasi sukses</td>
+        </tr>
+        <tr>
+            <td>5. Sistem mengarahkan ke halaman Beranda</td>
+            <td>Menampilkan Dashboard Utama</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor belum masuk ke sistem.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Aktor masuk ke dashboard utama.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memasukkan kredensial yang valid.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor berhasil masuk ke sistem.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Kredensial tidak valid atau akun terkunci.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Tinggi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Tinggi</td>
+        </tr>
+    </table>
+
+    <!-- 2. Keluar Akun -->
+    <h2>2. Skenario: Keluar Akun</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Keluar akun</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-02</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Otentikasi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Aktor mengakhiri sesi penggunaan sistem.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Aktor menekan tombol Logout pada menu profil.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor mengklik menu profil/akun</td>
+            <td>Sistem menampilkan opsi dropdown</td>
+        </tr>
+        <tr>
+            <td>2. Aktor memilih opsi Logout</td>
+            <td>Sistem memproses permintaan logout</td>
+        </tr>
+        <tr>
+            <td>3. Sistem menghapus sesi aktif</td>
+            <td>Sesi diakhiri</td>
+        </tr>
+        <tr>
+            <td>4. Sistem mengarahkan kembali ke halaman Login</td>
+            <td>Menampilkan halaman login</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di dashboard sistem.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Sesi pengguna berakhir.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memilih menu logout.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor berhasil keluar dari sistem.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Gagal memutus sesi server.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Sedang</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+    <!-- 3. Beranda -->
+    <h2>3. Skenario: Beranda</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Beranda</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-03</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Dashboard</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Menampilkan ringkasan informasi operasional (Dashboard).</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Aktor berhasil login atau mengklik menu Dashboard.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor mengakses halaman utama</td>
+            <td>Sistem memuat data ringkasan (Prospek, Penawaran, dan Produk Terlaris)</td>
+        </tr>
+        <tr>
+            <td>2. Sistem menampilkan widget statistik</td>
+            <td>Menampilkan grafik/angka total penjualan, aktivitas, dll</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berhasil login.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Dashboard operasional ditampilkan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Sistem memuat widget statistik.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor melihat ringkasan kinerja.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Gagal memuat widget statistik.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Sedang</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+    <!-- 4. Mengelola Prospek -->
+    <h2>4. Skenario: Mengelola Prospek</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Mengelola prospek</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-04</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Operasional CRM</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Melihat, mencari, dan memfilter daftar prospek (Prospeks) penjualan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Memilih menuProspek.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor membuka menuProspek</td>
+            <td>Sistem menampilkan view Kanban atau List</td>
+        </tr>
+        <tr>
+            <td>2. Aktor melakukan filter atau pencarian</td>
+            <td>Sistem memfilter data sesuai kriteria</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menuProspek.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar prospek ditampilkan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor melakukan filter atau pencarian.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mengelola data prospek.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Data prospek tidak ditemukan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Tinggi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+    <!-- 5. Membuat Prospek Baru -->
+    <h2>5. Skenario: Membuat Prospek Baru</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Membuat prospek baru</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-05</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Operasional CRM</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Menambahkan data peluang bisnis baru ke dalam sistem.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Tombol "Tambah Prospek".</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor menekan tombol Tambah Prospek</td>
+            <td>Sistem menampilkan formulir Prospek</td>
+        </tr>
+        <tr>
+            <td>2. Aktor mengisi data (Judul, Nilai, Kontak, Pipeline)</td>
+            <td>Input data prospek</td>
+        </tr>
+        <tr>
+            <td>3. Aktor menekan Simpan</td>
+            <td>Sistem memvalidasi dan menyimpan data</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halamanProspek.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Data prospek berhasil disimpan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mengisi form prospek dengan lengkap.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor menambahkan peluang bisnis baru.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Validasi data input gagal.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Tinggi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+    <!-- 6. Mengelola Penawaran -->
+    <h2>6. Skenario: Mengelola Penawaran</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Mengelola penawaran</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-06</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Operasional CRM</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Mengakses daftar Penawaran, melihat detail, dan mencetak dokumen.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Memilih menu Penawaran.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor membuka menu Penawaran</td>
+            <td>Sistem menampilkan daftar penawaran</td>
+        </tr>
+        <tr>
+            <td>2. Aktor mengklik salah satu penawaran</td>
+            <td>Sistem menampilkan detail item dan harga</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menu Penawaran.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar penawaran ditampilkan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memilih salah satu penawaran.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor melihat detail penawaran.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Gagal mengambil data penawaran.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Tinggi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Sedang</td>
+        </tr>
+    </table>
+
+    <!-- 7. Membuat Penawaran -->
+    <h2>7. Skenario: Membuat Penawaran</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Membuat penawaran</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-07</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Operasional CRM</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Membuat dokumen penawaran harga untuk klien berdasarkan produk/jasa.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Tombol "Tambah Penawaran".</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor menekan tombol Tambah Penawaran</td>
+            <td>Sistem menampilkan form pembuatan penawaran</td>
+        </tr>
+        <tr>
+            <td>2. Aktor memilih Prospek terkait dan Subjek</td>
+            <td>Menghubungkan penawaran dengan prospek</td>
+        </tr>
+        <tr>
+            <td>3. Aktor menambahkan item produk dan kuantitas</td>
+            <td>Sistem menghitung total harga</td>
+        </tr>
+        <tr>
+            <td>4. Aktor menekan Simpan</td>
+            <td>Penawaran tersimpan di database</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Penawaran.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Data penawaran berhasil disimpan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor melengkapi item produk dan harga.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor membuat dokumen penawaran resmi.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Stok produk tidak mencukupi atau harga invalid.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Tinggi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Sedang</td>
+        </tr>
+    </table>
+
+    <!-- 8. Mengelola Kontak Individu -->
+    <h2>8. Skenario: Mengelola Kontak Individu</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Mengelola kontak individu</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-08</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Master Data</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Mengelola database person (CP) dari klien.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Menu Contacts -> Persons.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor membuka menu Persons</td>
+            <td>Sistem menampilkan daftar orang</td>
+        </tr>
+        <tr>
+            <td>2. Aktor mencari nama kontak</td>
+            <td>Sistem memfilter hasil</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menu Persons.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar kontak individu ditampilkan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mencari data kontak.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mengelola informasi personal klien.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Duplikasi data kontak.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Sedang</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+    <!-- 9. Membuat Kontak Individu -->
+    <h2>9. Skenario: Membuat Kontak Individu</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Membuat kontak individu</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-09</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Master Data</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Menambahkan data person baru.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Tombol "Tambah Kontak Individu".</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor menekan tombol Tambah Kontak Individu</td>
+            <td>Formulir kontak muncul</td>
+        </tr>
+        <tr>
+            <td>2. Aktor mengisi Nama, Email, No HP, Organisasi</td>
+            <td>Input data diri</td>
+        </tr>
+        <tr>
+            <td>3. Aktor menyimpan data</td>
+            <td>Sistem menyimpan ke database</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Persons.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Data kontak berhasil disimpan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mengisi detail informasi kontak.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor menambahkan data person baru.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Format email atau nomor telepon salah.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Sedang</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+    <!-- 10. Mengelola Kontak Organisasi -->
+    <h2>10. Skenario: Mengelola Kontak Organisasi</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Mengelola kontak organisasi</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-10</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Master Data</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Mengelola data perusahaan klien (Organizations).</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Menu Contacts -> Organizations.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor membuka menu Organizations</td>
+            <td>Sistem menampilkan daftar perusahaan klien</td>
+        </tr>
+        <tr>
+            <td>2. Aktor melihat detail alamat dan info perusahaan</td>
+            <td>Informasi detail</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menu Organizations.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar perusahaan klien ditampilkan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor meninjau profil perusahaan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mengelola data organisasi.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Data organisasi tidak lengkap.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Sedang</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+    <!-- 11. Membuat Kontak Organisasi -->
+    <h2>11. Skenario: Membuat Kontak Organisasi</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Membuat kontak organisasi</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-11</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Master Data</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Menambahkan entitas perusahaan klien baru.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Tombol "Tambah Organisasi".</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor menekan tombol Tambah Organisasi</td>
+            <td>Formulir muncul</td>
+        </tr>
+        <tr>
+            <td>2. Aktor mengisi Nama Perusahaan, Alamat, dll</td>
+            <td>Input data organisasi</td>
+        </tr>
+        <tr>
+            <td>3. Aktor menyimpan data</td>
+            <td>Sistem mencatat organisasi baru</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Organizations.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Data organisasi berhasil disimpan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor melengkapi alamat dan detail perusahaan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mendaftarkan perusahaan klien baru.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Nama perusahaan sudah terdaftar.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Sedang</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+    <!-- 12. Skenario: Mengelola Aktivitas (DIHAPUS) -->
+
+    <!-- 13. Membuat Aktivitas -->
+    <h2>13. Skenario: Membuat Aktivitas</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Membuat aktivitas</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-MKT-13</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Operasional CRM</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Marketing</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Menjadwalkan kegiatan baru (meeting/call).</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Menekan tombol "Tambah Aktivitas" dari dalam halaman detail Prospek.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor menekan tombol tambah aktivitas</td>
+            <td>Formulir jadwal muncul</td>
+        </tr>
+        <tr>
+            <td>2. Aktor menentukan tipe, waktu, dan peserta</td>
+            <td>Input detail kegiatan</td>
+        </tr>
+        <tr>
+            <td>3. Aktor menyimpan aktivitas</td>
+            <td>Tersimpan di kalender sistem</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman detail Prospek.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Jadwal baru berhasil disimpan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor menentukan waktu dan peserta meeting.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor menetapkan agenda kegiatan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Bentrok jadwal dengan aktivitas lain.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Sedang</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+</body>
+</html>

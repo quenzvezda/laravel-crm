@@ -1,0 +1,7 @@
+4.3.3.4. Activity Diagram Mengelola Prospek (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.42 Activity Diagram Mengelola Prospek (Marketing)
+
+Activity diagram Mengelola Prospek diatas menggambarkan alur Marketing mencari data peluang penjualan. Dimulai dari Marketing memilih menu Prospek, sistem menampilkan daftar prospek dalam view kanban atau tabel. Marketing melakukan pencarian atau filter, lalu sistem menampilkan hasil filter yang sesuai.

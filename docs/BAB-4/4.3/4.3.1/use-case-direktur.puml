@@ -1,0 +1,65 @@
+Ini adalah struktur Use Case Diagram untuk aktor "Direktur" pada sistem CRM PT. Famindo. Tolong pelajari struktur ini untuk konteks pengembangan selanjutnya:
+
+@startuml
+left to right direction
+actor "Direktur" as D
+
+package "Sistem CRM PT. Famindo" {
+    usecase "Masuk akun" as UC_Login
+    usecase "Keluar akun" as UC_Logout
+    usecase "Beranda" as UC_Home
+
+    ' Grup Analisis
+    usecase "Mengelola analitik\nmarket basket" as UC_Manage_MBA
+    usecase "Melakukan analisis\nmarket basket" as UC_Do_MBA
+
+    ' Grup Pengaturan
+    usecase "Mengelola pengaturan\ntanda tangan" as UC_Manage_Sign
+    usecase "Mengupload tanda\ntangan" as UC_Upload_Sign
+
+    ' Grup Modul CRM (Operational)
+    usecase "Mengelola prospek" as UC_Manage_Prospect
+    usecase "Membuat prospek\nbaru" as UC_Create_Prospect
+    usecase "Membuat aktivitas" as UC_Create_Activity
+
+    usecase "Mengelola penawaran" as UC_Manage_Quote
+    usecase "Membuat penawaran" as UC_Create_Quote
+
+    usecase "Mengelola kontak\nindividu" as UC_Manage_ContactInd
+    usecase "Membuat kontak\nindividu" as UC_Create_ContactInd
+
+    usecase "Mengelola kontak\norganisasi" as UC_Manage_ContactOrg
+    usecase "Membuat kontak\norganisasi" as UC_Create_ContactOrg
+
+    usecase "Mengelola produk" as UC_Manage_Product
+    usecase "Membuat produk" as UC_Create_Product
+
+    ' Relasi Aktor
+    D --> UC_Login
+
+    ' Relasi Include (Wajib)
+    UC_Home ..> UC_Login : <<include>>
+    UC_Login <.. UC_Logout : <<include>>
+
+    ' Relasi Extend ke Beranda (Menu Utama)
+    UC_Manage_MBA ..> UC_Home : <<extend>>
+    UC_Manage_Sign ..> UC_Home : <<extend>>
+    UC_Manage_Prospect ..> UC_Home : <<extend>>
+    UC_Manage_Quote ..> UC_Home : <<extend>>
+    UC_Manage_ContactInd ..> UC_Home : <<extend>>
+    UC_Manage_ContactOrg ..> UC_Home : <<extend>>
+    UC_Manage_Product ..> UC_Home : <<extend>>
+
+    ' Relasi Extend Sub-Fitur (CRUD / Operasional)
+    UC_Create_Prospect ..> UC_Manage_Prospect : <<extend>>
+    UC_Create_Activity ..> UC_Manage_Prospect : <<extend>>
+    UC_Create_Quote ..> UC_Manage_Quote : <<extend>>
+    UC_Create_ContactInd ..> UC_Manage_ContactInd : <<extend>>
+    UC_Create_ContactOrg ..> UC_Manage_ContactOrg : <<extend>>
+    UC_Create_Product ..> UC_Manage_Product : <<extend>>
+
+    ' Relasi Extend Sub-Fitur (Analisis & Pengaturan)
+    UC_Do_MBA ..> UC_Manage_MBA : <<extend>>
+    UC_Upload_Sign ..> UC_Manage_Sign : <<extend>>
+}
+@enduml

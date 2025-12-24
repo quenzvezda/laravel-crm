@@ -1,0 +1,7 @@
+4.3.3.9. Activity Diagram Membuat Kontak Individu (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.47 Activity Diagram Membuat Kontak Individu (Marketing)
+
+Activity diagram Membuat Kontak Individu diatas menggambarkan alur Marketing menambahkan data person baru. Dimulai dari Marketing menekan tombol Tambah Kontak Individu, sistem menampilkan formulir. Marketing mengisi informasi kontak, lalu menekan Simpan. Sistem memvalidasi data. Jika valid, sistem menyimpan data ke database.

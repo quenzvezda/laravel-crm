@@ -1,0 +1,7 @@
+4.3.3.13. Activity Diagram Membuat Aktivitas (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.51 Activity Diagram Membuat Aktivitas (Marketing)
+
+Activity diagram Membuat Aktivitas diatas menggambarkan alur Marketing menjadwalkan kegiatan baru. Dimulai dari Marketing menekan tombol Tambah Aktivitas, sistem menampilkan formulir jadwal. Marketing mengisi detail kegiatan, lalu menekan Simpan. Sistem memvalidasi data. Jika valid, sistem menyimpan jadwal ke kalender sistem.

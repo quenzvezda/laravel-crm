@@ -1,0 +1,107 @@
+<mxfile host="app.diagrams.net" modified="2025-12-24T12:00:00.000Z" agent="Gemini-CLI" etag="v1" version="21.0.0" type="device">
+  <diagram id="LoginMarketing" name="Masuk Akun Marketing">
+    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- SWIMLANES -->
+        <mxCell id="swim_actor" value="Marketing" style="swimlane;html=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="300" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="swim_system" value="Sistem" style="swimlane;html=1;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="340" y="40" width="300" height="700" as="geometry" />
+        </mxCell>
+
+        <!-- NODES -->
+        <mxCell id="start" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;" vertex="1" parent="swim_actor">
+          <mxGeometry x="135" y="50" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_1" value="Membuka halaman website CRM" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swim_actor">
+          <mxGeometry x="70" y="110" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys_1" value="Menampilkan halaman Login" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swim_system">
+          <mxGeometry x="70" y="110" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_2" value="Memasukkan email dan password" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swim_actor">
+          <mxGeometry x="70" y="190" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_3" value="Menekan tombol Masuk" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swim_actor">
+          <mxGeometry x="70" y="270" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys_2" value="Validasi data?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="swim_system">
+          <mxGeometry x="110" y="255" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys_fail" value="Menampilkan pesan error" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swim_system">
+          <mxGeometry x="70" y="380" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys_success" value="Menampilkan halaman Beranda" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swim_system">
+          <mxGeometry x="70" y="480" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="end" value="" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;strokeColor=#ffffff;" vertex="1" parent="swim_system">
+          <mxGeometry x="135" y="580" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="start" target="act_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="act_1" target="sys_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sys_1" target="act_2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="420" y="180" /><mxPoint x="190" y="180" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="act_2" target="act_3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="act_3" target="sys_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6_no" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_2" target="act_2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="600" y="295" /><mxPoint x="600" y="405" /><mxPoint x="420" y="405" /><mxPoint x="420" y="450" /><mxPoint x="600" y="450" /><mxPoint x="600" y="215" /></Array> <!-- Adjusted for visual loop, simplified: sys_fail -> act_2 -->
+          </mxGeometry>
+        </mxCell>
+         <mxCell id="e6_fail" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sys_2" target="sys_fail">
+             <mxGeometry relative="1" as="geometry" />
+         </mxCell>
+         <mxCell id="e7_loop" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_fail" target="act_2">
+             <mxGeometry relative="1" as="geometry">
+                 <Array as="points"><mxPoint x="600" y="405" /><mxPoint x="600" y="215" /></Array>
+             </mxGeometry>
+         </mxCell>
+
+        <mxCell id="e8_yes" value="Ya" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sys_2" target="sys_success">
+          <mxGeometry relative="1" as="geometry">
+             <Array as="points"><mxPoint x="150" y="295" /><mxPoint x="150" y="460" /><mxPoint x="150" y="460" /></Array> <!-- Straight down basically -->
+             <Array as="points"><mxPoint x="150" y="350" /><mxPoint x="300" y="350" /><mxPoint x="300" y="460" /><mxPoint x="150" y="460" /></Array> <!-- Clean path avoiding fail box -->
+             <Array as="points"><mxPoint x="110" y="295" /><mxPoint x="50" y="295" /><mxPoint x="50" y="460" /><mxPoint x="150" y="460" /></Array>
+             <Array as="points"><mxPoint x="150" y="335" /></Array> <!-- Simplified -->
+          </mxGeometry>
+        </mxCell>
+        <!-- Correcting logic: Diamond to Success directly? No, Fail box is below. -->
+        <!-- Let's redraw connections for clarity in XML logic -->
+         <mxCell id="e_valid_yes" value="Ya" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="sys_2" target="sys_success">
+             <mxGeometry relative="1" as="geometry">
+                 <Array as="points"><mxPoint x="250" y="295" /><mxPoint x="250" y="460" /><mxPoint x="150" y="460" /></Array>
+             </mxGeometry>
+         </mxCell>
+
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sys_success" target="end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

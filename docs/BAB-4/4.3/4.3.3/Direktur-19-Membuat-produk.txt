@@ -1,0 +1,7 @@
+4.3.3.19. Activity Diagram Membuat Produk
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.38 Activity Diagram Membuat Produk
+
+Activity diagram Membuat Produk diatas menggambarkan alur Direktur menambahkan item produk baru. Dimulai dari Direktur menekan tombol Tambah Produk, lalu sistem menampilkan formulir produk. Direktur mengisi spesifikasi seperti SKU, nama, harga, dan deskripsi, kemudian menekan tombol Simpan. Sistem memvalidasi inputan. Jika data valid dan SKU belum terdaftar, sistem menambahkan produk tersebut ke katalog dan menampilkan pesan sukses.

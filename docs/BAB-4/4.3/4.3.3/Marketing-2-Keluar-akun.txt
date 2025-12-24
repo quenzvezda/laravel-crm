@@ -1,0 +1,7 @@
+4.3.3.2. Activity Diagram Keluar Akun (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.40 Activity Diagram Keluar Akun (Marketing)
+
+Activity diagram Keluar Akun diatas menggambarkan alur Marketing mengakhiri sesi. Dimulai dari Marketing mengklik menu profil, sistem menampilkan opsi dropdown. Marketing memilih opsi Logout, kemudian sistem menghapus sesi aktif dan menampilkan kembali halaman Login sebagai konfirmasi logout berhasil.

@@ -54,6 +54,36 @@ email:admin@example.com
 password:admin123
 ```
 
+### Roles & Access Rights
+
+Project ini memiliki 2 role utama dengan hak akses yang berbeda:
+
+#### 1. Marketing
+Fokus utama adalah operasional penjualan dan hubungan klien (CRM).
+- **Akses Fitur**:
+  - **Leads**: Membuat dan mengelola prospek (create, view, edit).
+  - **Quotes**: Membuat penawaran harga, melihat, mengedit, dan mencetak (Print PDF).
+  - **Contacts**: Mengelola data Persons dan Organizations (create, view, edit).
+- **Tanggung Jawab**:
+  - Menangani siklus penjualan dari Lead hingga Quote.
+  - Men-generate dokumen penawaran (Quote) yang siap dikirim ke klien (setelah ditandatangani Direktur).
+
+#### 2. Direktur
+Memiliki hak akses penuh operasional (Super User untuk operasional bisnis).
+- **Akses Fitur**:
+  - Semua akses yang dimiliki **Marketing**.
+  - **Products**: Manajemen master data produk (create, edit, delete).
+  - **Analytics (Apriori)**: Mengakses modul analisis Market Basket, melihat hasil, dan melakukan ekspor laporan PDF.
+  - **Settings (Signatures)**: Mengelola tanda tangan digital yang akan tertera pada dokumen resmi (misal: Quote).
+- **Tanggung Jawab**:
+  - Validasi dan pengawasan operasional.
+  - Analisis strategi penjualan via modul Analytics.
+  - Manajemen master data produk.
+
+**Credentials (Default Seeder):**
+- **Marketing**: `marketing@example.com` / `marketing123`
+- **Direktur**: `direktur@example.com` / `direktur123`
+
 ### Seeding Data dengan Custom Attributes (EAV) – Penting
 
 Krayin menggunakan pola EAV (Entity–Attribute–Value) untuk banyak field di UI. Pada form, nilai atribut dibaca dari tabel `attribute_values` dan dapat menimpa nilai kolom inti (mis. `persons.organization_id`, `organizations.address`, dll). Akibatnya, data hasil seeding yang hanya mengisi kolom tabel bisa terlihat di listing, tetapi kosong/tidak muncul di komponen lookup sampai `attribute_values` ikut diisi.

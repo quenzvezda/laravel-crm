@@ -1,0 +1,7 @@
+4.3.3.7. Activity Diagram Membuat Penawaran (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.45 Activity Diagram Membuat Penawaran (Marketing)
+
+Activity diagram Membuat Penawaran diatas menggambarkan alur Marketing membuat dokumen penawaran harga. Dimulai dari Marketing menekan tombol Tambah Penawaran, sistem menampilkan formulir. Marketing memilih prospek terkait, menambahkan item produk, dan sistem menghitung total harga. Marketing menekan Simpan, lalu sistem memvalidasi data. Jika valid, sistem menyimpan penawaran ke database.

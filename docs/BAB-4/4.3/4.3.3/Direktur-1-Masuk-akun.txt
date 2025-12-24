@@ -1,0 +1,7 @@
+4.3.3.1. Activity Diagram Masuk Akun
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.20 Activity Diagram Masuk Akun
+
+Activity diagram Masuk Akun diatas menggambarkan alur masuk ke dalam sistem dimulai dari Direktur membuka halaman website CRM, kemudian sistem menampilkan halaman Login. Setelah itu, Direktur memasukkan email dan password lalu menekan tombol Masuk. Sistem kemudian memvalidasi data tersebut. Jika data tidak valid, sistem akan menampilkan pesan error dan Direktur kembali memasukkan email dan password. Jika data valid, sistem menampilkan halaman Beranda dan proses selesai.

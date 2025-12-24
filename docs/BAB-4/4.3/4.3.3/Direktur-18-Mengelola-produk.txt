@@ -1,0 +1,7 @@
+4.3.3.18. Activity Diagram Mengelola Produk
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.37 Activity Diagram Mengelola Produk
+
+Activity diagram Mengelola Produk diatas menggambarkan alur Direktur mengakses katalog produk. Dimulai dari Direktur membuka menu Produk, kemudian sistem menampilkan daftar produk yang tersedia. Selanjutnya, Direktur melakukan pencarian atau filter produk tertentu. Terakhir, sistem menyajikan hasil pencarian produk sesuai kriteria.

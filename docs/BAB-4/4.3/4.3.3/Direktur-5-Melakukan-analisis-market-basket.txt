@@ -1,0 +1,7 @@
+4.3.3.5. Activity Diagram Melakukan Analisis Market Basket
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.24 Activity Diagram Melakukan Analisis Market Basket
+
+Activity diagram Melakukan Analisis Market Basket diatas menggambarkan alur Direktur memproses data baru. Dimulai dari Direktur menekan tombol "Buat Analisis Baru", lalu sistem menampilkan form parameter. Direktur mengisi parameter (seperti tanggal dan minimum support) lalu menekan tombol Proses. Sistem kemudian memvalidasi parameter tersebut. Jika parameter valid, sistem menjalankan algoritma Apriori pada data transaksi, kemudian menyimpan dan menampilkan hasilnya ke dalam tabel.

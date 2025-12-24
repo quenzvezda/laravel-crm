@@ -1,0 +1,7 @@
+4.3.3.11. Activity Diagram Membuat Kontak Organisasi (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.49 Activity Diagram Membuat Kontak Organisasi (Marketing)
+
+Activity diagram Membuat Kontak Organisasi diatas menggambarkan alur Marketing mendaftarkan perusahaan klien baru. Dimulai dari Marketing menekan tombol Tambah Organisasi, sistem menampilkan formulir. Marketing mengisi data perusahaan, lalu menekan Simpan. Sistem memvalidasi data. Jika valid, sistem mencatat organisasi baru ke dalam database.

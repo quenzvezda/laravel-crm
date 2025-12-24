@@ -1,0 +1,7 @@
+4.3.3.8. Activity Diagram Mengelola Prospek
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.27 Activity Diagram Mengelola Prospek
+
+Activity diagram Mengelola Prospek diatas menggambarkan alur Direktur melihat dan mencari data peluang penjualan. Dimulai dari Direktur memilih menu Prospek, kemudian sistem menampilkan daftar prospek baik dalam tampilan kanban atau tabel. Selanjutnya, Direktur melakukan pencarian atau filter berdasarkan kriteria tertentu. Terakhir, sistem menampilkan hasil filter prospek sesuai permintaan.

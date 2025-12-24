@@ -1,0 +1,7 @@
+4.3.3.3. Activity Diagram Beranda (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.41 Activity Diagram Beranda (Marketing)
+
+Activity diagram Beranda diatas menggambarkan alur tampilan awal Marketing. Dimulai dari Marketing mengakses halaman utama, sistem memuat data ringkasan seperti prospek dan penawaran. Terakhir, sistem menampilkan Dashboard berisi widget statistik operasional.

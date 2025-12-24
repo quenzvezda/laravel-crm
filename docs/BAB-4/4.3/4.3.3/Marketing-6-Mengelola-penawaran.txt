@@ -1,0 +1,7 @@
+4.3.3.6. Activity Diagram Mengelola Penawaran (Marketing)
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.44 Activity Diagram Mengelola Penawaran (Marketing)
+
+Activity diagram Mengelola Penawaran diatas menggambarkan alur Marketing mengakses dokumen penawaran. Dimulai dari Marketing memilih menu Penawaran, sistem menampilkan daftar penawaran. Marketing mengklik salah satu penawaran untuk melihat rinciannya, kemudian sistem menampilkan detail item dan harga penawaran tersebut.

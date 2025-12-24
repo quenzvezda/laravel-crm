@@ -1,0 +1,7 @@
+4.3.3.9. Activity Diagram Membuat Prospek Baru
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.28 Activity Diagram Membuat Prospek Baru
+
+Activity diagram Membuat Prospek Baru diatas menggambarkan alur Direktur menambahkan data prospek. Dimulai dari Direktur menekan tombol Tambah Prospek, lalu sistem menampilkan formulir input. Direktur mengisi data seperti judul, nilai, dan kontak, kemudian menekan tombol Simpan. Sistem memvalidasi kelengkapan data. Jika data valid, sistem menyimpan data prospek tersebut ke database dan menampilkan pesan sukses.

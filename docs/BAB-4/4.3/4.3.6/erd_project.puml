@@ -1,0 +1,197 @@
+@startuml
+' hide the spots
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "users" as users {
+  *id : integer <<generated>>
+  --
+  *name : string
+  *email : string
+  *password : string
+  *role_id : integer <<FK>>
+  status : boolean
+}
+
+entity "roles" as roles {
+  *id : integer <<generated>>
+  --
+  *name : string
+  description : string
+  permission_type : string
+  permissions : json
+}
+
+entity "leads" as leads {
+  *id : integer <<generated>>
+  --
+  *title : string
+  description : text
+  lead_value : decimal
+  status : boolean
+  lost_reason : text
+  closed_at : datetime
+  *user_id : integer <<FK>>
+  *person_id : integer <<FK>>
+  *lead_source_id : integer <<FK>>
+  *lead_type_id : integer <<FK>>
+  lead_pipeline_id : integer <<FK>>
+  *lead_stage_id : integer <<FK>>
+}
+
+entity "lead_products" as lead_products {
+  *id : integer <<generated>>
+  --
+  quantity : integer
+  price : decimal
+  amount : decimal
+  *lead_id : integer <<FK>>
+  *product_id : integer <<FK>>
+}
+
+entity "quotes" as quotes {
+  *id : integer <<generated>>
+  --
+  *subject : string
+  description : string
+  billing_address : json
+  shipping_address : json
+  discount_percent : decimal
+  discount_amount : decimal
+  tax_amount : decimal
+  adjustment_amount : decimal
+  sub_total : decimal
+  grand_total : decimal
+  expired_at : datetime
+  *person_id : integer <<FK>>
+  *user_id : integer <<FK>>
+}
+
+entity "quote_items" as quote_items {
+  *id : integer <<generated>>
+  --
+  sku : string
+  name : string
+  quantity : integer
+  price : decimal
+  coupon_code : string
+  discount_percent : decimal
+  discount_amount : decimal
+  tax_percent : decimal
+  tax_amount : decimal
+  total : decimal
+  *product_id : integer <<FK>>
+  *quote_id : integer <<FK>>
+}
+
+entity "persons" as persons {
+  *id : integer <<generated>>
+  --
+  *name : string
+  *emails : json
+  contact_numbers : json
+  organization_id : integer <<FK>>
+}
+
+entity "organizations" as organizations {
+  *id : integer <<generated>>
+  --
+  *name : string
+  address : json
+}
+
+entity "products" as products {
+  *id : integer <<generated>>
+  --
+  *sku : string
+  name : string
+  description : string
+  quantity : integer
+  price : decimal
+}
+
+entity "activities" as activities {
+  *id : integer <<generated>>
+  --
+  title : string
+  *type : string
+  comment : text
+  additional : json
+  schedule_from : datetime
+  schedule_to : datetime
+  is_done : boolean
+  *user_id : integer <<FK>>
+}
+
+entity "signatures" as signatures {
+  *id : integer <<generated>>
+  --
+  *name : string
+  *owner_name : string
+  *image_path : string
+  is_active : boolean
+}
+
+entity "apriori_runs" as apriori_runs {
+  *id : bigInteger <<generated>>
+  --
+  name : string
+  period_start : date
+  period_end : date
+  support : decimal
+  confidence : decimal
+  min_items : integer
+  filters_json : json
+  transactions_count : integer
+  rules_count : integer
+  status : string
+  is_active : boolean
+  error_message : text
+  created_by : integer <<FK>>
+}
+
+entity "apriori_rules" as apriori_rules {
+  *id : bigInteger <<generated>>
+  --
+  *run_id : bigInteger <<FK>>
+  *lhs : json
+  *rhs : json
+  support : decimal
+  confidence : decimal
+  lift : decimal
+  period_start : datetime
+  period_end : datetime
+  params_json : json
+  created_by : integer <<FK>>
+}
+
+entity "apriori_transactions" as apriori_transactions {
+  *id : bigInteger <<generated>>
+  --
+  *run_id : bigInteger <<FK>>
+  lead_id : integer <<FK>>
+  quote_id : integer <<FK>>
+  *items : json
+}
+
+users }|..|| roles
+leads }|..|| users
+leads }|..|| persons
+lead_products }|..|| leads
+lead_products }|..|| products
+quotes }|..|| persons
+quotes }|..|| users
+quote_items }|..|| quotes
+quote_items }|..|| products
+persons }|..|| organizations
+activities }|..|| users
+apriori_runs }|..|| users : created_by
+apriori_rules }|..|| apriori_runs
+apriori_rules }|..|| users : created_by
+apriori_transactions }|..|| apriori_runs
+apriori_transactions }|..|| leads
+apriori_transactions }|..|| quotes
+
+@enduml

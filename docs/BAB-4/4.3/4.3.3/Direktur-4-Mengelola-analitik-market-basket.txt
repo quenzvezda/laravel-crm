@@ -1,0 +1,7 @@
+4.3.3.4. Activity Diagram Mengelola Analitik Market Basket
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.23 Activity Diagram Mengelola Analitik Market Basket
+
+Activity diagram Mengelola Analitik Market Basket diatas menggambarkan alur Direktur mengakses hasil analisis data. Dimulai dari Direktur memilih menu Analitik, kemudian sistem menampilkan submenu. Direktur memilih Analisis Keranjang Pasar (Market Basket Analysis), lalu sistem menampilkan daftar riwayat analisis yang pernah dilakukan. Selanjutnya, Direktur memilih salah satu hasil analisis dari daftar tersebut. Terakhir, sistem menampilkan detail rules (aturan asosiasi) beserta nilai support dan confidence dari analisis yang dipilih.
