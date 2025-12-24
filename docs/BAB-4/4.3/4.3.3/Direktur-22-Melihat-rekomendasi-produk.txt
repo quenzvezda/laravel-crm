@@ -1,0 +1,7 @@
+4.3.3.22. Activity Diagram Melihat Rekomendasi Produk
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.41 Activity Diagram Melihat Rekomendasi Produk
+
+Activity diagram diatas menggambarkan alur melihat rekomendasi produk yang dimulai dari Direktur membuka form untuk membuat atau mengedit penawaran. Sistem menampilkan form isian penawaran. Setelah itu, Direktur menambahkan item produk ke dalam daftar penawaran. Secara otomatis, sistem mencari rules asosiasi (Apriori) yang cocok dengan produk yang dipilih. Jika ditemukan asosiasi produk yang relevan, sistem menampilkan widget rekomendasi produk tambahan. Terakhir, Direktur dapat melihat rekomendasi tersebut dan memilihnya untuk ditambahkan ke penawaran jika diinginkan, atau mengabaikannya.

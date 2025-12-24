@@ -1,0 +1,7 @@
+4.3.3.20. Activity Diagram Mengunduh Laporan Analisis
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.39 Activity Diagram Mengunduh Laporan Analisis
+
+Activity diagram diatas menggambarkan alur mengunduh laporan analisis dimulai dari Direktur memilih menu Analytics kemudian submenu Market Basket Analysis. Sistem menampilkan daftar riwayat analisis yang pernah dilakukan. Kemudian Direktur memilih salah satu hasil analisis untuk melihat rinciannya. Sistem menampilkan detail rules beserta metrik support, confidence, dan lift. Setelah itu, Direktur menekan tombol Export atau Download PDF pada halaman detail tersebut. Terakhir, sistem memproses permintaan generate dokumen dan mengirimkan file laporan ke perangkat Direktur untuk diunduh.

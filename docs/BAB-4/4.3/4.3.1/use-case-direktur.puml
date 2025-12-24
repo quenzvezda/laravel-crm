@@ -12,6 +12,7 @@ package "Sistem CRM PT. Famindo" {
     ' Grup Analisis
     usecase "Mengelola analitik\nmarket basket" as UC_Manage_MBA
     usecase "Melakukan analisis\nmarket basket" as UC_Do_MBA
+    usecase "Mengunduh laporan\nanalisis" as UC_Download_Report
 
     ' Grup Pengaturan
     usecase "Mengelola pengaturan\ntanda tangan" as UC_Manage_Sign
@@ -24,6 +25,8 @@ package "Sistem CRM PT. Famindo" {
 
     usecase "Mengelola penawaran" as UC_Manage_Quote
     usecase "Membuat penawaran" as UC_Create_Quote
+    usecase "Melihat rekomendasi\nproduk" as UC_View_Rec
+    usecase "Mengunduh dokumen\npenawaran" as UC_Download_Quote
 
     usecase "Mengelola kontak\nindividu" as UC_Manage_ContactInd
     usecase "Membuat kontak\nindividu" as UC_Create_ContactInd
@@ -54,12 +57,15 @@ package "Sistem CRM PT. Famindo" {
     UC_Create_Prospect ..> UC_Manage_Prospect : <<extend>>
     UC_Create_Activity ..> UC_Manage_Prospect : <<extend>>
     UC_Create_Quote ..> UC_Manage_Quote : <<extend>>
+    UC_View_Rec ..> UC_Create_Quote : <<extend>>
+    UC_Download_Quote ..> UC_Manage_Quote : <<extend>>
     UC_Create_ContactInd ..> UC_Manage_ContactInd : <<extend>>
     UC_Create_ContactOrg ..> UC_Manage_ContactOrg : <<extend>>
     UC_Create_Product ..> UC_Manage_Product : <<extend>>
 
     ' Relasi Extend Sub-Fitur (Analisis & Pengaturan)
     UC_Do_MBA ..> UC_Manage_MBA : <<extend>>
+    UC_Download_Report ..> UC_Manage_MBA : <<extend>>
     UC_Upload_Sign ..> UC_Manage_Sign : <<extend>>
 }
 @enduml

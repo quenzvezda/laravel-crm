@@ -1212,5 +1212,204 @@
         </tr>
     </table>
 
+    <!-- 20. Mengunduh Laporan Analisis -->
+    <h2>20. Skenario: Mengunduh Laporan Analisis</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Mengunduh laporan analisis</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-DIR-20</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Analytics</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Direktur</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Mengunduh hasil analisis market basket dalam bentuk dokumen laporan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Tombol "Export" atau "Download PDF" pada detail analisis.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor membuka detail hasil analisis yang sudah selesai</td>
+            <td>Sistem menampilkan detail rules</td>
+        </tr>
+        <tr>
+            <td>2. Aktor menekan tombol Download/Export</td>
+            <td>Sistem memproses pembuatan dokumen</td>
+        </tr>
+        <tr>
+            <td>3. Sistem mengirimkan file (PDF/CSV) ke browser</td>
+            <td>File terunduh</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Analisis market basket telah dijalankan dan selesai.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> File laporan tersimpan di perangkat lokal.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memiliki hak akses untuk mengunduh.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mendapatkan laporan fisik/digital hasil analisis.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Gagal generate file PDF.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Sedang</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
+    <!-- 21. Mengunduh Dokumen Penawaran -->
+    <h2>21. Skenario: Mengunduh Dokumen Penawaran</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Mengunduh dokumen penawaran</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-DIR-21</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Operasional CRM</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Direktur</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Mengunduh dokumen penawaran resmi (PDF) untuk dikirim ke pelanggan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Tombol "Print" atau "Download PDF".</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor membuka halaman detail penawaran</td>
+            <td>Sistem menampilkan rincian penawaran</td>
+        </tr>
+        <tr>
+            <td>2. Aktor menekan tombol Print/PDF</td>
+            <td>Sistem men-generate dokumen dengan tanda tangan</td>
+        </tr>
+        <tr>
+            <td>3. Sistem mengunduh file ke perangkat aktor</td>
+            <td>Dokumen PDF tersimpan</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Data penawaran sudah lengkap dan tersimpan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Dokumen penawaran berhasil diunduh.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Konfigurasi tanda tangan sudah tersedia (jika diperlukan).</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor memperoleh dokumen penawaran siap kirim.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Format PDF berantakan atau gambar tidak muncul.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Tinggi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Sedang</td>
+        </tr>
+    </table>
+
+    <!-- 22. Melihat Rekomendasi Produk -->
+    <h2>22. Skenario: Melihat Rekomendasi Produk</h2>
+    <table class="sc-table">
+        <tr>
+            <td style="width: 70%;"><span class="sc-label">Use Case Name :</span> Melihat rekomendasi produk</td>
+            <td style="width: 30%;"><span class="sc-label">UniqueID :</span> SC-DIR-22</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Area :</span> Operasional CRM</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Actor(s) :</span> Direktur</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Description :</span> Melihat saran produk tambahan yang relevan saat membuat penawaran.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Menambahkan item produk pada form penawaran.</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="sc-label">Trigger Type :</span>
+                <span style="margin-left: 10px;">☒ External</span>
+                <span style="margin-left: 20px;">☐ Temporal</span>
+            </td>
+        </tr>
+        <tr class="sc-header">
+            <td>Step Performed</td>
+            <td>Information for Step</td>
+        </tr>
+        <tr>
+            <td>1. Aktor menambahkan produk ke dalam penawaran</td>
+            <td>Sistem mendeteksi input produk</td>
+        </tr>
+        <tr>
+            <td>2. Sistem mencari asosiasi produk (Rules Apriori)</td>
+            <td>Algoritma pencarian rules berjalan di background</td>
+        </tr>
+        <tr>
+            <td>3. Sistem menampilkan widget rekomendasi produk lain</td>
+            <td>Daftar produk rekomendasi muncul</td>
+        </tr>
+        <tr>
+            <td>4. Aktor melihat daftar rekomendasi</td>
+            <td>Informasi produk tambahan tersedia</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Rules analisis market basket sudah tersedia.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Rekomendasi produk ditampilkan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Terdapat rules asosiasi yang cocok dengan produk yang dipilih.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mendapatkan saran cross-sell/up-sell.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Tidak ada rekomendasi yang relevan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Priority :</span> Sedang</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Risk :</span> Rendah</td>
+        </tr>
+    </table>
+
 </body>
 </html>

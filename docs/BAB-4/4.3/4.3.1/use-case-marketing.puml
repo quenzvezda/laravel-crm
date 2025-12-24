@@ -13,6 +13,8 @@ package "Sistem CRM PT. Famindo" {
     usecase "Membuat aktivitas" as UC_Create_Activity
     usecase "Mengelola penawaran" as UC_Manage_Quote
     usecase "Membuat penawaran" as UC_Create_Quote
+    usecase "Melihat rekomendasi\nproduk" as UC_View_Rec
+    usecase "Mengunduh dokumen\npenawaran" as UC_Download_Quote
     usecase "Mengelola kontakindividu" as UC_Manage_ContactInd
     usecase "Membuat kontakindividu" as UC_Create_ContactInd
     usecase "Mengelola kontakorganisasi" as UC_Manage_ContactOrg
@@ -35,6 +37,8 @@ package "Sistem CRM PT. Famindo" {
     UC_Create_Prospect ..> UC_Manage_Prospect : <<extend>>
     UC_Create_Activity ..> UC_Manage_Prospect : <<extend>>
     UC_Create_Quote ..> UC_Manage_Quote : <<extend>>
+    UC_View_Rec ..> UC_Create_Quote : <<extend>>
+    UC_Download_Quote ..> UC_Manage_Quote : <<extend>>
     UC_Create_ContactInd ..> UC_Manage_ContactInd : <<extend>>
     UC_Create_ContactOrg ..> UC_Manage_ContactOrg : <<extend>>
 }

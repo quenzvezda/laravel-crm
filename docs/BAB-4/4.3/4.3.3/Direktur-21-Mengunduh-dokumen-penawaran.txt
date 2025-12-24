@@ -1,0 +1,7 @@
+4.3.3.21. Activity Diagram Mengunduh Dokumen Penawaran
+
+[TEMPATKAN GAMBAR DIAGRAM DISINI]
+
+Gambar 4.40 Activity Diagram Mengunduh Dokumen Penawaran
+
+Activity diagram diatas menggambarkan alur mengunduh dokumen penawaran dimulai dari Direktur masuk ke menu Penawaran. Sistem kemudian menampilkan daftar penawaran yang ada. Setelah itu, Direktur memilih salah satu penawaran dan menekan tombol Print atau Download PDF yang tersedia pada aksi baris atau halaman detail. Sistem melakukan proses generate dokumen PDF dengan menyertakan template dan tanda tangan digital yang relevan. Terakhir, sistem menyajikan file PDF tersebut dan Direktur mengunduhnya ke perangkat lokal.
