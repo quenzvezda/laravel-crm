@@ -50,10 +50,10 @@
             <td colspan="2"><span class="sc-label">Actor(s) :</span> Direktur</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Description :</span> Aktor melakukan proses otentikasi untuk masuk ke dalam sistem CRM.</td>
+            <td colspan="2"><span class="sc-label">Description :</span> Direktur melakukan proses otentikasi untuk masuk ke dalam sistem CRM.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Triggering Event :</span> Aktor mengakses URL sistem CRM.</td>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Direktur mengakses URL sistem CRM.</td>
         </tr>
         <tr>
             <td colspan="2">
@@ -67,36 +67,40 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor membuka halaman website CRM</td>
-            <td>Sistem menampilkan halaman Login</td>
+            <td>1. Direktur membuka halaman website CRM</td>
+            <td>Berupa tampilan Halaman Login</td>
         </tr>
         <tr>
-            <td>2. Aktor memasukkan email dan password</td>
-            <td>Input data kredensial</td>
+            <td>2. Sistem menampilkan halaman Login</td>
+            <td>Berupa tampilan Halaman Login</td>
         </tr>
         <tr>
-            <td>3. Aktor menekan tombol Masuk</td>
-            <td>Sistem memvalidasi data ke database</td>
+            <td>3. Direktur memasukkan email dan password</td>
+            <td>Berupa tampilan Halaman Login</td>
         </tr>
         <tr>
-            <td>4. Sistem memverifikasi kecocokan data</td>
-            <td>Validasi sukses</td>
+            <td>4. Direktur menekan tombol Masuk</td>
+            <td>Berupa tampilan Halaman Login</td>
         </tr>
         <tr>
-            <td>5. Sistem mengarahkan ke halaman Beranda</td>
-            <td>Menampilkan Dashboard Utama</td>
+            <td>5. Sistem memvalidasi data kredensial jika salah menampilkan pesan error</td>
+            <td>Berupa tampilan Halaman Login</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor belum masuk ke sistem.</td>
+            <td>6. Jika benar sistem menampilkan halaman Beranda</td>
+            <td>Berupa tampilan Dashboard Utama</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Post-condition :</span> Aktor masuk ke dashboard utama.</td>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur belum masuk ke sistem.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memasukkan kredensial yang valid.</td>
+            <td colspan="2"><span class="sc-label">Post-condition :</span> Direktur masuk ke dashboard utama.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor berhasil masuk ke sistem.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur memasukkan kredensial yang valid.</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur berhasil masuk ke sistem.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Kredensial tidak valid atau akun terkunci.</td>
@@ -123,10 +127,10 @@
             <td colspan="2"><span class="sc-label">Actor(s) :</span> Direktur</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Description :</span> Aktor mengakhiri sesi penggunaan sistem.</td>
+            <td colspan="2"><span class="sc-label">Description :</span> Direktur mengakhiri sesi penggunaan sistem.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Triggering Event :</span> Aktor menekan tombol Logout pada menu profil.</td>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Direktur menekan tombol Logout pada menu profil.</td>
         </tr>
         <tr>
             <td colspan="2">
@@ -140,32 +144,36 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor mengklik menu profil/akun</td>
-            <td>Sistem menampilkan opsi dropdown</td>
+            <td>1. Direktur memilih menu profil</td>
+            <td>Berupa tampilan Dashboard Utama</td>
         </tr>
         <tr>
-            <td>2. Aktor memilih opsi Logout</td>
-            <td>Sistem memproses permintaan logout</td>
+            <td>2. Sistem menampilkan opsi dropdown</td>
+            <td>Berupa tampilan Dashboard Utama</td>
         </tr>
         <tr>
-            <td>3. Sistem menghapus sesi aktif</td>
-            <td>Sesi diakhiri</td>
+            <td>3. Direktur menekan tombol Logout</td>
+            <td>Berupa tampilan Dashboard Utama</td>
         </tr>
         <tr>
-            <td>4. Sistem mengarahkan kembali ke halaman Login</td>
-            <td>Menampilkan halaman login</td>
+            <td>4. Sistem menghapus sesi aktif</td>
+            <td>Berupa tampilan Halaman Login</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di dashboard sistem.</td>
+            <td>5. Sistem menampilkan halaman Login</td>
+            <td>Berupa tampilan Halaman Login</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berada di dashboard sistem.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Sesi pengguna berakhir.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memilih menu logout.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur memilih menu logout.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor berhasil keluar dari sistem.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur berhasil keluar dari sistem.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Gagal memutus sesi server.</td>
@@ -195,7 +203,7 @@
             <td colspan="2"><span class="sc-label">Description :</span> Menampilkan ringkasan informasi operasional (Dashboard).</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Triggering Event :</span> Aktor berhasil login atau mengklik menu Dashboard.</td>
+            <td colspan="2"><span class="sc-label">Triggering Event :</span> Direktur berhasil login atau mengklik menu Dashboard.</td>
         </tr>
         <tr>
             <td colspan="2">
@@ -209,15 +217,19 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor mengakses halaman utama</td>
-            <td>Sistem memuat data ringkasan (Prospek, Penawaran, dan Produk Terlaris)</td>
+            <td>1. Direktur mengakses halaman utama</td>
+            <td>Berupa tampilan Dashboard Utama</td>
         </tr>
         <tr>
-            <td>2. Sistem menampilkan widget statistik</td>
-            <td>Menampilkan grafik/angka total penjualan, aktivitas, dll</td>
+            <td>2. Sistem memuat data ringkasan</td>
+            <td>Berupa tampilan Dashboard Utama</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berhasil login.</td>
+            <td>3. Sistem menampilkan Dashboard</td>
+            <td>Berupa tampilan Dashboard Utama</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berhasil login.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Dashboard operasional ditampilkan.</td>
@@ -226,7 +238,7 @@
             <td colspan="2"><span class="sc-label">Assumptions :</span> Sistem memuat widget statistik.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor melihat ringkasan kinerja.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur melihat ringkasan kinerja.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Gagal memuat widget statistik.</td>
@@ -253,7 +265,7 @@
             <td colspan="2"><span class="sc-label">Actor(s) :</span> Direktur</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Description :</span> Aktor mengakses halaman daftar riwayat analisis dan hasil asosiasi produk.</td>
+            <td colspan="2"><span class="sc-label">Description :</span> Direktur mengakses halaman daftar riwayat analisis dan hasil asosiasi produk.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Triggering Event :</span> Memilih menu Analytics -> Market Basket Analysis.</td>
@@ -270,32 +282,40 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor mengklik menu Analytics</td>
-            <td>Sistem menampilkan submenu</td>
+            <td>1. Direktur memilih menu Analitik</td>
+            <td>Berupa tampilan Dashboard Utama</td>
         </tr>
         <tr>
-            <td>2. Aktor memilih Market Basket Analysis</td>
-            <td>Sistem memuat halaman utama modul analisis</td>
+            <td>2. Sistem menampilkan submenu</td>
+            <td>Berupa tampilan Dashboard Utama</td>
         </tr>
         <tr>
-            <td>3. Sistem menampilkan riwayat analisis (snapshot)</td>
-            <td>Menampilkan tabel daftar run analisis sebelumnya</td>
+            <td>3. Direktur memilih Analisis Keranjang Pasar</td>
+            <td>Berupa tampilan Halaman Market Basket Analysis</td>
         </tr>
         <tr>
-            <td>4. Aktor memilih salah satu hasil analisis</td>
-            <td>Sistem menampilkan detail rules (Support, Confidence, Lift)</td>
+            <td>4. Sistem menampilkan riwayat analisis</td>
+            <td>Berupa tampilan Halaman Market Basket Analysis</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke modul Analytics.</td>
+            <td>5. Direktur memilih salah satu hasil analisis</td>
+            <td>Berupa tampilan Detail Analisis</td>
+        </tr>
+        <tr>
+            <td>6. Sistem menampilkan detail rules</td>
+            <td>Berupa tampilan Detail Analisis</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur masuk ke modul Analytics.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Riwayat analisis ditampilkan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memilih menu Market Basket Analysis.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur memilih menu Market Basket Analysis.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor melihat daftar snapshot analisis.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur melihat daftar snapshot analisis.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Data riwayat analisis kosong.</td>
@@ -339,33 +359,37 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor menekan tombol "Buat Analisis Baru"</td>
-            <td>Sistem menampilkan form parameter</td>
+            <td>1. Direktur menekan tombol Buat Analisis Baru</td>
+            <td>Berupa tampilan Halaman Market Basket Analysis</td>
         </tr>
         <tr>
-            <td>2. Aktor mengisi parameter (Tgl Mulai, Selesai, Min Support, Min Confidence)</td>
-            <td>Input parameter algoritma</td>
+            <td>2. Sistem menampilkan form parameter</td>
+            <td>Berupa tampilan Form Analisis</td>
         </tr>
         <tr>
-            <td>3. Aktor menekan tombol "Proses"</td>
-            <td>Sistem mengirim job analisis ke antrian (background process)</td>
+            <td>3. Direktur mengisi parameter dan menekan Proses</td>
+            <td>Berupa tampilan Form Analisis</td>
         </tr>
         <tr>
-            <td>4. Sistem menjalankan algoritma Apriori</td>
-            <td>Proses perhitungan asosiasi produk</td>
+            <td>4. Sistem memvalidasi parameter jika salah menampilkan pesan error</td>
+            <td>Berupa tampilan Form Analisis</td>
         </tr>
         <tr>
-            <td>5. Sistem menyimpan hasil dan menampilkannya di tabel</td>
-            <td>Data rules baru muncul di daftar</td>
+            <td>5. Jika benar sistem menjalankan algoritma Apriori</td>
+            <td>Berupa tampilan Halaman Market Basket Analysis</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Market Basket Analysis.</td>
+            <td>6. Sistem menyimpan dan menampilkan hasil</td>
+            <td>Berupa tampilan Halaman Market Basket Analysis</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berada di halaman Market Basket Analysis.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Hasil analisis baru berhasil dibuat.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mengisi parameter dan menjalankan proses.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur mengisi parameter dan menjalankan proses.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Requirement Met :</span> Sistem menghasilkan rules asosiasi produk.</td>
@@ -412,24 +436,32 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor membuka menu Pengaturan</td>
-            <td>Sistem menampilkan opsi pengaturan</td>
+            <td>1. Direktur membuka menu Pengaturan</td>
+            <td>Berupa tampilan Menu Pengaturan</td>
         </tr>
         <tr>
-            <td>2. Aktor memilih menu Tanda Tangan</td>
-            <td>Sistem menampilkan daftar tanda tangan yang ada</td>
+            <td>2. Sistem menampilkan opsi pengaturan</td>
+            <td>Berupa tampilan Menu Pengaturan</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menu Pengaturan.</td>
+            <td>3. Direktur memilih menu Tanda Tangan</td>
+            <td>Berupa tampilan Daftar Tanda Tangan</td>
+        </tr>
+        <tr>
+            <td>4. Sistem menampilkan daftar tanda tangan</td>
+            <td>Berupa tampilan Daftar Tanda Tangan</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur masuk ke menu Pengaturan.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar tanda tangan ditampilkan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memilih submenu Signatures.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur memilih submenu Signatures.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mengakses konfigurasi tanda tangan.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur mengakses konfigurasi tanda tangan.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Daftar tanda tangan gagal dimuat.</td>
@@ -473,32 +505,44 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor menekan tombol Tambah</td>
-            <td>Sistem menampilkan form upload</td>
+            <td>1. Direktur menekan tombol Tambah Tanda Tangan</td>
+            <td>Berupa tampilan Form Tanda Tangan</td>
         </tr>
         <tr>
-            <td>2. Aktor memberi nama label dan memilih file gambar</td>
-            <td>Input file (png/jpg)</td>
+            <td>2. Sistem menampilkan form upload</td>
+            <td>Berupa tampilan Form Tanda Tangan</td>
         </tr>
         <tr>
-            <td>3. Aktor menekan tombol Simpan</td>
-            <td>Sistem mengunggah file ke storage</td>
+            <td>3. Direktur mengisi nama label dan memilih file</td>
+            <td>Berupa tampilan Form Tanda Tangan</td>
         </tr>
         <tr>
-            <td>4. Sistem menyimpan referensi ke database</td>
-            <td>Data tersimpan</td>
+            <td>4. Direktur menekan tombol Simpan</td>
+            <td>Berupa tampilan Form Tanda Tangan</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Signatures.</td>
+            <td>5. Sistem memvalidasi file jika salah menampilkan pesan error</td>
+            <td>Berupa tampilan Form Tanda Tangan</td>
+        </tr>
+        <tr>
+            <td>6. Jika benar sistem menyimpan file ke storage</td>
+            <td>Berupa tampilan Daftar Tanda Tangan</td>
+        </tr>
+        <tr>
+            <td>7. Sistem menyimpan referensi ke database</td>
+            <td>Berupa tampilan Daftar Tanda Tangan</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berada di halaman Signatures.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> File tanda tangan berhasil disimpan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mengunggah file gambar yang valid.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur mengunggah file gambar yang valid.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor menambahkan aset tanda tangan baru.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur menambahkan aset tanda tangan baru.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Format file tidak didukung atau terlalu besar.</td>
@@ -542,24 +586,32 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor membuka menu Prospek</td>
-            <td>Sistem menampilkan view Kanban atau List</td>
+            <td>1. Direktur memilih menu Prospek</td>
+            <td>Berupa tampilan Daftar Prospek</td>
         </tr>
         <tr>
-            <td>2. Aktor melakukan filter atau pencarian</td>
-            <td>Sistem memfilter data sesuai kriteria</td>
+            <td>2. Sistem menampilkan daftar prospek</td>
+            <td>Berupa tampilan Daftar Prospek</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menu Prospek.</td>
+            <td>3. Direktur melakukan pencarian/filter</td>
+            <td>Berupa tampilan Daftar Prospek</td>
+        </tr>
+        <tr>
+            <td>4. Sistem menampilkan hasil filter</td>
+            <td>Berupa tampilan Daftar Prospek</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur masuk ke menu Prospek.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar prospek ditampilkan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor melakukan filter atau pencarian.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur melakukan filter atau pencarian.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mengelola data prospek.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur mengelola data prospek.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Data prospek tidak ditemukan.</td>
@@ -603,28 +655,44 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor menekan tombol Tambah Prospek</td>
-            <td>Sistem menampilkan formulir Prospek</td>
+            <td>1. Direktur menekan tombol Tambah Prospek</td>
+            <td>Berupa tampilan Form Prospek</td>
         </tr>
         <tr>
-            <td>2. Aktor mengisi data (Judul, Nilai, Kontak, Pipeline)</td>
-            <td>Input data prospek</td>
+            <td>2. Sistem menampilkan form prospek</td>
+            <td>Berupa tampilan Form Prospek</td>
         </tr>
         <tr>
-            <td>3. Aktor menekan Simpan</td>
-            <td>Sistem memvalidasi dan menyimpan data</td>
+            <td>3. Direktur mengisi data prospek</td>
+            <td>Berupa tampilan Form Prospek</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Prospek.</td>
+            <td>4. Direktur menekan tombol Simpan</td>
+            <td>Berupa tampilan Form Prospek</td>
+        </tr>
+        <tr>
+            <td>5. Sistem memvalidasi data jika salah menampilkan pesan error</td>
+            <td>Berupa tampilan Form Prospek</td>
+        </tr>
+        <tr>
+            <td>6. Jika benar sistem menyimpan data</td>
+            <td>Berupa tampilan Daftar Prospek</td>
+        </tr>
+        <tr>
+            <td>7. Sistem menampilkan pesan sukses</td>
+            <td>Berupa tampilan Daftar Prospek</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berada di halaman Prospek.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Data prospek berhasil disimpan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mengisi form prospek dengan lengkap.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur mengisi form prospek dengan lengkap.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor menambahkan peluang bisnis baru.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur menambahkan peluang bisnis baru.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Validasi data input gagal.</td>
@@ -668,24 +736,32 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor membuka menu Penawaran</td>
-            <td>Sistem menampilkan daftar penawaran</td>
+            <td>1. Direktur memilih menu Penawaran</td>
+            <td>Berupa tampilan Daftar Penawaran</td>
         </tr>
         <tr>
-            <td>2. Aktor mengklik salah satu penawaran</td>
-            <td>Sistem menampilkan detail item dan harga</td>
+            <td>2. Sistem menampilkan daftar penawaran</td>
+            <td>Berupa tampilan Daftar Penawaran</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menu Penawaran.</td>
+            <td>3. Direktur mengklik salah satu penawaran</td>
+            <td>Berupa tampilan Detail Penawaran</td>
+        </tr>
+        <tr>
+            <td>4. Sistem menampilkan detail penawaran</td>
+            <td>Berupa tampilan Detail Penawaran</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur masuk ke menu Penawaran.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar penawaran ditampilkan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memilih salah satu penawaran.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur memilih salah satu penawaran.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor melihat detail penawaran.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur melihat detail penawaran.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Gagal mengambil data penawaran.</td>
@@ -729,32 +805,44 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor menekan tombol Tambah Penawaran</td>
-            <td>Sistem menampilkan form pembuatan penawaran</td>
+            <td>1. Direktur menekan tombol Tambah Penawaran</td>
+            <td>Berupa tampilan Form Penawaran</td>
         </tr>
         <tr>
-            <td>2. Aktor memilih Prospek terkait dan Subjek</td>
-            <td>Menghubungkan penawaran dengan prospek</td>
+            <td>2. Sistem menampilkan form penawaran</td>
+            <td>Berupa tampilan Form Penawaran</td>
         </tr>
         <tr>
-            <td>3. Aktor menambahkan item produk dan kuantitas</td>
-            <td>Sistem menghitung total harga</td>
+            <td>3. Direktur memilih prospek dan mengisi item produk</td>
+            <td>Berupa tampilan Form Penawaran</td>
         </tr>
         <tr>
-            <td>4. Aktor menekan Simpan</td>
-            <td>Penawaran tersimpan di database</td>
+            <td>4. Sistem menghitung total harga</td>
+            <td>Berupa tampilan Form Penawaran</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Penawaran.</td>
+            <td>5. Direktur menekan tombol Simpan</td>
+            <td>Berupa tampilan Form Penawaran</td>
+        </tr>
+        <tr>
+            <td>6. Sistem memvalidasi data jika salah menampilkan pesan error</td>
+            <td>Berupa tampilan Form Penawaran</td>
+        </tr>
+        <tr>
+            <td>7. Jika benar sistem menyimpan penawaran ke database</td>
+            <td>Berupa tampilan Daftar Penawaran</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berada di halaman Penawaran.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Data penawaran berhasil disimpan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor melengkapi item produk dan harga.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur melengkapi item produk dan harga.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor membuat dokumen penawaran resmi.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur membuat dokumen penawaran resmi.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Stok produk tidak mencukupi atau harga invalid.</td>
@@ -766,8 +854,6 @@
             <td colspan="2"><span class="sc-label">Risk :</span> Sedang</td>
         </tr>
     </table>
-
-    <!-- 12. Skenario: Mengelola Aktivitas (DIHAPUS) -->
 
     <!-- 13. Membuat Aktivitas -->
     <h2>13. Skenario: Membuat Aktivitas</h2>
@@ -800,28 +886,40 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor menekan tombol tambah aktivitas</td>
-            <td>Formulir jadwal muncul</td>
+            <td>1. Direktur menekan tombol Tambah Aktivitas</td>
+            <td>Berupa tampilan Form Aktivitas</td>
         </tr>
         <tr>
-            <td>2. Aktor menentukan tipe, waktu, dan peserta</td>
-            <td>Input detail kegiatan</td>
+            <td>2. Sistem menampilkan form jadwal</td>
+            <td>Berupa tampilan Form Aktivitas</td>
         </tr>
         <tr>
-            <td>3. Aktor menyimpan aktivitas</td>
-            <td>Tersimpan di kalender sistem</td>
+            <td>3. Direktur menentukan tipe, waktu, dan peserta</td>
+            <td>Berupa tampilan Form Aktivitas</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman detail Prospek.</td>
+            <td>4. Direktur menekan tombol Simpan</td>
+            <td>Berupa tampilan Form Aktivitas</td>
+        </tr>
+        <tr>
+            <td>5. Sistem memvalidasi data jika salah menampilkan pesan error</td>
+            <td>Berupa tampilan Form Aktivitas</td>
+        </tr>
+        <tr>
+            <td>6. Jika benar sistem menyimpan jadwal ke kalender</td>
+            <td>Berupa tampilan Detail Prospek</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berada di halaman detail Prospek.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Jadwal baru berhasil disimpan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor menentukan waktu dan peserta meeting.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur menentukan waktu dan peserta meeting.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor menetapkan agenda kegiatan.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur menetapkan agenda kegiatan.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Bentrok jadwal dengan aktivitas lain.</td>
@@ -865,24 +963,32 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor membuka menu Persons</td>
-            <td>Sistem menampilkan daftar orang</td>
+            <td>1. Direktur memilih menu Kontak</td>
+            <td>Berupa tampilan Daftar Kontak Individu</td>
         </tr>
         <tr>
-            <td>2. Aktor mencari nama kontak</td>
-            <td>Sistem memfilter hasil</td>
+            <td>2. Sistem menampilkan daftar kontak individu</td>
+            <td>Berupa tampilan Daftar Kontak Individu</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menu Persons.</td>
+            <td>3. Direktur mencari nama kontak</td>
+            <td>Berupa tampilan Daftar Kontak Individu</td>
+        </tr>
+        <tr>
+            <td>4. Sistem menampilkan hasil pencarian</td>
+            <td>Berupa tampilan Daftar Kontak Individu</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur masuk ke menu Persons.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar kontak individu ditampilkan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mencari data kontak.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur mencari data kontak.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mengelola informasi personal klien.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur mengelola informasi personal klien.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Duplikasi data kontak.</td>
@@ -926,28 +1032,40 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor menekan tombol Tambah Kontak Individu</td>
-            <td>Formulir kontak muncul</td>
+            <td>1. Direktur menekan tombol Tambah Kontak Individu</td>
+            <td>Berupa tampilan Form Kontak Individu</td>
         </tr>
         <tr>
-            <td>2. Aktor mengisi Nama, Email, No HP, Organisasi</td>
-            <td>Input data diri</td>
+            <td>2. Sistem menampilkan formulir kontak</td>
+            <td>Berupa tampilan Form Kontak Individu</td>
         </tr>
         <tr>
-            <td>3. Aktor menyimpan data</td>
-            <td>Sistem menyimpan ke database</td>
+            <td>3. Direktur mengisi nama, email, dan organisasi</td>
+            <td>Berupa tampilan Form Kontak Individu</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Persons.</td>
+            <td>4. Direktur menekan tombol Simpan</td>
+            <td>Berupa tampilan Form Kontak Individu</td>
+        </tr>
+        <tr>
+            <td>5. Sistem memvalidasi data jika salah menampilkan pesan error</td>
+            <td>Berupa tampilan Form Kontak Individu</td>
+        </tr>
+        <tr>
+            <td>6. Jika benar sistem menyimpan data kontak</td>
+            <td>Berupa tampilan Daftar Kontak Individu</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berada di halaman Persons.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Data kontak berhasil disimpan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mengisi detail informasi kontak.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur mengisi detail informasi kontak.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor menambahkan data person baru.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur menambahkan data person baru.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Format email atau nomor telepon salah.</td>
@@ -991,24 +1109,32 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor membuka menu Organizations</td>
-            <td>Sistem menampilkan daftar perusahaan klien</td>
+            <td>1. Direktur membuka menu Organisasi</td>
+            <td>Berupa tampilan Daftar Kontak Organisasi</td>
         </tr>
         <tr>
-            <td>2. Aktor melihat detail alamat dan info perusahaan</td>
-            <td>Informasi detail</td>
+            <td>2. Sistem menampilkan daftar perusahaan</td>
+            <td>Berupa tampilan Daftar Kontak Organisasi</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menu Organizations.</td>
+            <td>3. Direktur memilih detail organisasi</td>
+            <td>Berupa tampilan Detail Organisasi</td>
+        </tr>
+        <tr>
+            <td>4. Sistem menampilkan informasi detail</td>
+            <td>Berupa tampilan Detail Organisasi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur masuk ke menu Organizations.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar perusahaan klien ditampilkan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor meninjau profil perusahaan.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur meninjau profil perusahaan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mengelola data organisasi.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur mengelola data organisasi.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Data organisasi tidak lengkap.</td>
@@ -1052,28 +1178,40 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor menekan tombol Tambah Organisasi</td>
-            <td>Formulir muncul</td>
+            <td>1. Direktur menekan tombol Tambah Organisasi</td>
+            <td>Berupa tampilan Form Kontak Organisasi</td>
         </tr>
         <tr>
-            <td>2. Aktor mengisi Nama Perusahaan, Alamat, dll</td>
-            <td>Input data organisasi</td>
+            <td>2. Sistem menampilkan formulir</td>
+            <td>Berupa tampilan Form Kontak Organisasi</td>
         </tr>
         <tr>
-            <td>3. Aktor menyimpan data</td>
-            <td>Sistem mencatat organisasi baru</td>
+            <td>3. Direktur mengisi nama dan alamat perusahaan</td>
+            <td>Berupa tampilan Form Kontak Organisasi</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Organizations.</td>
+            <td>4. Direktur menekan tombol Simpan</td>
+            <td>Berupa tampilan Form Kontak Organisasi</td>
+        </tr>
+        <tr>
+            <td>5. Sistem memvalidasi data jika salah menampilkan pesan error</td>
+            <td>Berupa tampilan Form Kontak Organisasi</td>
+        </tr>
+        <tr>
+            <td>6. Jika benar sistem mencatat organisasi baru</td>
+            <td>Berupa tampilan Daftar Kontak Organisasi</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berada di halaman Organizations.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Data organisasi berhasil disimpan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor melengkapi alamat dan detail perusahaan.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur melengkapi alamat dan detail perusahaan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mendaftarkan perusahaan klien baru.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur mendaftarkan perusahaan klien baru.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Nama perusahaan sudah terdaftar.</td>
@@ -1117,24 +1255,32 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor membuka menu Products</td>
-            <td>Sistem menampilkan daftar produk</td>
+            <td>1. Direktur membuka menu Produk</td>
+            <td>Berupa tampilan Daftar Produk</td>
         </tr>
         <tr>
-            <td>2. Aktor mencari atau memfilter produk</td>
-            <td>Sistem menyajikan hasil pencarian</td>
+            <td>2. Sistem menampilkan daftar produk</td>
+            <td>Berupa tampilan Daftar Produk</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor masuk ke menu Products.</td>
+            <td>3. Direktur melakukan pencarian/filter</td>
+            <td>Berupa tampilan Daftar Produk</td>
+        </tr>
+        <tr>
+            <td>4. Sistem menampilkan hasil pencarian</td>
+            <td>Berupa tampilan Daftar Produk</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur masuk ke menu Products.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Daftar katalog produk ditampilkan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mengecek ketersediaan produk.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur mengecek ketersediaan produk.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mengelola inventaris produk.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur mengelola inventaris produk.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Gagal memuat daftar produk.</td>
@@ -1178,28 +1324,40 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor menekan tombol Create Product</td>
-            <td>Formulir produk muncul</td>
+            <td>1. Direktur menekan tombol Tambah Produk</td>
+            <td>Berupa tampilan Form Produk</td>
         </tr>
         <tr>
-            <td>2. Aktor mengisi SKU, Nama, Harga, Deskripsi</td>
-            <td>Input spesifikasi produk</td>
+            <td>2. Sistem menampilkan formulir produk</td>
+            <td>Berupa tampilan Form Produk</td>
         </tr>
         <tr>
-            <td>3. Aktor menyimpan produk</td>
-            <td>Sistem menambahkan ke katalog</td>
+            <td>3. Direktur mengisi SKU, Nama, dan Harga</td>
+            <td>Berupa tampilan Form Produk</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Pre-condition :</span> Aktor berada di halaman Products.</td>
+            <td>4. Direktur menekan tombol Simpan</td>
+            <td>Berupa tampilan Form Produk</td>
+        </tr>
+        <tr>
+            <td>5. Sistem memvalidasi data jika salah menampilkan pesan error</td>
+            <td>Berupa tampilan Form Produk</td>
+        </tr>
+        <tr>
+            <td>6. Jika benar sistem menambahkan ke katalog</td>
+            <td>Berupa tampilan Daftar Produk</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="sc-label">Pre-condition :</span> Direktur berada di halaman Products.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Post-condition :</span> Item produk berhasil ditambahkan.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor mengisi spesifikasi produk.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur mengisi spesifikasi produk.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor menambah varian produk baru.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur menambah varian produk baru.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Konflik SKU atau kode produk.</td>
@@ -1243,16 +1401,28 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor membuka detail hasil analisis yang sudah selesai</td>
-            <td>Sistem menampilkan detail rules</td>
+            <td>1. Direktur memilih Menu Analytics -> Market Basket</td>
+            <td>Berupa tampilan Detail Analisis</td>
         </tr>
         <tr>
-            <td>2. Aktor menekan tombol Download/Export</td>
-            <td>Sistem memproses pembuatan dokumen</td>
+            <td>2. Sistem menampilkan Daftar Riwayat Analisis</td>
+            <td>Berupa tampilan Detail Analisis</td>
         </tr>
         <tr>
-            <td>3. Sistem mengirimkan file (PDF/CSV) ke browser</td>
-            <td>File terunduh</td>
+            <td>3. Direktur memilih Salah Satu Hasil Analisis (View)</td>
+            <td>Berupa tampilan Detail Analisis</td>
+        </tr>
+        <tr>
+            <td>4. Sistem menampilkan Detail Rules & Metrik</td>
+            <td>Berupa tampilan Detail Analisis</td>
+        </tr>
+        <tr>
+            <td>5. Direktur menekan Tombol Export/Download PDF</td>
+            <td>Berupa tampilan Detail Analisis</td>
+        </tr>
+        <tr>
+            <td>6. Sistem memproses & Mengirim File Laporan</td>
+            <td>Berupa tampilan Detail Analisis</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Pre-condition :</span> Analisis market basket telah dijalankan dan selesai.</td>
@@ -1261,10 +1431,10 @@
             <td colspan="2"><span class="sc-label">Post-condition :</span> File laporan tersimpan di perangkat lokal.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Assumptions :</span> Aktor memiliki hak akses untuk mengunduh.</td>
+            <td colspan="2"><span class="sc-label">Assumptions :</span> Direktur memiliki hak akses untuk mengunduh.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mendapatkan laporan fisik/digital hasil analisis.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur mendapatkan laporan fisik/digital hasil analisis.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Gagal generate file PDF.</td>
@@ -1308,16 +1478,28 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor membuka halaman detail penawaran</td>
-            <td>Sistem menampilkan rincian penawaran</td>
+            <td>1. Direktur memilih Menu Penawaran (Quotes)</td>
+            <td>Berupa tampilan Detail Penawaran</td>
         </tr>
         <tr>
-            <td>2. Aktor menekan tombol Print/PDF</td>
-            <td>Sistem men-generate dokumen dengan tanda tangan</td>
+            <td>2. Sistem menampilkan Daftar Penawaran</td>
+            <td>Berupa tampilan Detail Penawaran</td>
         </tr>
         <tr>
-            <td>3. Sistem mengunduh file ke perangkat aktor</td>
-            <td>Dokumen PDF tersimpan</td>
+            <td>3. Direktur memilih Penawaran & Klik Print/PDF</td>
+            <td>Berupa tampilan Detail Penawaran</td>
+        </tr>
+        <tr>
+            <td>4. Sistem generate PDF dengan Tanda Tangan</td>
+            <td>Berupa tampilan Detail Penawaran</td>
+        </tr>
+        <tr>
+            <td>5. Direktur menunggu Proses Unduhan</td>
+            <td>Berupa tampilan Detail Penawaran</td>
+        </tr>
+        <tr>
+            <td>6. Sistem menyajikan File PDF untuk Diunduh</td>
+            <td>Berupa tampilan Detail Penawaran</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Pre-condition :</span> Data penawaran sudah lengkap dan tersimpan.</td>
@@ -1329,7 +1511,7 @@
             <td colspan="2"><span class="sc-label">Assumptions :</span> Konfigurasi tanda tangan sudah tersedia (jika diperlukan).</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor memperoleh dokumen penawaran siap kirim.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur memperoleh dokumen penawaran siap kirim.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Format PDF berantakan atau gambar tidak muncul.</td>
@@ -1373,20 +1555,28 @@
             <td>Information for Step</td>
         </tr>
         <tr>
-            <td>1. Aktor menambahkan produk ke dalam penawaran</td>
-            <td>Sistem mendeteksi input produk</td>
+            <td>1. Direktur membuka Form Tambah/Edit Penawaran</td>
+            <td>Berupa tampilan Form Penawaran</td>
         </tr>
         <tr>
-            <td>2. Sistem mencari asosiasi produk (Rules Apriori)</td>
-            <td>Algoritma pencarian rules berjalan di background</td>
+            <td>2. Sistem menampilkan Form Penawaran</td>
+            <td>Berupa tampilan Form Penawaran</td>
         </tr>
         <tr>
-            <td>3. Sistem menampilkan widget rekomendasi produk lain</td>
-            <td>Daftar produk rekomendasi muncul</td>
+            <td>3. Direktur menambahkan Item Produk ke Form</td>
+            <td>Berupa tampilan Form Penawaran</td>
         </tr>
         <tr>
-            <td>4. Aktor melihat daftar rekomendasi</td>
-            <td>Informasi produk tambahan tersedia</td>
+            <td>4. Sistem mencari Rules Asosiasi (Apriori)</td>
+            <td>Berupa tampilan Form Penawaran</td>
+        </tr>
+        <tr>
+            <td>5. Jika benar sistem menampilkan Widget Rekomendasi Produk</td>
+            <td>Berupa tampilan Form Penawaran</td>
+        </tr>
+        <tr>
+            <td>6. Direktur melihat/Memilih Rekomendasi (Opsional)</td>
+            <td>Berupa tampilan Form Penawaran</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Pre-condition :</span> Rules analisis market basket sudah tersedia.</td>
@@ -1398,7 +1588,7 @@
             <td colspan="2"><span class="sc-label">Assumptions :</span> Terdapat rules asosiasi yang cocok dengan produk yang dipilih.</td>
         </tr>
         <tr>
-            <td colspan="2"><span class="sc-label">Requirement Met :</span> Aktor mendapatkan saran cross-sell/up-sell.</td>
+            <td colspan="2"><span class="sc-label">Requirement Met :</span> Direktur mendapatkan saran cross-sell/up-sell.</td>
         </tr>
         <tr>
             <td colspan="2"><span class="sc-label">Outstanding Issues :</span> Tidak ada rekomendasi yang relevan.</td>
