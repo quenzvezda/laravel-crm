@@ -190,15 +190,6 @@ return [
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
 
         /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-
-        /*
          * Webkul Service Providers...
          */
         Webkul\Activity\Providers\ActivityServiceProvider::class,
@@ -220,6 +211,15 @@ return [
         Webkul\User\Providers\UserServiceProvider::class,
         Webkul\Warehouse\Providers\WarehouseServiceProvider::class,
         Webkul\WebForm\Providers\WebFormServiceProvider::class,
+
+        /*
+         * Application Service Providers...
+         */
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
     ])->toArray(),
 
     /*
