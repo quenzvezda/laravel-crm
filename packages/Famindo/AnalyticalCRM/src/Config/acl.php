@@ -2,6 +2,12 @@
 
 return [
     [
+        'key'   => 'dashboard.apriori_simulation',
+        'name'  => 'Simulasi Apriori',
+        'route' => 'admin.dashboard.index',
+        'sort'  => 2,
+    ],
+    [
         'key'   => 'analytics',
         'name'  => 'Analytics',
         'route' => 'admin.analytics.market_basket.index',

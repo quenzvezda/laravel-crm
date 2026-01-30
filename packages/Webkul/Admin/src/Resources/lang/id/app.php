@@ -372,7 +372,7 @@ return [
 
             'header' => [
                 'mega-search' => [
-                    'title'   => 'Pencarian Mega',
+                    'title'   => 'Cari Semua',
 
                     'tabs' => [
                         'leads'    => 'Prospek',

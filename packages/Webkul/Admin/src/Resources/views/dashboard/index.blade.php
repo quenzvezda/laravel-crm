@@ -78,6 +78,12 @@
         {!! view_render_event('admin.dashboard.index.content.left.after') !!}
     </div>
 
+    @if (bouncer()->hasPermission('dashboard.apriori_simulation'))
+        <div class="mt-4">
+            <v-apriori-simulation></v-apriori-simulation>
+        </div>
+    @endif
+
     {!! view_render_event('admin.dashboard.index.content.after') !!}
 
     @pushOnce('scripts')
@@ -154,6 +160,170 @@
                         deep: true
                     }
                 },
+            });
+        </script>
+
+        <!-- Apriori Simulation Component -->
+        <script type="text/x-template" id="v-apriori-simulation-template">
+            <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+                <p class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
+                    Simulasi Rekomendasi Produk (Apriori)
+                </p>
+
+                <div class="grid grid-cols-3 gap-8">
+                    <!-- Selected Items -->
+                    <div class="col-span-1">
+                        <div class="mb-4 flex items-center justify-between">
+                            <div class="text-sm font-medium text-gray-700 dark:text-gray-200">Keranjang Simulasi</div>
+                            <span
+                                class="cursor-pointer text-sm text-brandColor"
+                                @click="addProduct"
+                            >
+                                + Tambah Item
+                            </span>
+                        </div>
+
+                        <div v-if="selectedProducts.length > 0" class="flex flex-col gap-2">
+                            <div v-for="(product, index) in selectedProducts" :key="index" class="flex items-center gap-2">
+                                <x-admin::form.control-group class="!mb-0 w-full" style="z-index: 10;">
+                                    <x-admin::lookup
+                                        ::src="productSearchSrc"
+                                        ::name="'products[' + index + '][id]'"
+                                        ::value="product"
+                                        :preload="true"
+                                        placeholder="Cari produk..."
+                                        @on-selected="(selectedProduct) => updateProduct(index, selectedProduct)"
+                                    />
+                                </x-admin::form.control-group>
+
+                                <span
+                                    class="icon-delete cursor-pointer text-lg text-gray-600 hover:text-red-500"
+                                    @click="removeProduct(index)"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <div v-else class="mt-4 text-center text-sm text-gray-500">
+                            Keranjang masih kosong. Klik "+ Tambah Item" untuk memulai.
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="col-span-2">
+                        <div class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Produk yang Mungkin Dibeli Bersama</div>
+
+                        <div v-if="recommendations.length === 0 && !loading" class="text-sm text-gray-500">
+                            Pilih produk di keranjang untuk melihat rekomendasi.
+                        </div>
+
+                        <div v-if="loading" class="text-sm text-gray-500">
+                            Mencari rekomendasi...
+                        </div>
+
+                        <ul v-else class="grid grid-cols-1 gap-4">
+                            <li v-for="rec in recommendations" :key="rec.product_id" class="flex items-center gap-3 rounded-md border border-gray-200 p-3 dark:border-gray-800">
+                                <div class="flex min-w-0 flex-1 flex-col">
+                                    <div class="font-semibold text-gray-800 dark:text-white">@{{ rec.name }}</div>
+                                    <div class="text-xs text-gray-500">
+                                        conf: @{{ (rec.metrics.confidence*100).toFixed(0) }}% |
+                                        lift: @{{ rec.metrics.lift.toFixed(2) }}
+                                    </div>
+                                </div>
+                                <button
+                                    type="button"
+                                    class="secondary-button shrink-0"
+                                    @click="addRecommendedProduct(rec)"
+                                >
+                                    + Tambah
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script type="module">
+            app.component('v-apriori-simulation', {
+                template: '#v-apriori-simulation-template',
+
+                data() {
+                    return {
+                        selectedProducts: [],
+                        recommendations: [],
+                        loading: false,
+                        lastRequestKey: '',
+                        productSearchSrc: "{{ route('admin.products.search') }}",
+                    };
+                },
+
+                watch: {
+                    selectedProducts: {
+                        handler() {
+                            const ids = this.selectedProducts.map(p => p.id).filter(Boolean).sort();
+                            const requestKey = ids.join(',');
+
+                            if (requestKey && requestKey !== this.lastRequestKey) {
+                                this.lastRequestKey = requestKey;
+                                this.fetchRecommendations(ids);
+                            } else if (!requestKey) {
+                                this.recommendations = [];
+                                this.lastRequestKey = '';
+                            }
+                        },
+                        deep: true
+                    }
+                },
+
+                methods: {
+                    addProduct() {
+                        this.selectedProducts.push({ id: null, name: '' });
+                    },
+
+                    updateProduct(index, product) {
+                        if (product) {
+                            this.selectedProducts[index] = product;
+                        } else {
+                            this.selectedProducts.splice(index, 1);
+                        }
+                    },
+
+                    removeProduct(index) {
+                        this.selectedProducts.splice(index, 1);
+                    },
+
+                    addRecommendedProduct(rec) {
+                        const product = { id: rec.product_id, name: rec.name, price: rec.price };
+
+                        if (!this.selectedProducts.some(p => p.id === product.id)) {
+                            // Find an empty slot or add a new one
+                            const emptyIndex = this.selectedProducts.findIndex(p => !p.id);
+                            if (emptyIndex !== -1) {
+                                this.selectedProducts[emptyIndex] = product;
+                            } else {
+                                this.selectedProducts.push(product);
+                            }
+                        }
+                    },
+
+                    async fetchRecommendations(ids) {
+                        this.loading = true;
+                        this.recommendations = [];
+                        try {
+                            const { data } = await this.$axios.get("{{ route('admin.analytics.recommendations') }}", {
+                                params: { product_ids: ids, limit: 6 },
+                            });
+
+                            const existingIds = new Set(this.selectedProducts.map(p => p.id));
+                            this.recommendations = (data.data || []).filter(rec => !existingIds.has(rec.product_id));
+
+                        } catch (e) {
+                            console.error("Failed to fetch recommendations:", e);
+                        } finally {
+                            this.loading = false;
+                        }
+                    },
+                }
             });
         </script>
     @endPushOnce

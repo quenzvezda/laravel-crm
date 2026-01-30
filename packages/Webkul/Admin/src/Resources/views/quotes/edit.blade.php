@@ -347,8 +347,13 @@
 
                 <!-- Add New Quote Item button moved to header above -->
 
-                <div class="flex justify-end">
-                    <div class="grid w-[348px] gap-4 rounded-lg bg-gray-100 p-4 text-sm dark:bg-gray-950 dark:text-white">
+                <div class="flex w-full justify-between gap-4">
+                    <!-- Recommended (Apriori) Card -->
+                    <div class="w-full max-w-2xl">
+                        <v-apriori-recommendations></v-apriori-recommendations>
+                    </div>
+
+                    <div class="grid w-[348px] shrink-0 gap-4 rounded-lg bg-gray-100 p-4 text-sm dark:bg-gray-950 dark:text-white">
                         <div class="flex w-full justify-between gap-x-5">
                             @lang('admin::app.quotes.create.sub-total', ['symbol' => core()->currencySymbol(config('app.currency'))])
 
@@ -413,13 +418,6 @@
 
                             <p>@{{ grandTotal }}</p>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Recommended (Apriori) Card -->
-                <div class="flex justify-end">
-                    <div class="w-[348px]">
-                        <v-apriori-recommendations></v-apriori-recommendations>
                     </div>
                 </div>
             </div>
@@ -838,7 +836,7 @@
         <script type="text/x-template" id="v-apriori-recommendations-template">
             <div class="mt-2 rounded-lg border border-gray-200 bg-white p-3 text-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
                 <div class="mb-2 flex items-center justify-between">
-                    <div class="font-semibold text-gray-800 dark:text-white">Recommended (Apriori)</div>
+                    <div class="font-semibold text-gray-800 dark:text-white">Rekomendasi Produk (Apriori)</div>
                     <span v-if="loading" class="text-xs text-gray-500">Loading…</span>
                 </div>
                 <div v-if="meta && meta.run" class="mb-2 text-xs text-gray-500">
@@ -851,12 +849,7 @@
                 </div>
 
                 <ul v-else class="flex max-h-64 flex-col gap-2 overflow-auto">
-                    <li v-for="it in items" :key="it.product_id" class="flex items-center justify-between gap-2">
-                        <div class="flex min-w-0 flex-col">
-                            <div class="truncate text-gray-800 dark:text-white">@{{ it.name }}</div>
-                            <div class="text-[11px] text-gray-500">conf @{{ (it.metrics.confidence*100).toFixed(0) }}% · lift @{{ it.metrics.lift.toFixed(2) }} · supp @{{ (it.metrics.support*100).toFixed(1) }}%</div>
-                        </div>
-
+                    <li v-for="it in items" :key="it.product_id" class="flex items-center justify-between gap-4">
                         <button
                             type="button"
                             class="secondary-button shrink-0"
@@ -864,9 +857,14 @@
                             :disabled="isAdded(it)"
                             @click="add(it)"
                         >
-                            <span v-if="isAdded(it)">Added</span>
-                            <span v-else>Add</span>
+                            <span v-if="isAdded(it)">Ditambahkan</span>
+                            <span v-else>Tambah</span>
                         </button>
+
+                        <div class="flex min-w-0 flex-1 flex-col">
+                            <div class="truncate text-gray-800 dark:text-white">@{{ it.name }}</div>
+                            <div class="text-[11px] text-gray-500">conf @{{ (it.metrics.confidence*100).toFixed(0) }}% · lift @{{ it.metrics.lift.toFixed(2) }} · supp @{{ (it.metrics.support*100).toFixed(1) }}%</div>
+                        </div>
                     </li>
                 </ul>
             </div>
