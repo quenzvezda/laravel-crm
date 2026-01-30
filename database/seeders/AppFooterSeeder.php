@@ -15,7 +15,7 @@ class AppFooterSeeder extends Seeder
         $year = date('Y');
 
         // Footer copy (English) without mentioning Krayin
-        $footerHtml = '© ' . $year . ' PT Famindo Teknik Karya Utama — Market Basket Analysis (Apriori) for sales recommendations.';
+        $footerHtml = '© ' . $year . ' PT Famindo Teknik Karya Utama — Market Basket Analysis (Apriori).';
 
         $code = 'general.settings.footer.label';
 

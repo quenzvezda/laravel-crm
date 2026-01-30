@@ -36,8 +36,6 @@ class AccountController extends Controller
             'password'         => 'nullable|min:6|confirmed',
             'current_password' => 'required|min:6',
             'image.*'          => 'nullable|mimes:bmp,jpeg,jpg,png,webp',
-            'signature_image.*' => 'nullable|mimes:bmp,jpeg,jpg,png,webp',
-            'signature_name'   => 'nullable|string',
         ]);
 
         $data = request()->only([
@@ -47,8 +45,6 @@ class AccountController extends Controller
             'password_confirmation',
             'current_password',
             'image',
-            'signature_image',
-            'signature_name',
         ]);
 
         if (! Hash::check($data['current_password'], $user->password)) {
@@ -86,27 +82,6 @@ class AccountController extends Controller
                 $data['image'] = $user->image;
             }
         }
-
-        // Check permission using bouncer helper
-        if (bouncer()->hasPermission('settings.user.signature')) {
-            if (request()->hasFile('signature_image')) {
-                $data['signature_image'] = current(request()->file('signature_image'))->store('admins/'.$user->id.'/signature');
-            } else {
-                if (! isset($data['signature_image'])) {
-                    if (! empty($user->signature_image)) {
-                        Storage::delete($user->signature_image);
-                    }
-                    $data['signature_image'] = null;
-                } else {
-                    $data['signature_image'] = $user->signature_image;
-                }
-            }
-        } else {
-            // If user is not allowed, ensure signature fields are not updated
-            unset($data['signature_image']);
-            unset($data['signature_name']);
-        }
-
 
         $user->update($data);
 
