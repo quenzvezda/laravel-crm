@@ -175,27 +175,29 @@
 
             <div class="flex items-center gap-x-2.5">
                 @if ($hasSnapshots && $currentRunId)
-                    <a
-                        href="{{ route('admin.analytics.market_basket.index', array_merge($exportBase, ['format' => 'csv'])) }}"
-                        class="secondary-button"
-                    >
-                        Ekspor Rekap (CSV)
-                    </a>
+                    @if (bouncer()->hasPermission('analytics.market_basket.print'))
+                        <a
+                            href="{{ route('admin.analytics.market_basket.index', array_merge($exportBase, ['format' => 'csv'])) }}"
+                            class="secondary-button"
+                        >
+                            Ekspor Rekap (CSV)
+                        </a>
 
-                    <a
-                        href="{{ route('admin.analytics.market_basket.index', array_merge($exportBase, ['format' => 'xlsx'])) }}"
-                        class="secondary-button"
-                    >
-                        Ekspor Rekap (XLSX)
-                    </a>
+                        <a
+                            href="{{ route('admin.analytics.market_basket.index', array_merge($exportBase, ['format' => 'xlsx'])) }}"
+                            class="secondary-button"
+                        >
+                            Ekspor Rekap (XLSX)
+                        </a>
 
-                    <a
-                        href="{{ route('admin.analytics.market_basket.export_pdf', $currentRunId) }}"
-                        target="_blank"
-                        class="secondary-button"
-                    >
-                        Ekspor Rekap (PDF)
-                    </a>
+                        <a
+                            href="{{ route('admin.analytics.market_basket.export_pdf', $currentRunId) }}"
+                            target="_blank"
+                            class="secondary-button"
+                        >
+                            Ekspor Rekap (PDF)
+                        </a>
+                    @endif
                 @else
                     <span class="secondary-button cursor-not-allowed opacity-50">
                         Ekspor Rekap (CSV)
@@ -250,12 +252,14 @@
                                             Aktif
                                         </span>
                                     @else
-                                        <x-admin::form :action="route('admin.analytics.market_basket.activate', $currentRun->id)" method="POST">
-                                            @csrf
-                                            <button type="submit" class="secondary-button">
-                                                Aktifkan
-                                            </button>
-                                        </x-admin::form>
+                                        @if (bouncer()->hasPermission('analytics.market_basket.edit'))
+                                            <x-admin::form :action="route('admin.analytics.market_basket.activate', $currentRun->id)" method="POST">
+                                                @csrf
+                                                <button type="submit" class="secondary-button">
+                                                    Aktifkan
+                                                </button>
+                                            </x-admin::form>
+                                        @endif
                                     @endif
                                 </div>
                             @endif
@@ -325,81 +329,83 @@
         </div>
 
         <div class="grid gap-4 lg:grid-cols-3">
-            <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900 lg:col-span-1">
-                <div class="mb-2 text-base font-semibold">Jalankan Analisis Baru</div>
+            @if (bouncer()->hasPermission('analytics.market_basket.create'))
+                <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900 lg:col-span-1">
+                    <div class="mb-2 text-base font-semibold">Jalankan Analisis Baru</div>
 
-                <x-admin::form :action="route('admin.analytics.market_basket.run')" method="POST">
-                    @csrf
+                    <x-admin::form :action="route('admin.analytics.market_basket.run')" method="POST">
+                        @csrf
 
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <x-admin::form.control-group.label>
-                                Dari
-                            </x-admin::form.control-group.label>
-                            <x-admin::form.control-group.control type="date" name="from" />
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <x-admin::form.control-group.label>
+                                    Dari
+                                </x-admin::form.control-group.label>
+                                <x-admin::form.control-group.control type="date" name="from" />
+                            </div>
+
+                            <div>
+                                <x-admin::form.control-group.label>
+                                    Sampai
+                                </x-admin::form.control-group.label>
+                                <x-admin::form.control-group.control type="date" name="to" />
+                            </div>
                         </div>
 
-                        <div>
-                            <x-admin::form.control-group.label>
-                                Sampai
-                            </x-admin::form.control-group.label>
-                            <x-admin::form.control-group.control type="date" name="to" />
+                        <div class="mt-3 grid grid-cols-3 gap-3">
+                            <div>
+                                <x-admin::form.control-group.label>
+                                    Support
+                                </x-admin::form.control-group.label>
+                                <x-admin::form.control-group.control type="number" name="support" step="0.01" min="0" max="1" value="0.05" />
+                            </div>
+
+                            <div>
+                                <x-admin::form.control-group.label>
+                                    Confidence
+                                </x-admin::form.control-group.label>
+                                <x-admin::form.control-group.control type="number" name="confidence" step="0.01" min="0" max="1" value="0.6" />
+                            </div>
+
+                            <div>
+                                <x-admin::form.control-group.label>
+                                    Min. Item
+                                </x-admin::form.control-group.label>
+                                <x-admin::form.control-group.control type="number" name="min_items" min="1" value="2" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mt-3 grid grid-cols-3 gap-3">
-                        <div>
+                        <div class="mt-3">
                             <x-admin::form.control-group.label>
-                                Support
+                                Nama Label (Snapshot)
                             </x-admin::form.control-group.label>
-                            <x-admin::form.control-group.control type="number" name="support" step="0.01" min="0" max="1" value="0.05" />
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="label"
+                                placeholder="Contoh: Q1 2025 - 90 Hari"
+                            />
                         </div>
 
-                        <div>
-                            <x-admin::form.control-group.label>
-                                Confidence
-                            </x-admin::form.control-group.label>
-                            <x-admin::form.control-group.control type="number" name="confidence" step="0.01" min="0" max="1" value="0.6" />
+                        <div class="mt-3 flex flex-col gap-2">
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" name="persist" value="1" class="rounded" />
+                                <span>Simpan Data Transaksi</span>
+                            </label>
+
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" name="activate" value="1" class="rounded" />
+                                <span>Jadikan rekap aktif setelah selesai</span>
+                            </label>
                         </div>
 
-                        <div>
-                            <x-admin::form.control-group.label>
-                                Min. Item
-                            </x-admin::form.control-group.label>
-                            <x-admin::form.control-group.control type="number" name="min_items" min="1" value="2" />
+                        <div class="mt-4">
+                            <button type="submit" class="primary-button">Proses &amp; Simpan Rules</button>
                         </div>
-                    </div>
+                    </x-admin::form>
+                </div>
+            @endif
 
-                    <div class="mt-3">
-                        <x-admin::form.control-group.label>
-                            Nama Label (Snapshot)
-                        </x-admin::form.control-group.label>
-                        <x-admin::form.control-group.control
-                            type="text"
-                            name="label"
-                            placeholder="Contoh: Q1 2025 - 90 Hari"
-                        />
-                    </div>
-
-                    <div class="mt-3 flex flex-col gap-2">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" name="persist" value="1" class="rounded" />
-                            <span>Simpan Data Transaksi</span>
-                        </label>
-
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" name="activate" value="1" class="rounded" />
-                            <span>Jadikan rekap aktif setelah selesai</span>
-                        </label>
-                    </div>
-
-                    <div class="mt-4">
-                        <button type="submit" class="primary-button">Proses &amp; Simpan Rules</button>
-                    </div>
-                </x-admin::form>
-            </div>
-
-            <div class="box-shadow rounded-lg border border-gray-200 bg-white p-0 dark:border-gray-800 dark:bg-gray-900 lg:col-span-2">
+            <div class="box-shadow rounded-lg border border-gray-200 bg-white p-0 dark:border-gray-800 dark:bg-gray-900 {{ bouncer()->hasPermission('analytics.market_basket.create') ? 'lg:col-span-2' : 'lg:col-span-3' }}">
                 <x-admin::datagrid src="{{ $gridSrc }}">
                     <x-admin::shimmer.datagrid />
                 </x-admin::datagrid>
