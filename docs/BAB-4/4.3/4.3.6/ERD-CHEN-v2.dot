@@ -1,0 +1,112 @@
+digraph ERD_Chen_Simplified {
+    fontname="Helvetica,Arial,sans-serif"
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    layout=neato
+    overlap=false
+    splines=true
+    sep="+20"
+
+    // --- ENTITY STYLE (Rectangles) ---
+    node [shape=box, style=filled, fillcolor="#E1F5FE", width=1.2, height=0.6];
+    USERS, ROLES, LEADS, QUOTES, QUOTE_ITEMS, 
+    PERSONS, ORGANIZATIONS, PRODUCTS, ACTIVITIES, SIGNATURES,
+    APRIORI_RUNS, APRIORI_RULES, APRIORI_TRANSACTIONS;
+
+    // --- ATTRIBUTE STYLE (Ellipses) ---
+    node [shape=ellipse, style=none, fillcolor=none, width=1.0, height=0.5, fontsize=10];
+    
+    // Users
+    u_id [label=<<u>id</u>>]; u_name [label="name"]; u_role [label="role_id"];
+    {USERS} -> {u_id u_name u_role};
+
+    // Roles
+    r_id [label=<<u>id</u>>]; r_name [label="name"];
+    {ROLES} -> {r_id r_name};
+
+    // Leads
+    l_id [label=<<u>id</u>>]; l_title [label="title"]; l_uid [label="user_id"]; l_pid [label="person_id"];
+    {LEADS} -> {l_id l_title l_uid l_pid};
+
+    // Quotes
+    q_id [label=<<u>id</u>>]; q_sub [label="subject"]; q_uid [label="user_id"]; q_pid [label="person_id"];
+    {QUOTES} -> {q_id q_sub q_uid q_pid};
+
+    // Persons
+    p_id [label=<<u>id</u>>]; p_name [label="name"]; p_oid [label="org_id"];
+    {PERSONS} -> {p_id p_name p_oid};
+
+    // Organizations
+    o_id [label=<<u>id</u>>]; o_name [label="name"];
+    {ORGANIZATIONS} -> {o_id o_name};
+
+    // Products
+    pr_id [label=<<u>id</u>>]; pr_sku [label="sku"]; pr_name [label="name"];
+    {PRODUCTS} -> {pr_id pr_sku pr_name};
+
+    // Activities
+    a_id [label=<<u>id</u>>]; a_title [label="title"]; a_uid [label="user_id"];
+    {ACTIVITIES} -> {a_id a_title a_uid};
+
+    // Apriori Runs
+    ar_id [label=<<u>id</u>>]; ar_name [label="name"]; ar_cb [label="created_by"];
+    {APRIORI_RUNS} -> {ar_id ar_name ar_cb};
+
+    // --- RELATIONSHIP STYLE (Diamonds) ---
+    node [shape=diamond, style=filled, fillcolor="#FFF9C4", width=1.2, height=0.8, fontsize=10];
+
+    rel_ur [label="Has"];
+    USERS -> rel_ur [label="N", len=1.5];
+    rel_ur -> ROLES [label="1", len=1.5];
+
+    rel_lu [label="Managed_by"];
+    LEADS -> rel_lu [label="N", len=1.5];
+    rel_lu -> USERS [label="1", len=1.5];
+
+    rel_lp [label="Contact"];
+    LEADS -> rel_lp [label="N", len=1.5];
+    rel_lp -> PERSONS [label="1", len=1.5];
+
+    rel_qu [label="Created_by"];
+    QUOTES -> rel_qu [label="N", len=1.5];
+    rel_qu -> USERS [label="1", len=1.5];
+
+    rel_qp [label="For"];
+    QUOTES -> rel_qp [label="N", len=1.5];
+    rel_qp -> PERSONS [label="1", len=1.5];
+
+    rel_po [label="Works_at"];
+    PERSONS -> rel_po [label="N", len=1.5];
+    rel_po -> ORGANIZATIONS [label="1", len=1.5];
+
+    rel_qi_q [label="Item_of"];
+    QUOTE_ITEMS -> rel_qi_q [label="N", len=1.5];
+    rel_qi_q -> QUOTES [label="1", len=1.5];
+
+    rel_qi_p [label="Ref_Prod"];
+    QUOTE_ITEMS -> rel_qi_p [label="N", len=1.5];
+    rel_qi_p -> PRODUCTS [label="1", len=1.5];
+
+    rel_act_u [label="Performed_by"];
+    ACTIVITIES -> rel_act_u [label="N", len=1.5];
+    rel_act_u -> USERS [label="1", len=1.5];
+
+    rel_act_l [label="Related_to"];
+    ACTIVITIES -> rel_act_l [label="M", len=1.8];
+    rel_act_l -> LEADS [label="N", len=1.8];
+
+    rel_ar_u [label="Run_by"];
+    APRIORI_RUNS -> rel_ar_u [label="N", len=1.5];
+    rel_ar_u -> USERS [label="1", len=1.5];
+
+    rel_rule_run [label="Result_of"];
+    APRIORI_RULES -> rel_rule_run [label="N", len=1.5];
+    rel_rule_run -> APRIORI_RUNS [label="1", len=1.5];
+
+    rel_trans_run [label="Log_of"];
+    APRIORI_TRANSACTIONS -> rel_trans_run [label="N", len=1.5];
+    rel_trans_run -> APRIORI_RUNS [label="1", len=1.5];
+
+    label = "\n\nERD Chen Notation (Simplified) - Analytical CRM Project";
+    fontsize=25;
+}
