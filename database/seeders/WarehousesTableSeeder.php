@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Webkul\Attribute\Repositories\AttributeValueRepository;
 use Webkul\Warehouse\Models\Warehouse;
 
@@ -50,7 +49,7 @@ class WarehousesTableSeeder extends Seeder
                     'updated_at'       => $now,
                 ]);
                 $existing->save(); // fires Updated activity via LogsActivity
-                $warehouse   = $existing;
+                $warehouse = $existing;
             } else {
                 $warehouse = Warehouse::create([
                     'name'             => $w['name'],

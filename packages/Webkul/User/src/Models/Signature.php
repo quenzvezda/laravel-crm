@@ -16,8 +16,6 @@ class Signature extends Model
 
     /**
      * Get the full URL for the signature image.
-     *
-     * @return string|null
      */
     public function getImageUrlAttribute(): ?string
     {

@@ -74,8 +74,8 @@ return [
             ],
 
             'organization-control' => [
-                'label'            => 'Organisasi',
-                'placeholder'      => 'Pilih Organisasi',
+                'label'                => 'Organisasi',
+                'placeholder'          => 'Pilih Organisasi',
                 'add-new-organization' => 'Tambah organisasi baru',
             ],
 
@@ -197,7 +197,7 @@ return [
     ],
 
     'type' => [
-        'new-lead'     => 'Prospek Baru',
+        'new-lead'          => 'Prospek Baru',
         'existing-customer' => 'Pelanggan Existing',
     ],
 
@@ -211,15 +211,15 @@ return [
     ],
 
     'sources' => [
-        'email'        => 'Email',
-        'web'          => 'Web',
-        'phone'        => 'Telepon',
-        'contact-form' => 'Form Kontak',
-        'advertisement' => 'Iklan',
+        'email'          => 'Email',
+        'web'            => 'Web',
+        'phone'          => 'Telepon',
+        'contact-form'   => 'Form Kontak',
+        'advertisement'  => 'Iklan',
         'organic-search' => 'Pencarian Organik',
-        'social-media' => 'Media Sosial',
-        'referral'     => 'Rujukan',
-        'partner'      => 'Partner',
-        'trade-show'   => 'Pameran Dagang',
+        'social-media'   => 'Media Sosial',
+        'referral'       => 'Rujukan',
+        'partner'        => 'Partner',
+        'trade-show'     => 'Pameran Dagang',
     ],
 ];

@@ -89,8 +89,8 @@ class DemoUserSeeder extends Seeder
 
         // Create or update demo user (credentials configurable via env)
         $demoEmail = env('DEMO_USER_EMAIL', 'demo@example.com');
-        $demoPass  = env('DEMO_USER_PASSWORD', 'demo123');
-        $demoName  = env('DEMO_USER_NAME', 'Demo User');
+        $demoPass = env('DEMO_USER_PASSWORD', 'demo123');
+        $demoName = env('DEMO_USER_NAME', 'Demo User');
 
         $existingUser = DB::table('users')->where('email', $demoEmail)->first();
 

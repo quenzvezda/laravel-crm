@@ -40,4 +40,3 @@ class AprioriRun extends Model
         ])->save();
     }
 }
-

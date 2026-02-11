@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
 
 class AppLogoSeeder extends Seeder
 {
@@ -27,11 +27,12 @@ class AppLogoSeeder extends Seeder
 
         if (! $sourcePath) {
             $this->command?->warn('[AppLogoSeeder] No logo file found in database/seeders/assets (expected admin-logo.{png|jpg|jpeg|webp|svg}). Skipping.');
+
             return;
         }
 
         $ext = pathinfo($sourcePath, PATHINFO_EXTENSION);
-        $targetFilename = 'admin-logo.' . $ext;
+        $targetFilename = 'admin-logo.'.$ext;
 
         // Store under public disk so Storage::url() resolves to /storage/...
         $storedPath = Storage::disk('public')->putFileAs('configuration', new File($sourcePath), $targetFilename);
@@ -74,7 +75,7 @@ class AppLogoSeeder extends Seeder
 
         if ($faviconSource) {
             $favExt = pathinfo($faviconSource, PATHINFO_EXTENSION);
-            $favFilename = 'favicon.' . $favExt;
+            $favFilename = 'favicon.'.$favExt;
             $favStored = Storage::disk('public')->putFileAs('configuration', new File($faviconSource), $favFilename);
 
             $favKey = 'general.design.admin_logo.favicon';
@@ -93,9 +94,9 @@ class AppLogoSeeder extends Seeder
                 ]);
             }
 
-            $this->command?->info('[AppLogoSeeder] Favicon seeded: ' . $favStored);
+            $this->command?->info('[AppLogoSeeder] Favicon seeded: '.$favStored);
         }
 
-        $this->command?->info('[AppLogoSeeder] Admin logo seeded: ' . $storedPath);
+        $this->command?->info('[AppLogoSeeder] Admin logo seeded: '.$storedPath);
     }
 }

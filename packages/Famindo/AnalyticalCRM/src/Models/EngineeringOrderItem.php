@@ -16,4 +16,3 @@ class EngineeringOrderItem extends Model
         return $this->belongsTo(EngineeringOrder::class, 'order_id');
     }
 }
-

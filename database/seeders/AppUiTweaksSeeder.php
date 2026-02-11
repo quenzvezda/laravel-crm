@@ -45,4 +45,3 @@ JS;
         $this->command?->info('[AppUiTweaksSeeder] Injected custom JS to remove logo+version strip in profile dropdown.');
     }
 }
-

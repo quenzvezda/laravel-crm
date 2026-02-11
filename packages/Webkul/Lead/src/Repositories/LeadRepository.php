@@ -143,7 +143,7 @@ class LeadRepository extends Repository
 
         $this->attributeValueRepository->save(array_merge($attributePayload, [
             'entity_type' => $entityType,
-            'entity_id' => $lead->id,
+            'entity_id'   => $lead->id,
         ]));
 
         if (isset($data['products'])) {
@@ -229,7 +229,7 @@ class LeadRepository extends Repository
 
             $this->attributeValueRepository->save(array_merge($attributePayload, [
                 'entity_type' => $entityType,
-                'entity_id' => $lead->id,
+                'entity_id'   => $lead->id,
             ]), $attributes);
 
             return $lead;
@@ -237,7 +237,7 @@ class LeadRepository extends Repository
 
         $this->attributeValueRepository->save(array_merge($attributePayload, [
             'entity_type' => $entityType,
-            'entity_id' => $lead->id,
+            'entity_id'   => $lead->id,
         ]));
 
         $previousProductIds = $lead->products()->pluck('id');

@@ -14,14 +14,14 @@ return [
             'view-results'          => 'Lihat Hasil',
 
             'parameters' => [
-                'title'             => 'Parameter Analisis',
-                'date-range'        => 'Rentang Tanggal',
-                'from-date'         => 'Tanggal Mulai',
-                'to-date'           => 'Tanggal Akhir',
-                'min-support'       => 'Minimum Support',
-                'min-confidence'    => 'Minimum Confidence',
-                'min-items'         => 'Minimum Items per Transaksi',
-                'label'             => 'Label Analisis',
+                'title'                => 'Parameter Analisis',
+                'date-range'           => 'Rentang Tanggal',
+                'from-date'            => 'Tanggal Mulai',
+                'to-date'              => 'Tanggal Akhir',
+                'min-support'          => 'Minimum Support',
+                'min-confidence'       => 'Minimum Confidence',
+                'min-items'            => 'Minimum Items per Transaksi',
+                'label'                => 'Label Analisis',
                 'persist-transactions' => 'Simpan Data Transaksi',
             ],
 
@@ -47,9 +47,9 @@ return [
         ],
 
         'create' => [
-            'title'                 => 'Buat Analisis Market Basket',
-            'save-btn'              => 'Jalankan Analisis',
-            'analysis-label'        => 'Label Analisis',
+            'title'                      => 'Buat Analisis Market Basket',
+            'save-btn'                   => 'Jalankan Analisis',
+            'analysis-label'             => 'Label Analisis',
             'analysis-label-placeholder' => 'Masukkan label untuk analisis ini',
         ],
 

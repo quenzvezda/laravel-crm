@@ -57,7 +57,6 @@ class CustomRoleAndUserSeeder extends Seeder
         );
         $direkturRole = DB::table('roles')->where('name', 'Direktur')->first();
 
-
         // Marketing Role
         DB::table('roles')->updateOrInsert(
             ['name' => 'Marketing'],

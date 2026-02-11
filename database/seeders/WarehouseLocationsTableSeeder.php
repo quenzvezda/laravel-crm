@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Webkul\Warehouse\Models\Warehouse;
 use Webkul\Warehouse\Models\Location;
+use Webkul\Warehouse\Models\Warehouse;
 
 class WarehouseLocationsTableSeeder extends Seeder
 {
@@ -35,4 +35,3 @@ class WarehouseLocationsTableSeeder extends Seeder
         );
     }
 }
-

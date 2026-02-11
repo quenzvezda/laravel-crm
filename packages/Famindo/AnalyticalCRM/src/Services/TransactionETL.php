@@ -122,7 +122,7 @@ class TransactionETL
 
         foreach ($transactions as $idx => $items) {
             $inserts[] = [
-                'run_id'    => $runId,
+                'run_id'     => $runId,
                 'quote_id'   => $quoteIds[$idx] ?? null,
                 'lead_id'    => $leadIds[$idx] ?? null,
                 'items'      => json_encode(array_values($items), JSON_UNESCAPED_UNICODE),

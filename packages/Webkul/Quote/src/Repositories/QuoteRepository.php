@@ -64,7 +64,7 @@ class QuoteRepository extends Repository
 
         $this->attributeValueRepository->save(array_merge($attributePayload, [
             'entity_type' => $entityType,
-            'entity_id' => $quote->id,
+            'entity_id'   => $quote->id,
         ]));
 
         foreach ($items as $itemData) {
@@ -111,7 +111,7 @@ class QuoteRepository extends Repository
 
             $this->attributeValueRepository->save(array_merge($attributePayload, [
                 'entity_type' => $entityType,
-                'entity_id' => $quote->id,
+                'entity_id'   => $quote->id,
             ]), $attributes);
 
             return $quote;
@@ -119,7 +119,7 @@ class QuoteRepository extends Repository
 
         $this->attributeValueRepository->save(array_merge($attributePayload, [
             'entity_type' => $entityType,
-            'entity_id' => $quote->id,
+            'entity_id'   => $quote->id,
         ]));
 
         $previousItemIds = $quote->items->pluck('id');

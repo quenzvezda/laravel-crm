@@ -1,5 +1,6 @@
 <?php
 
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Support\Facades\Route;
 use Webkul\Admin\Http\Controllers\Settings\AttributeController;
 use Webkul\Admin\Http\Controllers\Settings\DataTransfer\ImportController;
@@ -22,7 +23,6 @@ use Webkul\Admin\Http\Controllers\Settings\Warehouse\WarehouseController;
 use Webkul\Admin\Http\Controllers\Settings\WebFormController;
 use Webkul\Admin\Http\Controllers\Settings\WebhookController;
 use Webkul\Admin\Http\Controllers\Settings\WorkflowController;
-use Diglactic\Breadcrumbs\Breadcrumbs;
 
 /**
  * Settings group routes.

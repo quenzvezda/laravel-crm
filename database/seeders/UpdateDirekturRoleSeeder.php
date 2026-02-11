@@ -26,7 +26,7 @@ class UpdateDirekturRoleSeeder extends Seeder
         }
 
         DB::table('roles')->where('id', $role->id)->update([
-            'permissions' => json_encode(array_values(array_unique($permissions)))
+            'permissions' => json_encode(array_values(array_unique($permissions))),
         ]);
     }
 }

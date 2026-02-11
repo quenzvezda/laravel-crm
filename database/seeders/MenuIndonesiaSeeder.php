@@ -71,4 +71,3 @@ class MenuIndonesiaSeeder extends Seeder
         }
     }
 }
-
