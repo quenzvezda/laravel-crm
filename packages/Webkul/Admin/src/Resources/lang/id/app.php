@@ -2201,7 +2201,7 @@ return [
                     'other'               => 'Model Lain',
                     'other-model'         => 'Untuk model lain, gunakan ID Model dari OpenRouter.',
                     'doc-generation'      => 'Pembuatan DOC',
-                    'doc-generation-info' => 'Aktifkan fitur Pembuatan DOC untuk secara otomatis mengekstrak data dari file DOC dan mengubahnya menjadi format teks. Tingkatkan produktivitas dan efisiensi Anda dengan mengaktifkan fitur ini untuk merampingkan alur kerja Anda.',
+                    'doc-generation-info' => 'Aktifkan fitur Pembuatan Dokumentasi untuk secara otomatis mengekstrak data dari file DOC dan mengubahnya menjadi format teks. Tingkatkan produktivitas dan efisiensi Anda dengan mengaktifkan fitur ini untuk merampingkan alur kerja Anda.',
                     'title'               => 'Pengaturan Umum',
 
                     'models'     => [
