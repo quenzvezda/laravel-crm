@@ -30,12 +30,12 @@ class PersonsFromOrganizationsSeeder extends Seeder
             ['code' => 'C004', 'name' => 'PT Prima Plastik',   'industry' => 'Plastik',              'city' => 'Bekasi'],
             ['code' => 'C005', 'name' => 'PT Surya Bakery',    'industry' => 'Bakery',               'city' => 'Semarang'],
             ['code' => 'C006', 'name' => 'PT Delta Pharma',    'industry' => 'Farmasi',              'city' => 'Bandung'],
-            ['code' => 'C007', 'name' => 'PT Maju Jaya',       'industry' => 'General Manufacturing','city' => 'Tangerang'],
-            ['code' => 'C008', 'name' => 'CV Sentosa',         'industry' => 'General Manufacturing','city' => 'Depok'],
+            ['code' => 'C007', 'name' => 'PT Maju Jaya',       'industry' => 'General Manufacturing', 'city' => 'Tangerang'],
+            ['code' => 'C008', 'name' => 'CV Sentosa',         'industry' => 'General Manufacturing', 'city' => 'Depok'],
             ['code' => 'C009', 'name' => 'PT Arjuna Metal',    'industry' => 'Metal',                'city' => 'Gresik'],
             ['code' => 'C010', 'name' => 'PT Barokah Logam',   'industry' => 'Metal',                'city' => 'Sidoarjo'],
             ['code' => 'C011', 'name' => 'PT Sinar Elektrik',  'industry' => 'Elektronik',           'city' => 'Cikarang'],
-            ['code' => 'C012', 'name' => 'PT Sejahtera Abadi', 'industry' => 'General Manufacturing','city' => 'Karawang'],
+            ['code' => 'C012', 'name' => 'PT Sejahtera Abadi', 'industry' => 'General Manufacturing', 'city' => 'Karawang'],
         ];
 
         $inserts = [];
@@ -49,14 +49,14 @@ class PersonsFromOrganizationsSeeder extends Seeder
 
             // Person dummy data derived from organization
             $personName = 'PIC '.$org['name'];
-            $slug       = Str::slug($org['name']);
-            $email      = 'pic.'.$slug.'.'.strtolower($org['code']).'@example.com';
-            $phone      = '0813'.str_pad((string)($i + 2020), 7, '0', STR_PAD_LEFT);
+            $slug = Str::slug($org['name']);
+            $email = 'pic.'.$slug.'.'.strtolower($org['code']).'@example.com';
+            $phone = '0813'.str_pad((string) ($i + 2020), 7, '0', STR_PAD_LEFT);
 
             $inserts[] = [
                 'name'             => $personName,
-                'emails'           => json_encode([[ 'value' => $email, 'label' => 'work' ]], JSON_UNESCAPED_SLASHES),
-                'contact_numbers'  => json_encode([[ 'value' => $phone, 'label' => 'mobile' ]], JSON_UNESCAPED_SLASHES),
+                'emails'           => json_encode([['value' => $email, 'label' => 'work']], JSON_UNESCAPED_SLASHES),
+                'contact_numbers'  => json_encode([['value' => $phone, 'label' => 'mobile']], JSON_UNESCAPED_SLASHES),
                 'organization_id'  => $orgId,
                 'job_title'        => 'PIC',
                 'user_id'          => $defaultOwnerId,

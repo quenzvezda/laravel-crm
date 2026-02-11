@@ -31,7 +31,7 @@ class ProductInventoriesTableSeeder extends Seeder
         }
 
         $warehouseId = $warehouse->id;
-        $locationId  = $location->id;
+        $locationId = $location->id;
 
         // Set in_stock = 100 for all products at Gudang Bandung / Lantai 1
         $productIds = Product::pluck('id');
@@ -53,4 +53,3 @@ class ProductInventoriesTableSeeder extends Seeder
         }
     }
 }
-

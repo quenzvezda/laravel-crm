@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Famindo\AnalyticalCRM\Http\Controllers\Admin\AprioriController;
+use Illuminate\Support\Facades\Route;
 
 Route::controller(AprioriController::class)->prefix('analytics/market-basket')->group(function () {
     Route::get('', 'index')->name('admin.analytics.market_basket.index');

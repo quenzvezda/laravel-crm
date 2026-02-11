@@ -24,7 +24,7 @@ class ForceUrlFromRequest
 
         // Public storage URL (dipakai oleh Storage::url())
         // Pastikan mengarah ke host saat ini agar logo/foto/icon dari disk public termuat benar
-        Config::set('filesystems.disks.public.url', $root . '/storage');
+        Config::set('filesystems.disks.public.url', $root.'/storage');
 
         return $next($request);
     }

@@ -4,13 +4,13 @@ namespace Famindo\AnalyticalCRM\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use Famindo\AnalyticalCRM\DataGrids\AprioriRulesDataGrid;
+use Famindo\AnalyticalCRM\Jobs\RunAprioriJob;
 use Famindo\AnalyticalCRM\Models\AprioriRun;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Famindo\AnalyticalCRM\Jobs\RunAprioriJob;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Illuminate\Support\Facades\DB;
 use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Core\Traits\PDFHandler;
 
@@ -124,7 +124,7 @@ class AprioriController extends Controller
             'limit'      => $limit,
         ])->render();
 
-        return $this->downloadPDF($html, 'MarketBasketAnalysis_' . $run->id . '_' . date('d-m-Y'));
+        return $this->downloadPDF($html, 'MarketBasketAnalysis_'.$run->id.'_'.date('d-m-Y'));
     }
 
     public function recommendations(): JsonResponse
@@ -154,13 +154,13 @@ class AprioriController extends Controller
 
         $currentCodes = [];
         foreach ($currentProducts as $p) {
-            $code = $p->sku && trim($p->sku) !== '' ? (string) $p->sku : ('product:' . (int) $p->id);
+            $code = $p->sku && trim($p->sku) !== '' ? (string) $p->sku : ('product:'.(int) $p->id);
             $currentCodes[$code] = true;
         }
 
         if (empty($currentCodes)) {
             return response()->json([
-                'meta' => [ 'run' => [ 'id' => $activeRun->id, 'name' => $activeRun->name, 'date' => optional($activeRun->created_at)->toDateString() ] ],
+                'meta' => ['run' => ['id' => $activeRun->id, 'name' => $activeRun->name, 'date' => optional($activeRun->created_at)->toDateString()]],
                 'data' => [],
             ]);
         }
@@ -212,7 +212,7 @@ class AprioriController extends Controller
 
         if (empty($recommendations)) {
             return response()->json([
-                'meta' => [ 'run' => [ 'id' => $activeRun->id, 'name' => $activeRun->name, 'date' => optional($activeRun->created_at)->toDateString() ] ],
+                'meta' => ['run' => ['id' => $activeRun->id, 'name' => $activeRun->name, 'date' => optional($activeRun->created_at)->toDateString()]],
                 'data' => [],
             ]);
         }
@@ -242,7 +242,7 @@ class AprioriController extends Controller
         if (! empty($idCodes)) {
             $rows = DB::table('products')->whereIn('id', array_keys($idCodes))->get(['id', 'sku', 'name', 'price']);
             foreach ($rows as $row) {
-                $productsByCode['product:' . (int) $row->id] = $row;
+                $productsByCode['product:'.(int) $row->id] = $row;
             }
         }
 
@@ -256,7 +256,7 @@ class AprioriController extends Controller
             $list[] = [
                 'product_id' => (int) $p->id,
                 'sku'        => (string) ($p->sku ?? ''),
-                'name'       => (string) ($p->name ?? $p->sku ?? ('Product #' . $p->id)),
+                'name'       => (string) ($p->name ?? $p->sku ?? ('Product #'.$p->id)),
                 'price'      => (float) ($p->price ?? 0),
                 'metrics'    => $metrics,
             ];

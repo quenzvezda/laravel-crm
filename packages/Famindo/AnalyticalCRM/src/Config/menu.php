@@ -15,4 +15,3 @@ return [
         'icon-class' => '',
     ],
 ];
-

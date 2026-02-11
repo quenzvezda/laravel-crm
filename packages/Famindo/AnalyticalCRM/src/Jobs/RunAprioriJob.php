@@ -39,4 +39,3 @@ class RunAprioriJob implements ShouldQueue
         Artisan::call('analytics:apriori', $this->options);
     }
 }
-

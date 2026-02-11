@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $path = base_path('famindo.html');
-    
-    if (!file_exists($path)) {
-        return "File landing page (famindo.html) belum tersedia di root folder.";
+
+    if (! file_exists($path)) {
+        return 'File landing page (famindo.html) belum tersedia di root folder.';
     }
 
     // Baca file asli
@@ -33,7 +33,7 @@ Route::get('/', function () {
     // Cari penutup list item terakhir (menu Contact) dan sisipkan tombol sebelum penutup ul
     // Pola ini mencari menu Contact yang ada di file famindo.html
     $search = 'href=#contact>Contact</a>';
-    $replace = 'href=#contact>Contact</a></li>' . $loginButton;
+    $replace = 'href=#contact>Contact</a></li>'.$loginButton;
 
     // Lakukan penyuntikan
     $modifiedHtml = str_replace($search, $replace, $html);

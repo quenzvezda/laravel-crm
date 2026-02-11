@@ -16,4 +16,3 @@ class EngineeringOrder extends Model
         return $this->hasMany(EngineeringOrderItem::class, 'order_id');
     }
 }
-
