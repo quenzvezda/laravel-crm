@@ -1,0 +1,29 @@
+name: Deploy to Serv00
+
+on:
+  push:
+    branches:
+      - '2.1' # Akan berjalan otomatis saat push ke branch 2.1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Executing remote ssh commands using ssh-key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/laravel-crm
+            git pull origin 2.1
+            # Tambahkan perintah Laravel jika perlu (opsional)
+            # php8.2 /usr/local/bin/composer install --no-dev
+            # php8.2 artisan migrate --force
+            # php8.2 artisan optimize
